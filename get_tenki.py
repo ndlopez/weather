@@ -2,18 +2,17 @@
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
 
-my_url='https://tenki.jp/forecast/5/26/5110/23106/3hours.html'
+my_url='https://tenki.jp/forecast/6/31/6310/28100/3hours.html'
 class_list=["weather","temperature","prob-precip","precipitation",
             "humidity","wind-speed"]
 #when downloading a page...
-#source = urlopen(my_url)
 try:
     source=urlopen(my_url)
     print("Access granted")
 except urllib.error.HTTPError as err:
     print("Access denied or...", err.code)
-    print("Better use curl...")
-    source = open('../data/23106_3hr.html','r')
+    print("Better use curl to fetch the page...")
+    source = open('../data/23108_3hr.html','r')
 
 soup = BeautifulSoup(source.read(),'html.parser')
 
