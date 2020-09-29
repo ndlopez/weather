@@ -9,6 +9,7 @@ Two scripts scrape the data:
 1. <get_tenki.sh> Using curl, grep, and other commands to fetch, and clean the data.
 
   (all the above commands are available at Xcode tools)
+  
 2. <get_tenki.py> Using Python3.8., BeautifulSoup and urllib (data is not formatted)
 
 Output characters are in Japanese.
