@@ -22,11 +22,3 @@ fi
 echo "Formatting data..."
 python3.8 plot_tenki.py
 echo "done"
-#sed -i -e 's/(%),//g' $file1
-#sed -i -e 's=(m/s),==g' $file2
-#fix data on file2
-#sed -i -e 1's/.*/#&/' $file2
-#sed -i -e 3's/.*/気温,&/' $file2
-#sed -i -e 6's/.*/降水量,&/' $file2
-#rm $file1-e* $file2-e*
-
