@@ -1,20 +1,23 @@
 # Scrape weather data
 
-Get the current weather, temperature, probability of precipitation, humidity and wind-speed, every 3 hours.
+Get the current weather, temperature, probability of precipitation, humidity and wind-speed in a 3-hour format.
 
-Source [tenki.jp/神戸市の天気](https://tenki.jp/forecast/6/31/6310/28100/3hours.html). Explore other cities at tenki.jp
+Source [tenki.jp/神戸市の天気](https://tenki.jp/forecast/6/31/6310/28100/3hours.html). Explore other cities at [tenki.jp](https://tenki.jp)
 
-Since scraping data from a Japanese website, output characters are in Japanese.
+The above website is in Japanese, then scraped data characters are also in Japanese.
 
 ## Scripts to scrape the data:
 
-1. <get_tenki.sh> Using `curl`, `grep`, and other commands to fetch and clean the data.
+1. <get_tenki.sh> Using `curl`, `grep`, and other commands to fetch, arrange and clean the data.
 
   (all the above commands are available at Xcode tools)
   
-  How to run and Output:
+  How to run:
   
-    $ sh get_tenki.sh 
+    $ sh get_tenki.sh
+  
+  sample output:
+  
     % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
     100  143k    0  143k    0     0   253k      0 --:--:-- --:--:-- --:--:--  253k
@@ -32,15 +35,19 @@ Since scraping data from a Japanese website, output characters are in Japanese.
     24  曇り 20.5 30 0 74 1
     -- -- -- -- --
   
-2. <get_tenki.py> Using Python3.8., BeautifulSoup and urllib (data is now formatted, please go to More on ...)
+2. <get_tenki.py> Using Python3's BeautifulSoup and urllib 
+(Update: data is now formatted, please go to More on ...)
 
-Both scripts scrape the data, however, #2 can get weather forecast data for tomorrow.
 
-## More on <get_tenki.py>
+## Both scripts scrape the data, however, #2 can get weather forecast data for tomorrow.
 
-How to run and Output:
+### More on <get_tenki.py>
+
+How to run:
 
     $ sh fix_tenki.sh
+
+sample output:
 
     Getting weather data...
     Today's weather data fetched!
@@ -69,21 +76,25 @@ How to run and Output:
     24  20.1  晴れ    0   0  87  1
 
 ---
-*fix_tenki.sh* runs `<get_tenki.py>` and `<plot_tenki.py>`, and cleans data using SED.
+
+*fix_tenki.sh* runs `<get_tenki.py>` and `<plot_tenki.py>`, and cleans fetched data using the awesome `sed`.
 
 *get_tenki.py* generates 2 files at <data> folder: 
 
 - get_tenki.csv (today's weather) and 
 - get_tenki2.csv (tomorrow' weather)
 
-*plot_tenki.py* (name deceiving file, no plots actually made), requires pandas and datetime modules.
+*plot_tenki.py* (name deceiving file, no plots actually are made)
+
+Requires pandas and datetime modules.
 
 Reads the above generated files from <data> folder
 
 and formats the ouput by transposing the rows by columns of the CSV file.
 
-*Environment* MacOS 15.5
-*Editors* Emacs and Python3.8's IDLE
+*Environment* MacBookPro, MacOS 15.5
+
+*Editors* Emacs and VIM
 
 ## Issues with urllib:
 
