@@ -93,7 +93,9 @@ Reads the above generated files from <data> folder
 and formats the ouput by transposing the rows by columns of the CSV file.
 
 ## Display at the Notification Center (MacOS)
-Screenshot of the output ![Notification](data/getTenki_1534.png)
+Screenshot of the output 
+
+![Notification](data/getTenki_1534.png)
 
 *Environment* MacBookPro, MacOS 15.5
 
