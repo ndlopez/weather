@@ -1,0 +1,33 @@
+#!/usr/bin/python3.9
+'''import mysql.connector
+
+HOSTNAME=input("host: ")
+USERNAME=input("DB user: ")
+USERPASW=input("user pass: ")
+
+mydb = mysql.connector.connect(host=HOSTNAME,user=USERNAME,password=USERPASW)
+
+mycursor = mydb.cursor()
+
+mycursor.execute("SHOW DATABASES")
+mycursor.execute("CREATE DATABASE weather")
+
+mycursor.execute("CREATE TABLE tenki (hour INT, weather VARCHAR(10), 
+temp FLOAT, rainProb INT, mmRain INT, humid INT, wind INT, windDir VARCHAR(10))")
+
+mycursor.execute("SHOW TABLES")
+for db in mycursor:
+    print(db)
+'''
+oneLine=[]
+with open("../data/tenki_hour.txt") as data_file:
+    for line in data_file:
+        oneLine.append(line) #.split(" ")
+
+
+print(oneLine)
+#(hour,weather,temp,rainProb,mmRain,humid,wind,windDir)
+#myQuery='INSERT INTO tenki VALUES(17,\"曇り\",2.2,0,0,66,6,\"西北西\")'
+#mycursor.execute(myQuery)
+#mydb.commit()
+
