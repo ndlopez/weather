@@ -17,7 +17,7 @@ mycursor = mydb.cursor()
 #mycursor.execute("SHOW TABLES")
 
 #muon g-2 https://physics.aps.org/articles/v14/47
-
+#Must add a column for date
 oneLine=[]
 with open("../data/tenki_hour.txt") as data_file:
     for line in data_file:
