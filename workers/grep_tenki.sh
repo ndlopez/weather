@@ -71,7 +71,8 @@ prob=$(grep -m2 -w "prob-precip" -A 48 ${tenki_file} | cut -f3 -d'>' | cut -f1 -
 mmhr=$(grep -m2 -w "precipitation" -A 47 ${tenki_file} | cut -f3 -d'>' | cut -f1 -d'<')
 
 #echo "湿度"${humid} > ${hour_file}
-humid=$(grep -m2 -w "humidity" -A 48 ${tenki_file} | cut -f3 -d'>' | cut -f1 -d'<')
+humid0=$(grep -m2 -w "humidity" -A 48 ${tenki_file} | cut -f3 -d'>' | cut -f1 -d'<')
+humid1=$(grep -m2 -w "humidity" -A 48 ${tenki_file} | cut -f2 -d'>' | cut -f1 -d'<')
 
 #echo "風速\n(m/s)"${wind_speed} > ${temp_file}
 wind_speed=$(grep -m2 -w "wind-speed" -A 47 ${tenki_file} | cut -f3 -d'>' | cut -f1 -d'<')
@@ -80,8 +81,9 @@ windy=$(grep -m2 -w "wind-blow" -A 94 ${tenki_file} | cut -f3 -d'=' | cut -f1 -d
 
 #merge all columns by variable
 fecha=$heute$morgen
-paste <(echo $fecha | tr ' ' '\n') <(echo $heure | tr ' ' '\n') <(echo "--"$weather | tr ' ' '\n') <(echo "--"${temp} | tr ' ' '\n') <(echo ${prob} | tr ' ' '\n') <(echo "--"${mmhr} | tr ' ' '\n') <(echo ${humid} | tr ' ' '\n') <(echo "--"${wind_speed} | tr ' ' '\n') <(echo $windy | tr ' ' '\n') -d' ' > ${hour_file}
-
+paste <(echo $fecha | tr ' ' '\n') <(echo $heure | tr ' ' '\n') <(echo "--"$weather | tr ' ' '\n') <(echo "--"${temp} | tr ' ' '\n') <(echo ${prob} | tr ' ' '\n') <(echo "--"${mmhr} | tr ' ' '\n') <(echo ${humid0//--/}${humid1//湿度/} | tr ' ' '\n') <(echo "--"${wind_speed} | tr ' ' '\n') <(echo $windy | tr ' ' '\n') -d' ' > ${hour_file}
+cat ${hour_file}
+#What the next command do?
 sed -i 's/.*/ &/' ${hour_file}
 #head -49 ${hour_file} > 
 #data reduction
