@@ -2,7 +2,7 @@
 import mysql.connector
 
 HOSTNAME=input("host: ")
-USERNAME=input("DB user: ")
+USERNAME="kathy" #input("DB user: ")
 USERPASW=input("user pass: ")
 
 mydb = mysql.connector.connect(host=HOSTNAME,user=USERNAME,password=USERPASW,database="weather")
@@ -26,7 +26,7 @@ with open("../data/tenki_hour.txt") as data_file:
         if not oneLine[0] == "--":
             if oneLine[4] == "---" or oneLine[4] == "(%)":
                 oneLine[4] = -1
-            if oneLine[6] == "(%)":
+            if oneLine[6] == "(%)" or oneLine[6] == "--":
                 oneLine[6] = -1
             aux=oneLine[0]
             oneLine[0]="'"+aux+"'"
