@@ -37,10 +37,11 @@ hora=$(date "+%H")
 
 #testing = 1, download data = 0
 if [[ $1 == "1" ]];then
-   sleep 1
+    gunzip ${tenki_file}
+    sleep 1
 else
-   curl ${_url} -o ${tenki_file}
-   #2 > err.log
+    curl ${_url} -o ${tenki_file}
+    #2 > err.log
 fi
 #confirm if data was downloaded
 if [[ ! -f ${tenki_file} ]];then
@@ -53,11 +54,13 @@ fi
 #echo "今日 ${monty}月${day}日(${week[4]}), Now "`date +"%H:%M"`
 #get current weather conditions every hour
 oneDay=`seq 24`
-heute=$(echo "-- "`for num in $oneDay;do echo "2022-"$monty"-"$day;done`)
+datum="2022-"$monty"-"$day
+heute=$(echo "-- "`for num in $oneDay;do echo $datum;done`)
 
 tomoro=$((`date +%s` + 86400))
 day=`date -d @$tomoro +%d`
-morgen=$(echo " -- "`for num in $oneDay;do echo "2022-"$monty"-"$day;done`)
+datum="2022-"$monty"-"$day
+morgen=$(echo " -- "`for num in $oneDay;do echo $datum;done`)
 heure=$(echo "--";seq -w 1 24;echo "--";seq -w 1 24)
 
 weather=$(grep -m50 -w "weather" ${tenki_file} | cut -f6 -d'"')
@@ -76,18 +79,29 @@ humid1=$(grep -m2 -w "humidity" -A 48 ${tenki_file} | cut -f2 -d'>' | cut -f1 -d
 
 #echo "風速\n(m/s)"${wind_speed} > ${temp_file}
 wind_speed=$(grep -m2 -w "wind-speed" -A 47 ${tenki_file} | cut -f3 -d'>' | cut -f1 -d'<')
-
+#wind direction
 windy=$(grep -m2 -w "wind-blow" -A 94 ${tenki_file} | cut -f3 -d'=' | cut -f1 -d' ')
 
 #merge all columns by variable
 fecha=$heute$morgen
 paste <(echo $fecha | tr ' ' '\n') <(echo $heure | tr ' ' '\n') <(echo "--"$weather | tr ' ' '\n') <(echo "--"${temp} | tr ' ' '\n') <(echo ${prob} | tr ' ' '\n') <(echo "--"${mmhr} | tr ' ' '\n') <(echo ${humid0//--/}${humid1//湿度/} | tr ' ' '\n') <(echo "--"${wind_speed} | tr ' ' '\n') <(echo $windy | tr ' ' '\n') -d' ' > ${hour_file}
-cat ${hour_file}
-#What the next command do?
+#cat ${hour_file}
+#Add an space to beginning of each row
+#Otherwise, when parsing to JS the row will start with '\n' char
 sed -i 's/.*/ &/' ${hour_file}
-#head -49 ${hour_file} > 
+#Since the weather mark is displaced by one row,
+#the following replaces empty space with "晴れ"
+sed -i "s|$datum 24|$datum 24 晴れ|g" ${hour_file}
+#DEL last row of data:<     0  64  "北">
+sed -i '$d' ${hour_file}
 #data reduction
-offset=`expr 51 - $hora`
+offset=`expr 50 - $hora`
 tail -$offset ${hour_file} > ${temp_file}
 echo "Updated on " `date` >> ${temp_file}
+#Since HTML file is no longer useful, unless to re-do scraping
+if [ ! -f ${tenki_file} ];then
+    gunzip ${tenki_file}
+else
+    gzip ${tenki_file}
+fi
 #{ tail -$offset ${hour_file};echo "Updated on "`date` } > ${temp_file}
