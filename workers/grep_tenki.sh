@@ -3,14 +3,11 @@
 # Scrape data from <www.tenki.jp>
 # Runs every 2-hours [9~17] via cron
 # Output is displayed using <show_tenki.sh> script
-# Gnome-Shell extension <ondo@moji.physics> runs the above script
-# every 30mins after boot.
 # !A copy is saved on Dropbox/Programming/scripts/
-# Help:
-# seq 1 24 -> prints 1 2 3 4...24
+# Help: $ seq 1 24 -> prints 1 2 3 4...24
 # backslash \n
 # 
-area=23106 #23109 #home, 23106 Nagoya,Naka-ku
+area=23106 #23109 home, 23106 Nagoya,Naka-ku
 rate=1hour #3hours
 _url=https://tenki.jp/forecast/5/26/5110/${area}/${rate}.html
 #_url1hr=https://tenki.jp/forecast/5/26/5110/23109/1hour.html
@@ -55,11 +52,13 @@ fi
 #get current weather conditions every hour
 oneDay=`seq 24`
 datum="2022-"$monty"-"$day
+#datum="2021-08-28"
 heute=$(echo "-- "`for num in $oneDay;do echo $datum;done`)
 
 tomoro=$((`date +%s` + 86400))
 day=`date -d @$tomoro +%d`
 datum="2022-"$monty"-"$day
+#datum="2021-08-29"
 morgen=$(echo " -- "`for num in $oneDay;do echo $datum;done`)
 heure=$(echo "--";seq -w 1 24;echo "--";seq -w 1 24)
 
@@ -85,7 +84,7 @@ windy=$(grep -m2 -w "wind-blow" -A 94 ${tenki_file} | cut -f3 -d'=' | cut -f1 -d
 #merge all columns by variable
 fecha=$heute$morgen
 paste <(echo $fecha | tr ' ' '\n') <(echo $heure | tr ' ' '\n') <(echo "--"$weather | tr ' ' '\n') <(echo "--"${temp} | tr ' ' '\n') <(echo ${prob} | tr ' ' '\n') <(echo "--"${mmhr} | tr ' ' '\n') <(echo ${humid0//--/}${humid1//湿度/} | tr ' ' '\n') <(echo "--"${wind_speed} | tr ' ' '\n') <(echo $windy | tr ' ' '\n') -d' ' > ${hour_file}
-#cat ${hour_file}
+
 #Add an space to beginning of each row
 #Otherwise, when parsing to JS the row will start with '\n' char
 sed -i 's/.*/ &/' ${hour_file}

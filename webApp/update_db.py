@@ -6,17 +6,27 @@ Requires ../workers/grep_tenki.sh to first scrape data
 Otherwise it will append already updated data
 '''
 import mysql.connector
+import sys
 
-tenki_file="../data/tenki_hour.txt"
+heute=sys.argv[1]
+heure=sys.argv[2]
 
-HOSTNAME=input("host: ")
-USERNAME="kathy" #input("DB user: ")
-USERPASW=input("user pass: ")
-DB_NAME="weather"
-TAB_NAME="tenki"
-mydb = mysql.connector.connect(host=HOSTNAME,user=USERNAME,password=USERPASW,database=DB_NAME)
+if heute == "" or heure == "":
+    print("Usage: YYYY-MM-DD HH")
+else:
+    USERNAME="kathy" #input("DB user: ")
+    update_db=input("Update DB? (y/n):")
 
-mycursor = mydb.cursor()
+def connect_db():
+    HOSTNAME=input("host: ")
+    USERPASW=input("user pass: ")
+    DB_NAME="weather"
+    TAB_NAME="tenki"
+    mydb = mysql.connector.connect(host=HOSTNAME,user=USERNAME,password=USERPASW,database=DB_NAME)
+    mycursor = mydb.cursor()
+    tenki_file=input("Input data path: ") #"../data/tenki_hour202105.txt"
+
+connect_db()
 
 def create_db():
     #Create DB and table
@@ -31,6 +41,7 @@ def create_db():
 #muon g-2 https://physics.aps.org/articles/v14/47
 #Must add a column for date
 oneLine=[]
+countErr=0
 with open(tenki_file) as data_file:
     for line in data_file:
         myQuery='INSERT INTO ' + TAB_NAME +' VALUES('
@@ -40,32 +51,40 @@ with open(tenki_file) as data_file:
                 oneLine[4] = -1
             if oneLine[6] == "(%)" or oneLine[6] == "--":
                 oneLine[6] = -1
-            if len(oneLine[8]) < 5:
-                oneLine[8] = "--"
+            if len(oneLine[8]) > 6:
+                oneLine[8] = '\"静穏\"'
             aux=oneLine[0]
             oneLine[0]="'"+aux+"'"
             aux=oneLine[2]
             oneLine[2]="'"+aux+"'"
+            aux=oneLine[8]
+            oneLine[8]="'"+aux+"'"
+            
             for item in oneLine:
                 myQuery= myQuery + str(item) + ","
             myQuery = myQuery[:-1] + ")"
 
             try:
-                mycursor.execute(myQuery)
-                mydb.commit()
+                if update_db == "y":
+                    mycursor.execute(myQuery)
+                    mydb.commit()
                 print(myQuery,end=" ")
                 print("OK")
             except:
+                countErr=countErr+1
                 print(myQuery,"ERROR :(")
 
-#(hour,weather,temp,rainProb,mmRain,humid,wind,windDir)
 #myQuery='INSERT INTO tenki VALUES(17,\"曇り\",2.2,0,0,66,6,\"西北西\")'
 #mycursor.execute(myQuery)
 #mydb.commit()
-aux="SELECT * FROM " + TAB_NAME
+print(countErr,"Errors found when updating DB")
+#aux="SELECT * FROM " + TAB_NAME + " ORDER BY " + TAB_NAME + ".date ASC" 
+aux = "SELECT * FROM " + TAB_NAME + " WHERE date = '" + heute + "' AND hour = " + heure  
 mycursor.execute(aux)
 result = mycursor.fetchone()
 print("Printing data from DB: ",DB_NAME)
+allVars=["Today","hour","weather","temperature","rainProb","mmRain","humidity","windSpeed","windDir"]
+idx=0
 for item in result:
-    print(item)
-
+    print(allVars[idx],":",item)
+    idx = idx + 1
