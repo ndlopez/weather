@@ -20,7 +20,7 @@ myHome=$HOME/Documents/pyworks/weather_app/data
 cd $myHome
 
 #setting up variables
-tenki_file=../data/${area}_${rate}.html
+tenki_file=$HOME/Public/get_weather/data/${area}_${rate}.html
 hour_file=../data/tenki_hour.txt
 temp_file=$HOME/Dropbox/data/tenki_temp.txt
 
@@ -52,13 +52,13 @@ fi
 #get current weather conditions every hour
 oneDay=`seq 24`
 datum="2022-"$monty"-"$day
-#datum="2021-08-28"
+#datum="2021-02-08"
 heute=$(echo "-- "`for num in $oneDay;do echo $datum;done`)
 
 tomoro=$((`date +%s` + 86400))
 day=`date -d @$tomoro +%d`
 datum="2022-"$monty"-"$day
-#datum="2021-08-29"
+#datum="2022-02-09"
 morgen=$(echo " -- "`for num in $oneDay;do echo $datum;done`)
 heure=$(echo "--";seq -w 1 24;echo "--";seq -w 1 24)
 

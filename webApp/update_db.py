@@ -5,28 +5,29 @@ Update ../data/tenki_hour.txt to remote DB.
 Requires ../workers/grep_tenki.sh to first scrape data
 Otherwise it will append already updated data
 '''
+__author__ = "ndlopez"
+__email__="github.com/ndlopez"
+
 import mysql.connector
 import sys
+from datetime import datetime
 
-heute=sys.argv[1]
-heure=sys.argv[2]
+thisDate=datetime.now()
+heute=thisDate.strftime("%Y-%m-%d")
+heure=thisDate.strftime("%H")
+#print("Today is: ",heute,heure)
 
-if heute == "" or heure == "":
-    print("Usage: YYYY-MM-DD HH")
-else:
-    USERNAME="kathy" #input("DB user: ")
-    update_db=input("Update DB? (y/n):")
+USERNAME="kathy" #input("DB user: ")
+update_db=input("Update DB? (y/n):")
 
-def connect_db():
-    HOSTNAME=input("host: ")
-    USERPASW=input("user pass: ")
-    DB_NAME="weather"
-    TAB_NAME="tenki"
-    mydb = mysql.connector.connect(host=HOSTNAME,user=USERNAME,password=USERPASW,database=DB_NAME)
-    mycursor = mydb.cursor()
-    tenki_file=input("Input data path: ") #"../data/tenki_hour202105.txt"
+HOSTNAME=input("host: ")
+USERPASW=input("user pass: ")
+DB_NAME="weather"
+TAB_NAME="tenki"
+mydb = mysql.connector.connect(host=HOSTNAME,user=USERNAME,password=USERPASW,database=DB_NAME)
+mycursor = mydb.cursor()
 
-connect_db()
+tenki_file=input("Input data path: ") #"../data/tenki_hour202105.txt"
 
 def create_db():
     #Create DB and table
@@ -78,7 +79,8 @@ with open(tenki_file) as data_file:
 #mycursor.execute(myQuery)
 #mydb.commit()
 print(countErr,"Errors found when updating DB")
-#aux="SELECT * FROM " + TAB_NAME + " ORDER BY " + TAB_NAME + ".date ASC" 
+#aux="SELECT * FROM " + TAB_NAME + " ORDER BY " + TAB_NAME + ".date ASC"
+#SELECT * FROM `tenki` ORDER BY `date`,`hour` ASC; 
 aux = "SELECT * FROM " + TAB_NAME + " WHERE date = '" + heute + "' AND hour = " + heure  
 mycursor.execute(aux)
 result = mycursor.fetchone()

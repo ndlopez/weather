@@ -1,29 +1,42 @@
 <!DOCTYPE html>
 <html>
-<body>
-<h2>Weather data from tenki.jp</h2>
-<?php
+  <head>
+    <script src="clock.js"></script>
+  </head>
 
-$dbhost = "localhost:3306";
-$dbuser = "kathy";
-$dbpass = "***";
+  <body>
+  <h2>Weather data from tenki.jp</h2>
 
-$conn = mysql_connect($dbhost,$dbuser,$dbpass);
-if(! $conn){
-	die("Could not connect: ". mysql_error());
+  <canvas id="clock"></canvas>
+
+  <?php
+$servername = "localhost";
+$username = "username";
+$password = "password";
+$dbname = "myDB";
+
+$heute=date("Y-m-d")
+$heure=date("h")
+echo "today is " . date("Y-m-d") . "<br>";
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
 }
 
-//$sql = "DELETE FROM tenki WHERE date IS NULL";
-$sql = "SELECT * FROM tenki WHERE date = '2022-03-07' AND hour = 16";
-mysql_select_db('weather');
-$retval = mysql_query($sql,$conn);
+$sql = "SELECT id, firstname, lastname FROM MyGuests";
+$result = $conn->query($sql);
 
-if(! $retval){
-	die("Could not GET data: " . mysql_error());
+if ($result->num_rows > 0) {
+  // output data of each row
+  while($row = $result->fetch_assoc()) {
+    echo "id: " . $row["id"]. " - Name: " . $row["firstname"]. " " . $row["lastname"]. "<br>";
+  }
+} else {
+  echo "0 results";
 }
-
-echo "<p>Displaying data successfully<\p>\n";
-mysql_close($conn);
+$conn->close();
 ?>
 </body>
 </html>
