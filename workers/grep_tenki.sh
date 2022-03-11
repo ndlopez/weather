@@ -20,7 +20,7 @@ myHome=$HOME/Documents/pyworks/weather_app/data
 cd $myHome
 
 #setting up variables
-tenki_file=$HOME/Public/get_weather/data/${area}_${rate}.html
+tenki_file=$2 #$HOME/Public/get_weather/data/${area}_${rate}.html
 hour_file=../data/tenki_hour.txt
 temp_file=$HOME/Dropbox/data/tenki_temp.txt
 
@@ -51,16 +51,16 @@ fi
 #echo "今日 ${monty}月${day}日(${week[4]}), Now "`date +"%H:%M"`
 #get current weather conditions every hour
 oneDay=`seq 24`
-datum="2022-"$monty"-"$day
-#datum="2021-02-08"
+#datum="2022-"$monty"-"$day
+datum="2021-02-13"
 heute=$(echo "-- "`for num in $oneDay;do echo $datum;done`)
 
 tomoro=$((`date +%s` + 86400))
 day=`date -d @$tomoro +%d`
-datum="2022-"$monty"-"$day
-#datum="2022-02-09"
+#datum="2022-"$monty"-"$day
+datum="2022-02-14"
 morgen=$(echo " -- "`for num in $oneDay;do echo $datum;done`)
-heure=$(echo "--";seq -w 1 24;echo "--";seq -w 1 24)
+heure=$(echo "--";seq -w 23;echo "0 --";seq -w 1 23;echo " 0")
 
 weather=$(grep -m50 -w "weather" ${tenki_file} | cut -f6 -d'"')
 
@@ -88,9 +88,10 @@ paste <(echo $fecha | tr ' ' '\n') <(echo $heure | tr ' ' '\n') <(echo "--"$weat
 #Add an space to beginning of each row
 #Otherwise, when parsing to JS the row will start with '\n' char
 sed -i 's/.*/ &/' ${hour_file}
-#Since the weather mark is displaced by one row,
+#Since the weather mark is displaced by one row
+
 #the following replaces empty space with "晴れ"
-sed -i "s|$datum 24|$datum 24 晴れ|g" ${hour_file}
+sed -i "s|$datum  |$datum 0 晴れ|g" ${hour_file}
 #DEL last row of data:<     0  64  "北">
 sed -i '$d' ${hour_file}
 #data reduction
@@ -103,4 +104,5 @@ if [ ! -f ${tenki_file} ];then
 else
     gzip ${tenki_file}
 fi
+echo "Done. Have a nice day."
 #{ tail -$offset ${hour_file};echo "Updated on "`date` } > ${temp_file}
