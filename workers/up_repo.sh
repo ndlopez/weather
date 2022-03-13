@@ -3,7 +3,7 @@ cd ../
 echo `pwd`
 rm *~
 git add *
-git commit -m $msg
+git commit -m \"$msg\"
 git push -u origin main
 if [ $? == 0 ];then
     echo "Repo updated"

@@ -1,13 +1,16 @@
 #!/bin/bash
 # <grep_tenki.sh>
+# Version 1.4 2022-03-13
 # Scrape data from <www.tenki.jp>
-# Runs every 2-hours [9~17] via cron
 # Output is displayed using <show_tenki.sh> script
 # !A copy is saved on Dropbox/Programming/scripts/
 # Help: $ seq 1 24 -> prints 1 2 3 4...24
 # backslash \n
+# There's an issue with the URL source
+# According to tenki.jp hour=24 is considered part
+# of the current day, it should've been the next day 
 # 
-area=23106 #23109 home, 23106 Nagoya,Naka-ku
+area=23106 #23109 home, 23106 Naka-ku
 rate=1hour #3hours
 _url=https://tenki.jp/forecast/5/26/5110/${area}/${rate}.html
 #_url1hr=https://tenki.jp/forecast/5/26/5110/23109/1hour.html
@@ -15,13 +18,14 @@ _url=https://tenki.jp/forecast/5/26/5110/${area}/${rate}.html
 #img_url=https://static.tenki.jp/static-images/radar/recent/pref-26-large.jpg
 #also pref-26-middle.jpg is available
 
-#storing temporary data
+#storing only current date data
 myHome=$HOME/Documents/pyworks/weather_app/data
-cd $myHome
+#cd $myHome
 
 #setting up variables
-tenki_file=$2 #$HOME/Public/get_weather/data/${area}_${rate}.html
-hour_file=../data/tenki_hour.txt
+tenki_file=$HOME/Public/get_weather/data/${area}_${rate}.html
+hour_file=$myHome/data/tenki_hour.txt
+#File for Gnome Extension
 temp_file=$HOME/Dropbox/data/tenki_temp.txt
 
 monty=$(date "+%m")
@@ -34,7 +38,9 @@ hora=$(date "+%H")
 
 #testing = 1, download data = 0
 if [[ $1 == "1" ]];then
-    gunzip ${tenki_file}
+    echo "please add path of html file"
+    #gunzip ${tenki_file}
+    tenki_file=$2
     sleep 1
 else
     curl ${_url} -o ${tenki_file}
@@ -51,16 +57,16 @@ fi
 #echo "今日 ${monty}月${day}日(${week[4]}), Now "`date +"%H:%M"`
 #get current weather conditions every hour
 oneDay=`seq 24`
-#datum="2022-"$monty"-"$day
-datum="2021-02-13"
+datum="2022-"$monty"-"$day
+#datum="2021-03-10"
 heute=$(echo "-- "`for num in $oneDay;do echo $datum;done`)
 
 tomoro=$((`date +%s` + 86400))
 day=`date -d @$tomoro +%d`
-#datum="2022-"$monty"-"$day
-datum="2022-02-14"
+datum="2022-"$monty"-"$day
+#datum="2022-03-11"
 morgen=$(echo " -- "`for num in $oneDay;do echo $datum;done`)
-heure=$(echo "--";seq -w 23;echo "0 --";seq -w 1 23;echo " 0")
+heure=$(echo "--";seq -w 23;echo "0 --";seq -w 1 24)
 
 weather=$(grep -m50 -w "weather" ${tenki_file} | cut -f6 -d'"')
 
@@ -91,7 +97,7 @@ sed -i 's/.*/ &/' ${hour_file}
 #Since the weather mark is displaced by one row
 
 #the following replaces empty space with "晴れ"
-sed -i "s|$datum  |$datum 0 晴れ|g" ${hour_file}
+sed -i "s|$datum 24|$datum 0 晴れ|g" ${hour_file}
 #DEL last row of data:<     0  64  "北">
 sed -i '$d' ${hour_file}
 #data reduction
@@ -104,5 +110,5 @@ if [ ! -f ${tenki_file} ];then
 else
     gzip ${tenki_file}
 fi
-echo "Done. Have a nice day."
+echo "Done. Have a nice day :)"
 #{ tail -$offset ${hour_file};echo "Updated on "`date` } > ${temp_file}
