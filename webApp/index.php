@@ -2,20 +2,21 @@
 <html lang="en">
 <head>
 <title>Today's weather</title>
-<meta charset="UTF-8"/>
+<meta charset="utf-8"/>
+<meta http-equiv="refresh" content="3600">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" type="text/css" href="static/estilo.css">
-<script src="static/clock.js"></script>
+<link rel="stylesheet" type="text/css" href="static/estilo2.css">
+<script src="libs/d3.v4.js"></script>
+<script src="static/digi_clock.js"></script>
 </head>
 
 <body>
+<!--h2>本日の天気情報</h2>
+<h4>tenki.jpのﾃﾞｰﾀの見出し一覧を取って来た</h4-->
 
 <div class="header">
-<?php
-$heute = date("Y-m-d");
+<h2>Today's weather</h2><h3>Nagoyashi, Naka-ku</h3>
 
-echo "<h2>Today's (". $heute . ") weather</h2> <h3>Nagoyashi, Naka-ku</h3>";
-?>
 </div>
 
 <nav>
@@ -31,6 +32,7 @@ echo "<h2>Today's (". $heute . ") weather</h2> <h3>Nagoyashi, Naka-ku</h3>";
 <?php
 
 date_default_timezone_set("Asia/Tokyo");
+$heute = date("Y-m-d");
 $heure = date("H");
 /*$heure = $heure + 8;*//*Japan*/
 
@@ -52,16 +54,15 @@ echo "<p>Connection to Database... OK</p>";
 $query = "SELECT * FROM tenki WHERE date = '" . $heute . "' AND hour = " . $heure .";";
 //mysqli_select_db($conn,'weather');
 
-echo "<p> Your Query was ...<br>".$query."</p>";
+echo "<p> Your Query was ...<br><code>".$query."</code></p>";
 ?>
 </div>
 <div class="row" style="padding:0px;">
 <div class="column">
-<div class="container">
-<canvas id="clock"></canvas>
-<div class="bottom-left">
+<!--div class="container">
+<div class="bottom-left"-->
 <?php
-echo "<h3><br>".date("l F d H:i:s")."</h3>";
+echo "<h1>".date("l, F d")."</h1><time id='currtime'></time>";
 if ($result = mysqli_query($conn,$query)){
 	foreach ($result as $row){
 		/*echo "<h3><br>".date("l F d ").$row['hour'].":".date("i")."</h3>";*/
@@ -78,12 +79,13 @@ else{
 	echo "<p>Something went wrong :( </p>";
 }
 ?>
-</div><!-- bottom-left class: Text above img -->
-</div><!-- container class-->
+<!--/div--><!-- bottom-left class: Text above img -->
+<!--/div--><!-- container class-->
 </div><!-- Column container -->
-<div class="column">
+<div class="column" style="text-align:center;">
 <img alt="Radar image of Aichi Pref." src="https://static.tenki.jp/static-images/radar/recent/pref-26-middle.jpg"/>
 </div>
+<div id="weather_bar" class="column"></div>
 </div><!--Today weather report row-->
 
 <button class="accordion" style="background-color:#2e4054;color:#bed2e0;">Later today</button>
@@ -99,7 +101,7 @@ if ($result = mysqli_query($conn,$query2)){
 	/*foreach ($result as $row){
 		echo "<h3>".$row['hour'].":00 ".$row['weather'].$row['temp']."C</h3>";
 	}*/
-	echo "<tr><th>Time</th><th>Weather</th><th>Temperature[C]</th><th>Rain chance [%]</th><th>Humidity[%]</th><th>WindSpeed m/s</th><th>Direction</th></tr>";
+	echo "<tr><th>Time</th><th>Weather</th><th>Temperature<br>[C]</th><th>Rain chance<br>[%]</th><th>Humidity<br>[%]</th><th>Wind Speed<br>m/s</th><th>Direction</th></tr>";
 	
 	foreach ($result as $row){
 		//var_dump($row);
@@ -114,8 +116,9 @@ else{
 }
 mysqli_close($conn);
 ?>
-<?php include 'static/get_json_db.php'?>
+<!--?php include 'static/get_json_db.php'?-->
 <div id="demo"></div>
+
 <script>
 var acc=document.getElementsByClassName("accordion");
 for(var i=0;i<acc.length;i++){
@@ -130,14 +133,16 @@ for(var i=0;i<acc.length;i++){
    });
 }
 </script>
+<script src="static/plt_weather.js"></script>
 <!--script src="static/get_json.js"></script-->
 </body>
 <footer>
-
+<!--p>Hello from 北緯35度10分53秒 東経136度54分23秒<br-->
 <div class="row" style="padding:0px;">
 <div class="column">
 <p>Data from <em>tenki.jp</em> scraped using <i>Shell, curl and SED</i>.</p>
 </div>
+<div class="column"></div>
 <div class="column" style="text-align:right;">
 <p>Hello from <a target="blank" href="https://www.openstreetmap.org/search?query=35.17271%2C136.89547#map=18/35.17271/136.89547">N35 10'53" E136 54'23"</a></p>
 </div></div>
