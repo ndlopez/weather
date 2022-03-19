@@ -15,7 +15,7 @@ var svg2=d3.select("#weather_bar")
 .attr("transform",`translate(${margin.left},${margin.top})`);
 
 //https://raw.githubusercontent.com/ndlopez/weather_app/main/data/
-d3.json("static/all_weather.json",function(data){
+d3.json("data/all_weather.json",function(data){
   var xScale=d3.scaleBand().range([0,w])
   .domain(data.map(function(d){
     /*console.log(d.hour);*/

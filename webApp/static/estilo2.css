@@ -25,7 +25,7 @@ h1{color:#2e4054;}
 /*2 columns*/
 .column{
     float:left;
-    width: 33.3%; /*for 3 ->33.3%*/
+    width: 50%; /*for 3 ->33.3%*/
     padding:10px;
 border:0px;
 }

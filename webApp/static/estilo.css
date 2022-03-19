@@ -67,8 +67,7 @@ div{
 }
 .img{float:right;}*/
 /*menu dropdown*/
-ul{
-    list-style-type:none;
+ul{list-style-type:none;
     margin:0;padding:0;
     overflow:hidden;/*border:1px solid #e7e7e7;*/
     background-color:#2e405490;/*rgba(76,175,80,0.3);/*#f3f3f3;*/

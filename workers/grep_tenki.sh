@@ -24,7 +24,7 @@ myHome=$HOME/Documents/pyworks/weather_app/data
 
 #setting up variables
 tenki_file=$HOME/Public/get_weather/data/${area}_${rate}.html
-hour_file=$myHome/data/tenki_hour.txt
+hour_file=$myHome/tenki_hour.txt
 #File for Gnome Extension
 temp_file=$HOME/Dropbox/data/tenki_temp.txt
 

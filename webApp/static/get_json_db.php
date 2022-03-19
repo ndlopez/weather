@@ -10,15 +10,15 @@ $dbpass = "";
 $connect = mysqli_connect($dbhost,$dbuser,$dbpass,$dbname);
 
 if(mysqli_connect_errno()){
-die("Could not connect to DB".mysqli_connect_error());
+  die("Could not connect to DB".mysqli_connect_error());
 }
-$newQuery="SELECT * FROM tenki WHERE date='2022-03-11';";
-//$array = Array new;
+$newQuery="SELECT * FROM tenki WHERE date='2022-03-16';";
+$json = [];
 if($res =mysqli_query($connect,$newQuery)){
-foreach ($res as $dat){
-$json = $dat;
-var_dump($dat);
-}
+  foreach ($res as $dat){
+    $json = array_values($res);
+    /*var_dump($dat);*/
+  }
 }
 $json = json_encode($json);
 file_put_contents("static/all_weather.json",$json);
