@@ -1,6 +1,8 @@
 *{box-sizing:border-box;}
-body{font-family:Tahoma,Geneva, sans-serif;
-background-color:#bed2e0;}
+body{
+  font-family:Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif;
+  background-color:#bed2e0;
+}
 .menu{
     float:left;
     width:20%;
@@ -13,21 +15,45 @@ background-color:#bed2e0;}
 }
 .header{
     background-color:#bed2e0;
-    padding:20px;text-align:center;}
-h1{color:#2e4054;}
-/*.topnav{overflow:hidden;background-color:#333;}
-.topnav a{
-    float:left;display:block; color:#f2f2f2;text-align:center;
-    padding:14px 16px; text-decoration:none;
+    padding:20px;
+    text-align:center;
 }
-.topnav a:hover{background-color:lightgray;color:blue;}*/
-/*p::first-letter{color:#ff0000;font-size:xx-large;}*/
+h1{color:#2e4054;}
+.sticky{
+  display: block;
+  width: auto;
+  padding: 0px;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  background-color: #2e4054;
+}
+.half{
+  color: #bed2e0;
+  float:left;
+  width: 40%;
+  padding: 0px 0px 0px 10px;
+  border: 0px;
+}
+.counter{
+  color: #bed2e0;
+  float:left;
+  width: 60%;
+  padding: 0px 10px 0px 0px;
+  border: 0px;
+}
+#currtime {
+  margin-bottom: -3px;
+  text-align: right;
+  font-size: x-large;
+  font-weight: normal;
+}
 /*2 columns*/
 .column{
     float:left;
     width: 50%; /*for 3 ->33.3%*/
     padding:10px;
-border:0px;
+    border:0px;
 }
 .row:after{
     content:"";
@@ -162,22 +188,6 @@ button{/*background-color:white;#4caf50;*/
   transform:scaleX(-1);
   filter:FlipH;-ms-filter:"FlipH";
 }
-#currtime {
-  /*font-family: Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif;*/
-  font-weight: 50;
-  /*display: block;*/
-  text-align: center;
-  font-size: 3vw;
-  padding: 4rem 0;
-  color:#cc274c;
-}
-#currtime span {
-  display: inline-block;
-  font-weight: 100;
-  /*font-size: 8vw;*/
-  position: relative;
-  /*top: -2vw;*/
-}
 /*Didnt work for D3JS and PHP
 .bar-old{fill:#98A2A9;}
 .bar-new{fill:#cc274c;}*/
@@ -185,7 +195,18 @@ button{/*background-color:white;#4caf50;*/
 @media only screen and (max-width:620px){
 */
 @media (max-width:800px){
-    .menu, .column{width:100%;}
+    .menu, .column{
+      width:100%;
+      text-align: justify;
+    }
+    svg{
+      width: 100%;
+      padding: 0px;
+    }
+    svg.g.rect{
+      width:50%;
+    }
+    #currtime{font-size: large;}
     li{width:100%;}
     .dropdown-content{width:50%;}
 }

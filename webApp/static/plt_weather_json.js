@@ -1,9 +1,9 @@
 /*Weather bars plot
-Pulling data from <ndlopez>'s Github*/
+Pulling generated data from DB*/
 var timeNow = new Date();
 let currHour = timeNow.getHours();
 
-var margin ={top:10,right:30,bottom:90,left:40},
+var margin ={top:10,right:30,bottom:90,left:20},
 w = 400 - margin.left - margin.right,
 h = 400 - margin.top - margin.bottom;
 
@@ -27,12 +27,13 @@ svg2.append("g")
 .attr("transform","translate(0,"+h+")")
 .call(d3.axisBottom(xScale))
 .selectAll("text")
-.attr("transform","translate(-10,0)rotate(-45)")
+.attr("transform","translate(5,0)") //translate(-10,0)rotate(-45)
 .style("text-anchor","end");
 
+let MAX=20;/*Should be calc based on maxTemp*/
 /*thisColor=[];
 myColor=["#98A2A9","#CC274C"];*/
-var yScale=d3.scaleLinear().domain([0,25]).range([h,0]);
+var yScale=d3.scaleLinear().domain([0,MAX]).range([h,0]);
 svg2.append("g").call(d3.axisLeft(yScale));
 svg2.selectAll("bar")
 .data(data).enter()

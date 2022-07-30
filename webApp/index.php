@@ -12,25 +12,29 @@
 </head>
 
 <body>
-<div class="header">
-<h2>Today's weather</h2><h3>Nagoyashi, Naka-ku</h3>
+  <header class="sticky row">
+    <div class="half"><p>Good morning!</p></div>
+    <div class="counter"><h2 id="currtime"></h2></div>
+  </header>
 
-</div>
+  <div class="header"><h2>Today's weather</h2><h3>Nagoyashi, Naka-ku</h3></div>
 
-<nav>
-   <ul>
-      <li><a target="blank" href="/phpmyadmin">My PHP Admin</a></li>
-      <li><a href="/dashboard">XAMPP Server</a></li>
-      <li><a target="blank" href="https://github.com/ndlopez/weather_app">WebMaster</a></li>
-      <li><a href="">Pokemon</a></li>
-   </ul>
-</nav>
+  <nav>
+     <ul>
+        <li><a target="blank" href="/phpmyadmin">My PHP Admin</a></li>
+        <li><a href="/dashboard">XAMPP Server</a></li>
+        <li><a target="blank" href="https://github.com/ndlopez/weather_app">
+          WebMaster</a></li>
+        <li><a href="sites/jumble_game">Play Jumble</a></li>
+     </ul>
+  </nav>
 
 <div class="clearfix">
 <?php
 date_default_timezone_set("Asia/Tokyo");/*$heure = $heure + 8;*//*Japan*/
 $heute = date("Y-m-d");
 $heure = date("H");
+$dbTable = tenki;
 /*$dbhost = "127.0.0.1:3306";
 $dbname = "weather";$dbuser = "root";$dbpass = "";
 //when coding on the server side, should use root not kathy;
@@ -44,7 +48,7 @@ else{
 }
 
 //$query = "DELETE FROM tenki WHERE date IS NULL;";
-$query = "SELECT * FROM tenki WHERE date = '" . $heute . "' AND hour = " . $heure .";";
+$query = "SELECT * FROM $dbTable WHERE date = '" . $heute . "' AND hour = " . $heure .";";
 //mysqli_select_db($conn,'weather');
 
 echo "<p> Your Query was ...<br><code>".$query."</code></p>";
@@ -55,18 +59,21 @@ echo "<p> Your Query was ...<br><code>".$query."</code></p>";
 <!--div class="container">
 <div class="bottom-left"-->
 <?php
-echo "<h1>".date("l, F d")."</h1><time id='currtime'></time>";
+echo "<h1>".date("l, F d")."</h1>";
 if ($result = mysqli_query($conn,$query)){
 	foreach ($result as $row){
 		/*echo "<h3><br>".date("l F d ").$row['hour'].":".date("i")."</h3>";*/
-		echo "<h1>".$row['weather'].$row['temp']."&#8451</h1>";
+		echo "<h1>".$row['weather'].$row['temp']."&#8451;</h1>";
 	}
 	//echo "<p>Rain chance [%]</th><th>Humidity</th><th>Wind [m/s]";
 	foreach ($result as $row){
 		//var_dump($row);
-		echo "<h4>Rain Chance ".$row['rainProb']."% <br>Humidity ".$row['humid'] ."%<br>";
+		echo "<h4>Rain ".$row['mmRain']."mm Chance ".$row['rainProb']."% <br>Humidity ".$row['humid'] ."%<br>";
 		echo "Wind ".$row['wind']."[m/s]".$row['windDir']."</h4>";
 	}
+  if( $result == ""){
+    echo "<h1> Database is not updated. Contact Admin.</h1>";
+  }
 }
 else{
   http_response_code(404);
@@ -88,19 +95,19 @@ else{
 <div class="panel" style="padding:0px;">
 <table id="myday">
   <tr>
-    <th>Time</th><th>Weather</th>
-    <th>Temperature<br>[C]</th>
-    <th>Rain chance<br>[%]</th>
-    <th>Humidity<br>[%]</th>
-    <th>Wind Speed<br>m/s</th>
-    <th>Direction</th>
+    <th>時刻</th><th>天気</th>
+    <th>気温<br>&#8451;</th>
+    <th>降水量<br>%</th>
+    <th>湿度<br>%</th>
+    <th>風速<br>m/s</th>
+    <th>風向</th>
   </tr>
 <?php
 //Display next hour conditions
 echo "";
 $heure = $heure +1;
 /*$heure=0;*/
-$query2 = "SELECT * FROM tenki WHERE date = '".$heute."' AND hour BETWEEN ".$heure." AND 23;";
+$query2 = "SELECT * FROM $dbTable WHERE date = '".$heute."' AND hour BETWEEN ".$heure." AND 23;";
 
 if ($result = mysqli_query($conn,$query2)){
 	/*foreach ($result as $row){
@@ -122,19 +129,28 @@ else{
 If run by using <include> the whole page crashes
 and return a single JSON file with jibberish(HTML code) on it.
 */
-$newQuery="SELECT * FROM tenki WHERE date='".$heute."';";
+$newQuery="SELECT * FROM $dbTable WHERE date='".$heute."';";
 $json=[];
 $classy="";
 $myColor="";
 if($res = mysqli_query($conn,$newQuery)){
   foreach ($res as $dat){
-    if ($dat['hour'] < $heure) {
+    if ($dat['hour'] == $heure - 1){
+      $myColor="#cc274c";
+    }
+    elseif ($dat['hour'] < $heure -1 ) {
+      $myColor ="#98A2A9";
+    }
+    else{
+      $myColor="#2e4054";
+    }
+    /*if ($dat['hour'] < $heure) {
       $classy="bar-old";
       $myColor="#98A2A9";
     } else {
       $classy="bar-new";
       $myColor="#cc274c";
-    }
+    }*/
     $dat['color']=$myColor;
     /*var_dump($dat);*/
     $json[] = $dat;
@@ -161,6 +177,6 @@ mysqli_close($conn);
   <a target="blank" href="https://www.openstreetmap.org/search?query=35.17271%2C136.89547#map=18/35.17271/136.89547">
     N35 10'53" E136 54'23"</a></p>
 </div></div>
-<p style="text-align:center;"><span class="copy-left">&copy;</span><span> Copyleft 2022-03-16</span></p>
+<p style="text-align:center;"><span class="copy-left">&copy;</span><span> Copyleft 2022-07-30</span></p>
 </footer>
 </html>
