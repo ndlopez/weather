@@ -1,8 +1,15 @@
 #SQL code
+
+#New user on MariaDB
+CREATE USER 'mysql_user'@'%' IDENTIFIED BY 'mysql_password';
+GRANT ALL PRIVILEGES ON *.* TO 'mysql_user'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+EXIT;
+#display DB
 SHOW DATABASES;
 CREATE DATABASE tenki;
-CREATE TABLE weather_data(hour INT, weather VARCHAR(10), 
-temp FLOAT, rainProb INT, mmRain INT, humid INT, wind INT, windDir VARCHAR(10));
+USE tenki;
+CREATE TABLE weather_data(hour INT, weather VARCHAR(10), temp FLOAT, rainProb INT, mmRain INT, humid INT, wind INT, windDir VARCHAR(10));
 SHOW TABLES;
 INSERT INTO weather_data VALUES(17,\"曇り\",2.2,0,0,66,6,\"西北西\");
 

@@ -6,14 +6,29 @@
 <meta charset="utf-8"/>
 <!--meta http-equiv="refresh" content="3600"-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" type="text/css" href="static/estilo2.css">
+<link rel="stylesheet" type="text/css" href="static/estilo.css">
 <script src="libs/d3.v4.js"></script>
 <script src="static/digi_clock.js"></script>
 </head>
 
 <body>
+<?php
+date_default_timezone_set("Asia/Tokyo");/*$heure = $heure + 8;*//*Japan*/
+$heute = date("Y-m-d");
+$heure = date("H");
+$myMsg = "Good Morning";
+?>  
   <header class="sticky row">
-    <div class="half"><p>Good morning!</p></div>
+    <div class="half">
+      <?php
+      if ($heure > 12){
+        echo "<p>Good Afternoon</p>";
+      }
+      else{
+        echo "<p>$myMsg</p>";
+      }
+      ?>
+    </div>
     <div class="counter"><h2 id="currtime"></h2></div>
   </header>
 
@@ -31,10 +46,7 @@
 
 <div class="clearfix">
 <?php
-date_default_timezone_set("Asia/Tokyo");/*$heure = $heure + 8;*//*Japan*/
-$heute = date("Y-m-d");
-$heure = date("H");
-$dbTable = tenki;
+$dbTable = weather_data;
 /*$dbhost = "127.0.0.1:3306";
 $dbname = "weather";$dbuser = "root";$dbpass = "";
 //when coding on the server side, should use root not kathy;
@@ -77,7 +89,7 @@ if ($result = mysqli_query($conn,$query)){
 }
 else{
   http_response_code(404);
-	echo "<p>Something went wrong :( </p>";
+	echo "<p>Something went wrong :( <br> Contact admin@webapp.physics </p>";
 }
 ?>
 <!--/div--><!-- bottom-left class: Text above img -->
@@ -131,7 +143,7 @@ and return a single JSON file with jibberish(HTML code) on it.
 */
 $newQuery="SELECT * FROM $dbTable WHERE date='".$heute."';";
 $json=[];
-$classy="";
+//$classy="";
 $myColor="";
 if($res = mysqli_query($conn,$newQuery)){
   foreach ($res as $dat){
