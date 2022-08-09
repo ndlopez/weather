@@ -1,4 +1,5 @@
-/*digital clock from
+/*
+digital clock from
 https://codepen.io/dudleystorey/pen/xxeEvd
 */
 //var currentTime = document.getElementById("currtime");
@@ -18,6 +19,4 @@ setInterval(function(){
   document.getElementById("currtime").innerHTML = currentTime;
   //setTimeout(updateTime,1000);
 },1000);
-//updateTime();
-//document.getElementById("currtime").innerHTML = updateTime();
-//console.log("current time",updateTime());
+

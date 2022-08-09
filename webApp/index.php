@@ -19,15 +19,13 @@ $heure = date("H");
 $myMsg = "Good Morning";
 ?>  
   <header class="sticky row">
-    <div class="half">
+    <div class="half"><p>
       <?php
       if ($heure > 12){
-        echo "<p>Good Afternoon</p>";
+        $myMsg="Good Afternoon";
       }
-      else{
-        echo "<p>$myMsg</p>";
-      }
-      ?>
+      echo $myMsg;
+      ?></p>
     </div>
     <div class="counter"><h2 id="currtime"></h2></div>
   </header>
@@ -189,6 +187,6 @@ mysqli_close($conn);
   <a target="blank" href="https://www.openstreetmap.org/search?query=35.17271%2C136.89547#map=18/35.17271/136.89547">
     N35 10'53" E136 54'23"</a></p>
 </div></div>
-<p style="text-align:center;"><span class="copy-left">&copy;</span><span> Copyleft 2022-07-30</span></p>
+<p style="text-align:center;"><span class="copy-left">&copy;</span><span> Copyleft 2022-08-09</span></p>
 </footer>
 </html>
