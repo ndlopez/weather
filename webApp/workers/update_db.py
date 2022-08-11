@@ -49,7 +49,7 @@ with open(tenki_file,encoding="utf-8") as data_file:
     for line in data_file:
         myQuery='INSERT INTO ' + TAB_NAME +' VALUES('
         oneLine=line.split(",") #CSV input
-        if not oneLine[0] == "--":
+        if not oneLine[0] == "date":
             if oneLine[4] == "---" or oneLine[4] == "(%)":
                 oneLine[4] = -1
             if oneLine[6] == "(%)" or oneLine[6] == "--":
