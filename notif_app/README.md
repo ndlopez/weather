@@ -1,6 +1,6 @@
 # Notification app
 
-![Screenshot of the app](grepTenki_1534.png)
+![Screenshot](getTenki_1534.png)
 
 * Environment*
 

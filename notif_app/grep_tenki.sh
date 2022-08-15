@@ -121,4 +121,4 @@ head -24 ${hour_file} > ${out_file}.csv
 echo "Fixing some CJK chars..." 
 /usr/bin/ruby $myHome/out_unicode.rb > ${out_file}.mod.csv
 echo "Displaying as a notification..."
-/usr/bin/osascript -l JavaScript $myHome/disp_weather.applescript
+/usr/bin/osascript -l JavaScript $myHome/notif_app.js
