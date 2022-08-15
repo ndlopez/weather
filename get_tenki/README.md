@@ -92,15 +92,6 @@ Reads the above generated files from <data> folder
 
 and formats the ouput by transposing the rows by columns of the CSV file.
 
-## Display at the Notification Center (MacOS)
-Screenshot of the output 
-
-![Notification](data/getTenki_1534.png)
-
-*Environment* MacBookPro, MacOS 15.5
-
-*Editors* Emacs and VIM
-
 ## Issues with urllib:
 
 If unable or get an *SSL certificate* error when using <urllib> module:

@@ -1,4 +1,5 @@
 #!/usr/bin/ruby
+# coding: utf-8
 =begin
     Read a csv file
     ideally should output unicode of CJK chars
@@ -14,24 +15,24 @@
 =end
 require 'csv'
 dataFile="data/grep_tenki.csv"
-weather=CSV.parse(File.read(dataFile),headers: false)
+weather=CSV.parse(File.read(dataFile)) #,headers: false)
 
-for idx in 1..weather.length()-2
+for idx in 0..weather.length()-2
     print weather[idx][0],",",weather[idx][1],","
-    case weather[idx][1] 
+    case weather[idx][2] 
     when "晴れ" #sunny
-        print "9728,"#"Sunny," #"\\u6674\\u308c,"
+        print "9728,Sunny," #"\\u6674\\u308c,"
     when "曇り" #cloudy
-        print "9925," #"Cloudy," #"\\u96f2\\u308a,"
+        print "9925,Cloudy," #"\\u96f2\\u308a,"
     when "雨", "強雨"
-        print "9748," #"Rain," #"\\u96E8,"
+        print "9748,Rain," #"\\u96E8,"
     else
-        print "9928," #"LightRain," 
+        print "9928,LightRain," 
     end
-    for jdx in 2..7
+    for jdx in 3..7
         print weather[idx][jdx],","
     end
-    case weather[idx][7]
+    case weather[idx][8]
     when "北東" , "東北東"
         puts "8599" #"NE" #"\\u279a"
     when "南西" , "南南西"

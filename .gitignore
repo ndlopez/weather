@@ -1,2 +1,5 @@
 #ignore JSON data files
 *.json
+.DS_Store
+*.*~
+

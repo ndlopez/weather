@@ -1,0 +1,14 @@
+# ignore the following:
+# MacOS
+.DS_Store
+# emacs
+*.*~
+
+*.txt
+# SED gen file
+*.txte
+
+data/*
+
+plots/*
+
