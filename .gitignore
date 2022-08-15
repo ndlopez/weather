@@ -1,5 +1,14 @@
-#ignore JSON data files
-*.json
+# ignore the following:
+# MacOS
 .DS_Store
+# emacs
 *.*~
+
+*.txt
+# SED gen file
+*.txte
+
+notif_app/data/*
+
+notif_app/plots/*
 
