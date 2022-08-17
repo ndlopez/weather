@@ -1,13 +1,13 @@
 #!/bin/bash
 #Scrape data from <www.tenki.jp>
-area=23109 #home, 23106 Nagoya,Naka-ku
+area=23109 #23106 Nagoya,Naka-ku
 rate=1hour #3hours
 _url=https://tenki.jp/forecast/5/26/5110/${area}/${rate}.html
 #_url1hr=https://tenki.jp/forecast/5/26/5110/23109/1hour.html
 #神戸市の天気 https://tenki.jp/forecast/6/31/6310/28100/3hours.html
 myHome=`pwd`
 tenki_file=$myHome/data/${area}_${rate}.html
-hour_file=$myHome/data/tenki_hour.csv
+hour_file=$myHome/data/tenki_hour
 temp_file=$myHome/data/tenki_temp.txt
 out_file=$myHome/data/grep_tenki
 
@@ -108,7 +108,8 @@ paste -d' ' ${out_file} ${temp_file} > ${hour_file}
 # head -10 ${out_file}.csv
 #sed -ie 's/ /,/g;s/"//g' ${out_file}.csv
 # DEL 1st line and conv blank to "," from file
-sed -ie '1d;s/ /,/g' ${hour_file}
+sed -ie '1d;s/ /,/g' ${hour_file} 
+mv ${hour_file} ${hour_file}.csv
 #rm ${temp_file} ${hour_file}
 
 # Check this script

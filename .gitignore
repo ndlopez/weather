@@ -7,6 +7,7 @@
 *.txt
 # SED gen file
 *.txte
+*.swp
 
 notif_app/data/*
 
