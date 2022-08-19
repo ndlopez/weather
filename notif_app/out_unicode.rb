@@ -14,7 +14,7 @@
     end
 =end
 require 'csv'
-dataFile="data/tenki_hour.csv"
+dataFile="/Users/diego/Projects/weather_app/notif_app/data/tenki_hour.csv"
 weather=CSV.parse(File.read(dataFile)) #,headers: false)
 
 for idx in 0..weather.length()-2

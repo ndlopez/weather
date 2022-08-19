@@ -1,12 +1,4 @@
 #!/bin/bash
-# <xbar.title>Weather from tenki.jp</xbar.title>
-# <xbar.version>1.0.4</xbar.version>
-# <xbar.author>Diego Lopez</xbar.author>
-# <xbar.author.github>ndlopez</xbar.author.github>
-# <xbar.desc>Scrapes data from tenki.jp</xbar.desc>
-# <xbar.image></xbar.image>
-# <xbar.dependencies>bash</xbar.dependencies>
-# <xbar.abouturl>https://github.com/ndlopez/weather_app</xbar.abouturl>
 area=23109 # Nagoya-shi,Naka-ku
 rate=1hour #3hours
 _url=https://tenki.jp/forecast/5/26/5110/${area}/${rate}.html

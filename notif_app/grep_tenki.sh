@@ -5,7 +5,7 @@ rate=1hour #3hours
 _url=https://tenki.jp/forecast/5/26/5110/${area}/${rate}.html
 #_url1hr=https://tenki.jp/forecast/5/26/5110/23109/1hour.html
 #神戸市の天気 https://tenki.jp/forecast/6/31/6310/28100/3hours.html
-myHome=`pwd`
+myHome=/Users/diego/Projects/weather_app/notif_app #`pwd`
 tenki_file=$myHome/data/${area}_${rate}.html
 hour_file=$myHome/data/tenki_hour
 temp_file=$myHome/data/tenki_temp.txt
@@ -121,5 +121,6 @@ mv ${hour_file} ${hour_file}.csv
 # exit 0
 echo "Fixing some CJK chars..." 
 /usr/bin/ruby $myHome/out_unicode.rb > ${hour_file}.mod.csv
-echo "Displaying as a notification..."
-/usr/bin/osascript -l JavaScript $myHome/notif_app.js
+# cron will exec the following
+#echo "Displaying as a notification..."
+#/usr/bin/osascript -l JavaScript $myHome/notif_app.js
