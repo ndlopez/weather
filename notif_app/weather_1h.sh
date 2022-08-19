@@ -3,7 +3,7 @@
 # <xbar.version>0.1</xbar.version>
 # <xbar.author>Diego Lopez</xbar.author>
 # <xbar.author.github>ndlopez</xbar.author.github>
-# <xbar.desc>Scrapes data from weathernews.jp</xbar.desc>
+# <xbar.desc>Scrapes current weather data for Nagoya-city from weathernews.jp. Other cities from Japan are available too.</xbar.desc>
 # <xbar.image></xbar.image>
 # <xbar.dependencies>bash,curl,grep,cut</xbar.dependencies>
 # <xbar.abouturl>https://github.com/ndlopez/weather_app</xbar.abouturl>
@@ -20,8 +20,8 @@ humid=$(echo ${curr_weather} | cut -f14 -d'>' | cut -f1 -d'<')
 wind=$(echo ${curr_weather} | cut -f22 -d'>' | cut -f1 -d'<')
 sunrise=$(echo ${curr_weather} | cut -f26 -d'>' | cut -f1 -d'&')
 sunset=$(echo ${curr_weather} | cut -f28 -d'>' | cut -f1 -d'<')
-echo "湿度 "$humid
-echo "風 "$wind
-echo "日の出 "$sunrise
-echo "日の入 "$sunset
+echo "湿度 "$humid"| color=black"
+echo "風 "$wind"| color=black"
+echo "日の出 "$sunrise"| color=black"
+echo "日の入 "$sunset"| color=black"
 
