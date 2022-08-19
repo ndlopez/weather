@@ -22,17 +22,31 @@ if [ ! $? == 0 ];then
 fi
 tenki=$(echo ${curr_weather} | cut -f5 -d'>' | cut -f1 -d'<')
 temp=$(echo ${curr_weather} | cut -f9 -d'>' | cut -f1 -d'<')
-echo $tenki $temp
-echo "---"
 humid=$(echo ${curr_weather} | cut -f14 -d'>' | cut -f1 -d'<')
 #press=18
 wind=$(echo ${curr_weather} | cut -f22 -d'>' | cut -f1 -d'<')
 sunrise=$(echo ${curr_weather} | cut -f26 -d'>' | cut -f1 -d'&')
 sunset=$(echo ${curr_weather} | cut -f28 -d'>' | cut -f1 -d'<')
+
+echo $tenki $temp
+echo "---"
+
+#thanks to Dave Wikoff(@derimagia) for the following
+BitBarDarkMode=${BitBarDarkMode}
+if [ "$BitBarDarkMode" ]; then
+  # OSX has Dark Mode enabled.
+  #echo "Dark | color=white"
+  fcolor=white
+else
+  # OSX does not have Dark Mode
+  #echo "Light | color=black"
+  fcolor=black
+fi
+
 #echo "| image=${radar_img}" #couldnt convert
-echo "湿度 "$humid"| color=black"
-echo "風 "$wind"| color=black"
-echo "日の出 "$sunrise"| color=black"
-echo "日の入 "$sunset"| color=black"
+echo "湿度 "$humid"| color=$fcolor"
+echo "風 "$wind"| color=$fcolor"
+echo "日の出 "$sunrise"| color=$fcolor"
+echo "日の入 "$sunset"| color=$fcolor"
 echo "Last updated "$currTime
 
