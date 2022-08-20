@@ -11,9 +11,7 @@ currTime=$(date "+%H:%M")
 city_code=23109
 pref=aichi
 curr_weather=`curl -s https://weathernews.jp/onebox/tenki/$pref/${city_code}/ | grep "weather-now__ul" -A10`
-#img_url=https://static.tenki.jp/static-images/radar/recent/pref-26-small.jpg
-#radar_img=`base64 -w 0 < ((curl -s "${img_url}"))`
-#echo ${curr_weather}
+
 if [ ! $? == 0 ];then
     echo "error"
     echo ---
@@ -27,7 +25,9 @@ humid=$(echo ${curr_weather} | cut -f14 -d'>' | cut -f1 -d'<')
 wind=$(echo ${curr_weather} | cut -f22 -d'>' | cut -f1 -d'<')
 sunrise=$(echo ${curr_weather} | cut -f26 -d'>' | cut -f1 -d'&')
 sunset=$(echo ${curr_weather} | cut -f28 -d'>' | cut -f1 -d'<')
-
+img_url=https://static.tenki.jp/static-images/radar/recent/pref-26-small.jpg
+radar_img=`curl -s ${img_url} | base64`
+#echo ${curr_weather}
 echo $tenki $temp
 echo "---"
 
@@ -35,18 +35,16 @@ echo "---"
 BitBarDarkMode=${BitBarDarkMode}
 if [ "$BitBarDarkMode" ]; then
   # OSX has Dark Mode enabled.
-  #echo "Dark | color=white"
-  fcolor=white
+  fcolor="| color=white"
 else
   # OSX does not have Dark Mode
-  #echo "Light | color=black"
-  fcolor=black
+  fcolor="| color=black"
 fi
 
-#echo "| image=${radar_img}" #couldnt convert
-echo "湿度 "$humid"| color=$fcolor"
-echo "風 "$wind"| color=$fcolor"
-echo "日の出 "$sunrise"| color=$fcolor"
-echo "日の入 "$sunset"| color=$fcolor"
+echo "| image=${radar_img}" #couldnt convert
+echo "湿度 "$humid$fcolor
+echo "風 "$wind$fcolor
+echo "日の出 "$sunrise$fcolor
+echo "日の入 "$sunset$fcolor
 echo "Last updated "$currTime
 

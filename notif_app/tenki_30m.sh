@@ -13,17 +13,13 @@ out_file=$myHome/data/grep_tenki
 if [[ "$1" == "1" ]];then
     echo "using "${tenki_file}
 else
-    curl ${_url} -o ${tenki_file}
-    if [ $0 !=  0 ];then
+    tenki_data=`curl -s ${_url}`
+    if [ $? !=  0 ];then
 	echo "Network error :("
 	exit 100
     fi
 fi
 
-#if ! [[ -f ${tenki_file} ]];then
-#    echo "Network error :("
-#    exit 100
-#fi
 #backslash \n
 monty=$(date "+%m")
 day=$(date "+%d")
@@ -39,9 +35,6 @@ datum="2022-"$monty"-"$day
 heute=$(echo "date "`for num in $oneDay;do echo $datum;done`)
 echo $heute > ${hour_file}
 (tr ' ' '\n' < ${hour_file}) > ${temp_file}
-#get current weather conditions every 3hrs
-#echo "時刻\n\t \n 03 \n 06 \n 09 \n 12 \n 15 \n 18 \n 21 \n 24 " > ${hour_file}
-#weather=$(grep -m9 -w "weather" ${tenki_file} | cut -f6 -d'"')
 #get current weather conditions every hour
 heure=$(seq -w 1 23;echo "0")
 echo "hour "$heure > ${out_file}
@@ -50,67 +43,62 @@ echo "hour "$heure > ${out_file}
 paste -d' ' ${temp_file} ${hour_file} > ${out_file}
 
 #echo "天気 "${weather} > ${temp_file}
-weather=$(grep -m25 -w "weather" ${tenki_file} | cut -f6 -d'"')
+#weather=$(echo ${tenki_data} | grep -m25 -w "weather" | cut -f6 -d'"')
+for ((i=8; i<= 238; i+=10))
+do
+    echo ${tenki_data} |grep -m25 -w "weather"| cut -f`echo $i` -d'"'
+    #echo $weather
+done
+exit 0
 echo "weather"${weather} > ${temp_file}
 (tr ' ' '\n' < ${temp_file}) > ${hour_file}
 paste -d' ' ${out_file} ${hour_file} > ${temp_file}
+#echo ${tenki_data}
+echo $weather
+#cat ${temp_file}
+exit 0
 
-#temp=$(grep -m2 -w "temperature" -A 15 ${tenki_file} | cut -f3 -d'>' | cut -f1 -d'<')
-
-temp=$(grep -m2 -w "temperature" -A 47 ${tenki_file} | cut -f3 -d'>' | cut -f1 -d'<')
+temp=$(echo ${tenki_data} | grep -m2 -w "temperature" -A 47 | cut -f3 -d'>' | cut -f1 -d'<')
 
 #echo "気温\n(℃)"${temp} > ${out_file}
 echo "temp"${temp} > ${out_file}
 (tr ' ' '\n' < ${out_file}) > ${hour_file}
 paste -d' ' ${temp_file} ${hour_file} > ${out_file}
 
-#prob=$(grep -m2 -w "prob-precip" -A 16 ${tenki_file} | cut -f3 -d'>' | cut -f1 -d'<')
-prob=$(grep -m2 -w "prob-precip" -A 48 ${tenki_file} | cut -f3 -d'>' | cut -f1 -d'<')
+prob=$(echo ${tenki_data} | grep -m2 -w "prob-precip" -A 48 | cut -f3 -d'>' | cut -f1 -d'<')
 
 #echo "降水確率"${prob} > ${hour_file}
 echo ${prob} > ${hour_file}
 (tr ' ' '\n' < ${hour_file}) > ${temp_file}
 paste -d' ' ${out_file} ${temp_file} > ${hour_file}
-#cat ${hour_file}
 
-#mmhr=$(grep -m2 -w "precipitation" -A 15 ${tenki_file} | cut -f3 -d'>' | cut -f1 -d'<')
-mmhr=$(grep -m2 -w "precipitation" -A 47 ${tenki_file} | cut -f3 -d'>' | cut -f1 -d'<')
+mmhr=$(echo ${tenki_data} | grep -m2 -w "precipitation" -A 47 | cut -f3 -d'>' | cut -f1 -d'<')
 
 #echo "降水量\n(mm/h)"${mmhr} > ${temp_file}
 echo "rainMM"${mmhr} > ${temp_file}
 (tr ' ' '\n' < ${temp_file}) > ${out_file}
 paste -d' ' ${hour_file} ${out_file} > ${temp_file}
-#cat ${temp_file}
 
-#humid=$(grep -m2 -w "humidity" -A 16 ${tenki_file} | cut -f3 -d'>' | cut -f1 -d'<')
-humid0=$(grep -m2 -w "humidity" -A 48 ${tenki_file} | cut -f3 -d'>' | cut -f1 -d'<')
-humid1=$(grep -m2 -w "humidity" -A 48 ${tenki_file} | cut -f2 -d'>' | cut -f1 -d'<')
+humid0=$(echo ${tenki_data} | grep -m2 -w "humidity" -A 48 | cut -f3 -d'>' | cut -f1 -d'<')
+humid1=$(echo ${tenki_data} | grep -m2 -w "humidity" -A 48 | cut -f2 -d'>' | cut -f1 -d'<')
 
 #echo "湿度"${humid} > ${hour_file}
 echo ${humid0//--/}${humid1//湿度/} > ${hour_file}
 (tr ' ' '\n' < ${hour_file}) > ${out_file}
 paste -d' ' ${temp_file} ${out_file} > ${hour_file}
-#cat ${hour_file}
 
-#wind_speed=$(grep -m2 -w "wind-speed" -A 17 ${tenki_file} | cut -f3 -d'>' | cut -f1 -d'<')
-wind_speed=$(grep -m2 -w "wind-speed" -A 47 ${tenki_file} | cut -f3 -d'>' | cut -f1 -d'<')
+wind_speed=$(echo ${tenki_data} | grep -m2 -w "wind-speed" -A 47 | cut -f3 -d'>' | cut -f1 -d'<')
 #echo "風速\n(m/s)"${wind_speed} > ${out_file}
 echo "windSpeed"${wind_speed} > ${out_file}
 (tr ' ' '\n' < ${out_file}) > ${temp_file}
 paste -d' ' ${hour_file} ${temp_file} > ${out_file}
 
-windy=$(grep -m2 -w "wind-blow" -A 94 ${tenki_file} | cut -f3 -d'=' | cut -f1 -d' ')
+windy=$(echo ${tenki_data} | grep -m2 -w "wind-blow" -A 94 | cut -f3 -d'=' | cut -f1 -d' ')
 echo $windy > ${hour_file}
 (tr ' ' '\n' < ${hour_file}) > ${temp_file}
 paste -d' ' ${out_file} ${temp_file} > ${hour_file}
 #mv ${hour_file} ${out_file}.csv
-# add quotes to Weather to parse in JS
-# awk '$3="\""$3"\""' ${hour_file} > ${out_file}.csv
-# sample output
-# echo "時刻 天気 気温 降水確率 降水量 湿度 風速"
-# echo "-- --- [C]   [%]   [mm/h] [%] [m/s]"
 
-#head -1 ${out_file}.csv
 #sed -ie 's/ /,/g;s/"//g' ${out_file}.csv
 # DEL 1st line and conv blank to "," from file
 sed -ie '1d;s/ /,/g' ${hour_file}
