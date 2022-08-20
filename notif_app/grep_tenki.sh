@@ -1,13 +1,13 @@
 #!/bin/bash
 #Scrape data from <www.tenki.jp>
-area=23109 #home, 23106 Nagoya,Naka-ku
+area=23109 #23106 Nagoya,Naka-ku
 rate=1hour #3hours
 _url=https://tenki.jp/forecast/5/26/5110/${area}/${rate}.html
 #_url1hr=https://tenki.jp/forecast/5/26/5110/23109/1hour.html
 #神戸市の天気 https://tenki.jp/forecast/6/31/6310/28100/3hours.html
-myHome=`pwd`
+myHome=/Users/diego/Projects/weather_app/notif_app #`pwd`
 tenki_file=$myHome/data/${area}_${rate}.html
-hour_file=$myHome/data/tenki_hour.txt
+hour_file=$myHome/data/tenki_hour
 temp_file=$myHome/data/tenki_temp.txt
 out_file=$myHome/data/grep_tenki
 
@@ -30,7 +30,7 @@ hora=$(date "+%H")
 lena=`LC_ALL=ja_JP date "+%a"`
 #echo $lena
 echo "今日 ${monty}月${day}日($lena), Now "`date +"%H:%M"`
-oneDay=`seq 49`
+oneDay=`seq 24` #49 2days
 datum="2022-"$monty"-"$day
 heute=$(echo "date "`for num in $oneDay;do echo $datum;done`)
 echo $heute > ${hour_file}
@@ -39,14 +39,14 @@ echo $heute > ${hour_file}
 #echo "時刻\n\t \n 03 \n 06 \n 09 \n 12 \n 15 \n 18 \n 21 \n 24 " > ${hour_file}
 #weather=$(grep -m9 -w "weather" ${tenki_file} | cut -f6 -d'"')
 #get current weather conditions every hour
-heure=$(seq -w 1 23;echo "0 -- ";seq -w 1 24)
+heure=$(seq -w 1 23;echo "0")
 echo "hour "$heure > ${out_file}
 (tr ' ' '\n' < ${out_file}) > ${hour_file}
 
 paste -d' ' ${temp_file} ${hour_file} > ${out_file}
 
 #echo "天気 "${weather} > ${temp_file}
-weather=$(grep -m50 -w "weather" ${tenki_file} | cut -f6 -d'"')
+weather=$(grep -m25 -w "weather" ${tenki_file} | cut -f6 -d'"')
 echo "weather"${weather} > ${temp_file}
 (tr ' ' '\n' < ${temp_file}) > ${hour_file}
 paste -d' ' ${out_file} ${hour_file} > ${temp_file}
@@ -108,7 +108,8 @@ paste -d' ' ${out_file} ${temp_file} > ${hour_file}
 # head -10 ${out_file}.csv
 #sed -ie 's/ /,/g;s/"//g' ${out_file}.csv
 # DEL 1st line and conv blank to "," from file
-sed -ie '1d;s/ /,/g' ${hour_file}
+sed -ie '1d;s/ /,/g' ${hour_file} 
+mv ${hour_file} ${hour_file}.csv
 #rm ${temp_file} ${hour_file}
 
 # Check this script
@@ -116,9 +117,10 @@ sed -ie '1d;s/ /,/g' ${hour_file}
 # mv ${out_file}.csv $HOME/Projects/weather_app/data/.
 # echo "CSV Data moved to weather App folder"
 # ls -l $HOME/Projects/weather_app/data/
-head -24 ${hour_file} > ${out_file}.csv
+# head -24 ${hour_file} > ${out_file}.csv
 # exit 0
 echo "Fixing some CJK chars..." 
-/usr/bin/ruby $myHome/out_unicode.rb > ${out_file}.mod.csv
-echo "Displaying as a notification..."
-/usr/bin/osascript -l JavaScript $myHome/notif_app.js
+/usr/bin/ruby $myHome/out_unicode.rb > ${hour_file}.mod.csv
+# cron will exec the following
+#echo "Displaying as a notification..."
+#/usr/bin/osascript -l JavaScript $myHome/notif_app.js

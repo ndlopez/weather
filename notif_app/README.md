@@ -1,13 +1,29 @@
-# Notification app
+# MacOS Notification app
 
-PR from notif branch, which is for MacOS env.
+Public repository for notif branch, which is for MacOS env.
 
 ![Screenshot](getTenki_1534.png)
 
-* Environment*
+To display as a notification do:<br>
+	$ /bin/bash grep_tenki.sh
+	$ osascript -l JavaScript notif_app.js
 
-MacBookPro, MacOS 15.5
+## xbar plugin:
+Fetch current weather data from weathernews.jp
 
-*Editors*
+![currWeather](currWeather_1h_prev.png)
 
-Emacs and VIM
+Add *currWeather.1h.sh* to your plugins folder and set Refresh to 1hr
+
+Another plugin:<br>
+*get_tenki.1h.py* uses BeautifulSoup and urlopen libraries to fetch/scrape data from tenki.jp.<br>Output looks like this:<br>
+18:05 曇り 29.7C 40% 0mm 76% 静穏 0m/s<br>
+19:00 弱雨 28.1C 60% 1mm 88% 北西 2m/s
+
+## Extra info
+Toggle betwen dark and light mode in MacOS 10.15<br>
+	$ osascript -e 'tell app "System Events" to tell appearance preferences to set dark mode to not dark mode'
+
+## Environment
+- MacBookPro, MacOS 15.5
+- Editors: Emacs and VIM
