@@ -9,8 +9,10 @@
 *.txte
 *.swp
 
+# Shell generated data
 notif_app/data/*
-
 notif_app/plots/*
 
-webapp/data/*
+# PHP generated files
+webapp/data/*.csv
+webapp/data/*.json
