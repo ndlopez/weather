@@ -141,18 +141,23 @@ and return a single JSON file with jibberish(HTML code) on it.
 */
 $newQuery="SELECT * FROM $dbTable WHERE date='".$heute."';";
 $json=[];
+$csvFile='data/sample.csv';
+$f = fopen($csvFile,'w');
+if($f === false){die('Error opening file'.$csvFile);}
+fputcsv($f,array('date','hour','weather','temp','rainProb','mmRain','humid','wind','windDir'));
 //$classy="";
 $myColor="";
 if($res = mysqli_query($conn,$newQuery)){
   foreach ($res as $dat){
+    //trim($dat);Does not trim anything
     if ($dat['hour'] == $heure - 1){
-      $myColor="#cc274c";
+      $myColor = "#cc274c";
     }
     elseif ($dat['hour'] < $heure -1 ) {
-      $myColor ="#98A2A9";
+      $myColor = "#98A2A9";
     }
     else{
-      $myColor="#2e4054";
+      $myColor = "#2e4054";
     }
     /*if ($dat['hour'] < $heure) {
       $classy="bar-old";
@@ -161,14 +166,23 @@ if($res = mysqli_query($conn,$newQuery)){
       $classy="bar-new";
       $myColor="#cc274c";
     }*/
+    //trim($dat['windDir'],'/"\n/"');
+    preg_replace('^\r\n','',$dat['windDir']);
+    fputcsv($f,$dat);// write without color arg
+    /*append new char to dict array */
     $dat['color']=$myColor;
-    /*var_dump($dat);*/
     $json[] = $dat;
+    //var_dump(trim($dat['windDir']));
+    //str_replace('"','',$dat['weather']); Does not work
+    //trim($dat['windDir'],'/\n'); does not work either
+    //var_dump(trim($dat['weather'],'\"'));
   }
 }
 $json = json_encode($json);
 file_put_contents("data/all_weather.json",$json);
 
+/* Generate CSV file */
+fclose($f);
 mysqli_close($conn);
 ?>
 <!--?php include 'static/get_json_db.php'?-->
