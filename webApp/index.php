@@ -1,3 +1,14 @@
+<?php
+/* REquire https
+// Install on server certificates!
+// Follow this https://www.redhat.com/sysadmin/webserver-use-https
+if ($_SERVER['https'] != "on"){
+  $url = "https://".$_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
+  header("Location: $url");
+  die("Could not connect");
+  exit;
+}*/
+?>
 <!DOCTYPE html>
 <!--Build a nav bar menu https://w3codepen.com/html-css-sticky-navbar-menu/-->
 <html lang="en">
@@ -71,6 +82,9 @@ echo "<p> Your Query was ...<br><code>".$query."</code></p>";
 <?php
 echo "<h1>".date("l, F d")."</h1>";
 if ($result = mysqli_query($conn,$query)){
+  if( $result == ""){
+    echo "<h1> Database is not updated. Contact Admin.</h1>";
+  }
 	foreach ($result as $row){
 		/*echo "<h3><br>".date("l F d ").$row['hour'].":".date("i")."</h3>";*/
 		echo "<h1>".$row['weather'].$row['temp']."&#8451;</h1>";
@@ -81,9 +95,6 @@ if ($result = mysqli_query($conn,$query)){
 		echo "<h4>Rain ".$row['mmRain']."mm Chance ".$row['rainProb']."% <br>Humidity ".$row['humid'] ."%<br>";
 		echo "Wind ".$row['wind']."[m/s]".$row['windDir']."</h4>";
 	}
-  if( $result == ""){
-    echo "<h1> Database is not updated. Contact Admin.</h1>";
-  }
 }
 else{
   http_response_code(404);
