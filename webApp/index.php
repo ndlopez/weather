@@ -8,12 +8,13 @@ if ($_SERVER['https'] != "on"){
   die("Could not connect");
   exit;
 }*/
+ob_start();
 ?>
 <!DOCTYPE html>
 <!--Build a nav bar menu https://w3codepen.com/html-css-sticky-navbar-menu/-->
 <html lang="en">
 <head>
-<title>Today's weather</title>
+<title><!--TITLE--></title>
 <meta charset="utf-8"/>
 <!--meta http-equiv="refresh" content="3600"-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -87,7 +88,8 @@ if ($result = mysqli_query($conn,$query)){
   }
 	foreach ($result as $row){
 		/*echo "<h3><br>".date("l F d ").$row['hour'].":".date("i")."</h3>";*/
-		echo "<h1>".$row['weather'].$row['temp']."&#8451;</h1>";
+    $pageTitle="Now ".trim($row['weather'],'"')." ".$row['temp']."&#8451;";
+		echo "<h1>".$pageTitle."</h1>";
 	}
 	//echo "<p>Rain chance [%]</th><th>Humidity</th><th>Wind [m/s]";
 	foreach ($result as $row){
@@ -153,9 +155,9 @@ and return a single JSON file with jibberish(HTML code) on it.
 $newQuery="SELECT * FROM $dbTable WHERE date='".$heute."';";
 $json=[];
 $csvFile='data/sample.csv';
-$f = fopen($csvFile,'w');
-if($f === false){die('Error opening file'.$csvFile);}
-fputcsv($f,array('date','hour','weather','temp','rainProb','mmRain','humid','wind','windDir'));
+$fpout = fopen($csvFile,'w');
+if($fpout === false){die('Error opening file'.$csvFile);}
+fputcsv($fpout,array('date','hour','weather','temp','rainProb','mmRain','humid','wind','windDir'));
 //$classy="";
 $myColor="";
 if($res = mysqli_query($conn,$newQuery)){
@@ -193,7 +195,7 @@ $json = json_encode($json);
 file_put_contents("data/all_weather.json",$json);
 
 /* Generate CSV file */
-fclose($f);
+fclose($fpout);
 mysqli_close($conn);
 ?>
 <!--?php include 'static/get_json_db.php'?-->
@@ -215,3 +217,9 @@ mysqli_close($conn);
 <p style="text-align:center;"><span class="copy-left">&copy;</span><span> Copyleft 2022-08-09</span></p>
 </footer>
 </html>
+<?php
+$pageContents = ob_get_contents();
+ob_end_clean();
+//Replace title var with content
+echo str_replace('<!--TITLE-->',$pageTitle,$pageContents);
+?>

@@ -35,6 +35,14 @@ However, on WSL things are a lil' different, hence:
 Using [XAMPP](https://www.apachefriends.org/) and setting a remote server...
 MySQL: Create a new user to create DB
 
+## PHP help
+Found on stuckUnderFlow (by Mayur Shah):<br>
+PHP usually works by executing any bits of code and printing all output directly to the browser. If you say "echo 'Some text here.';", that string will get sent the browser and is emptied from memory.<br>
+What output buffering does is say "Print all output to a buffer. Hold onto it. Don't send ANYTHING to the browser until I tell you to."<br>
+So what this does is it buffers all your pages' HTML into the buffer, then at the very end, after the tag, it uses ob_get_contents() to get the contents of the buffer (which is usually all your page's HTML source code which would have been sent the browser already) and puts that into a string.<br>
+ob_end_clean() empties the buffer and frees some memory. We don't need the source code anymore because we just stored it in $pageContents.<br>
+Then, lastly, by doing a simple find & replace on your page's source code ($pageContents) for any instances of '' and replace them to whatever the $pageTitle variable was set to. Of course, it will then replace <title><!--TITLE--></title> with Your Page's Title. After that, echo the $pageContents, just like the browser would have.
+
 ---
 Environment: Panasonic Let'sNote/Linux Fedora 34<br>
 Languages: PHP, Python, JavaScript, Ruby, and Shell<br>
