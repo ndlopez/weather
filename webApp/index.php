@@ -181,7 +181,7 @@ if($res = mysqli_query($conn,$newQuery)){
     }*/
     //trim($dat['windDir'],'/"\n/"');
     preg_replace('^\r\n','',$dat['windDir']);
-    fputcsv($f,$dat);// write without color arg
+    fputcsv($fpout,$dat);// write without color arg
     /*append new char to dict array */
     $dat['color']=$myColor;
     $json[] = $dat;
