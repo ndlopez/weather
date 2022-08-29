@@ -61,7 +61,7 @@ $dbTable = weather_data;
 $dbname = "weather";$dbuser = "root";$dbpass = "";
 //when coding on the server side, should use root not kathy;
 $conn = mysqli_connect($dbhost,$dbuser,$dbpass,$dbname);*/
-include_once('static/myconfig.php');
+include_once('config/myconfig.php');
 if(mysqli_connect_errno()){
   die("Could not connect: ". mysqli_connect_error());
 }
