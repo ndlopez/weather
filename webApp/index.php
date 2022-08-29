@@ -18,6 +18,7 @@ ob_start();
 <meta charset="utf-8"/>
 <!--meta http-equiv="refresh" content="3600"-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="favicon.ico">
 <link rel="stylesheet" type="text/css" href="static/estilo.css">
 <script src="libs/d3.v4.js"></script>
 <script src="static/digi_clock.js"></script>
