@@ -7,7 +7,6 @@
 <!--meta http-equiv="refresh" content="3600"-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" type="text/css" href="../static/estilo.css">
-<script src="libs/d3.v4.js"></script>
 <script src="../static/digi_clock.js"></script>
 </head>
 
@@ -54,7 +53,9 @@ if(isset($_POST['add'])){
     else{echo "<p>Connection to Database... OK</p>";}
     if(! get_magic_quotes_gpc()){
         $temp_data = addslashes($_POST['weather']);
+        $windDir = addslashes($_POST['windDir']);
     }
+
     $tag = $_POST['date'];
     $hora = $_POST['hour']
     $tempC = $_POST['temp'];
@@ -65,8 +66,10 @@ if(isset($_POST['add'])){
     $windDir = $_POST['windDir'];
 
     $query = "INSERT INTO $dbTable ".
-    "(VALUES '$tag', '$hora', '$temp_data', '$tempC', ".
-    "'$rainProb', '$mmRain', '$humid', '$wind','$windDir');";
+    "(tag, hora, temp_data, tempC, ".
+    "rainProb, mmRain, humid, wind,windDir) ".
+    "VALUES('$tag','$hora','$tempC','$rainProb','$mmRain','$humid','$wind','$windDir');";
+    //"VALUES('2022-08-29','0','晴れ','23','0','0','68',1,'北北西');";
     //mysqli_select_db($conn,'weather_data'); already sel on config
     $retval = mysqli_query($conn,$query);
 
