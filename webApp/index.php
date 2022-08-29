@@ -26,7 +26,7 @@ ob_start();
 <body>
 <?php
 date_default_timezone_set("Asia/Tokyo");/*$heure = $heure + 8;*//*Japan*/
-$heute = "2022-08-28"; //date("Y-m-d");
+$heute = date("Y-m-d");
 $heure = date("H");
 $myMsg = "Good Morning";
 ?>  
@@ -61,7 +61,7 @@ $dbTable = weather_data;
 $dbname = "weather";$dbuser = "root";$dbpass = "";
 //when coding on the server side, should use root not kathy;
 $conn = mysqli_connect($dbhost,$dbuser,$dbpass,$dbname);*/
-include_once('myconfig.php');
+include_once('static/myconfig.php');
 if(mysqli_connect_errno()){
   die("Could not connect: ". mysqli_connect_error());
 }
@@ -84,7 +84,7 @@ echo "<p> Your Query was ...<br><code>".$query."</code></p>";
 echo "<h1>".date("l, F d")."</h1>";
 if ($result = mysqli_query($conn,$query)){
   if($result->num_rows < 0){
-    var_dump("No data");
+    /* This if doesnt work, must find a way to return sth when no rows are returned */
     echo "<h1> Database is not updated. Contact Admin.</h1>";
   }
 	foreach ($result as $row){
