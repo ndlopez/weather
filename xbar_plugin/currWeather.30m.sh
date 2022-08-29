@@ -1,12 +1,12 @@
 #!/bin/bash
 # <xbar.title>Current weather</xbar.title>
-# <xbar.version>0.1</xbar.version>
+# <xbar.version>0.2</xbar.version>
 # <xbar.author>Diego Lopez</xbar.author>
 # <xbar.author.github>ndlopez</xbar.author.github>
 # <xbar.desc>Scrapes current weather data for Nagoya-city from weathernews.jp. Other cities from Japan are available too.</xbar.desc>
-# <xbar.image>https://github.com/ndlopez/weather_app/raw/notif/notif_app/weather_sh_img.png</xbar.image>
+# <xbar.image>https://github.com/ndlopez/weather_app/raw/notif/xbar_plugin/currWeather_1h_prev.png</xbar.image>
 # <xbar.dependencies>bash,curl,grep,base64,cut</xbar.dependencies>
-# <xbar.abouturl>https://github.com/ndlopez/weather_app/notif_app</xbar.abouturl>
+# <xbar.abouturl>https://github.com/ndlopez/weather_app/xbar_plugin</xbar.abouturl>
 currTime=$(date "+%H:%M")
 city_code=23109
 pref=aichi
