@@ -57,7 +57,7 @@ $myMsg = "Good Morning";
 
 <div class="clearfix">
 <?php
-$dbTable = weather_data;
+$dbTable = "weather_data";
 /*$dbhost = "127.0.0.1:3306";
 $dbname = "weather";$dbuser = "root";$dbpass = "";
 //when coding on the server side, should use root not kathy;
