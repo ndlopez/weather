@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!--Build a nav bar menu https://w3codepen.com/html-css-sticky-navbar-menu/-->
 <html lang="en">
 <head>
 <title>Update Database</title>
