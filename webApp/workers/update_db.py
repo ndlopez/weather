@@ -19,8 +19,8 @@ heure=thisDate.strftime("%H")
 USERNAME="root" #input("DB user: ")
 update_db=input("Update DB? (y/n):")
 
-HOSTNAME=input("host: ")
-USERPASW=input("user pass: ")
+HOSTNAME="webapp.physics" #input("host: ")
+USERPASW=input("DB user pass: ")
 DB_NAME="tenki"
 TAB_NAME="weather_data"
 mydb = mysql.connector.connect(host=HOSTNAME,user=USERNAME,password=USERPASW,database=DB_NAME)

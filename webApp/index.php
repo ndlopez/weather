@@ -26,7 +26,7 @@ ob_start();
 <body>
 <?php
 date_default_timezone_set("Asia/Tokyo");/*$heure = $heure + 8;*//*Japan*/
-$heute = date("Y-m-d");
+$heute = "2022-08-28"; //date("Y-m-d");
 $heure = date("H");
 $myMsg = "Good Morning";
 ?>  
@@ -47,10 +47,10 @@ $myMsg = "Good Morning";
   <nav>
      <ul>
         <li><a target="blank" href="/phpmyadmin">My PHP Admin</a></li>
-        <li><a href="/dashboard">XAMPP Server</a></li>
+        <li><a href="/dashboard">WSL Server</a></li>
         <li><a target="blank" href="https://github.com/ndlopez/weather_app">
           WebMaster</a></li>
-        <li><a href="sites/jumble_game">Play Jumble</a></li>
+        <li><a href="https://ndlopez.github.io/jumble_game">Play Jumble</a></li>
      </ul>
   </nav>
 
@@ -83,7 +83,8 @@ echo "<p> Your Query was ...<br><code>".$query."</code></p>";
 <?php
 echo "<h1>".date("l, F d")."</h1>";
 if ($result = mysqli_query($conn,$query)){
-  if( $result == ""){
+  if($result->num_rows < 0){
+    var_dump("No data");
     echo "<h1> Database is not updated. Contact Admin.</h1>";
   }
 	foreach ($result as $row){

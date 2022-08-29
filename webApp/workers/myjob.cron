@@ -1,0 +1,8 @@
+# myjob.cron
+# Each task to run has to be defined through a single line
+# e.g. run a backup of all user accounts at 5AM every week:
+# 0 5 * * 1 tar -zcf /var/backups/home.tgz /home/
+
+# download fresh data from tenki.jp
+15 9-17/2 * * * /bin/bash /home/diego/weather_app/workers/grep_tenki.sh
+
