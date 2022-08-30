@@ -4,11 +4,13 @@ ini_set('display_errors',1);
 header("Content-Type:application/json");
 require "sample.php";
 
+//require "get_weather.php"
 
-if(!empty($_GET['name'])){
-    $name = $_GET['name'];
+if(!empty($_GET['prod'])){
+    $name = $_GET['prod'];
     $price = get_price($name);
-
+    //$got_data = index($myVal);
+    
     if(empty($price)){
         my_response(200,"Product not found",NULL);
     }else{
