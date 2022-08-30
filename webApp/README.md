@@ -35,6 +35,14 @@ However, on WSL things are a lil' different, hence:
 Using [XAMPP](https://www.apachefriends.org/) and setting a remote server...
 MySQL: Create a new user to create DB
 
+## REST API using PHP
+Head to:<br>
+[MyAPi](http://webapp.physics/rest-api/index.php/datos/list?limit=10)
+
+It should display weather data (up to 10)<br>
+However the output has some characters that cannot be JSON parsed, thus it throws the following:<br>
+SyntaxError: JSON.parse: unexpected character at line 1 column 1 of the JSON data.
+
 ## PHP help
 Found on stuckUnderFlow (by Mayur Shah):<br>
 PHP usually works by executing any bits of code and printing all output directly to the browser. If you say "echo 'Some text here.';", that string will get sent the browser and is emptied from memory.<br>

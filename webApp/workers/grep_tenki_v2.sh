@@ -24,23 +24,23 @@ _url=https://tenki.jp/forecast/5/26/5110/${area}/${rate}.html
 #also pref-26-middle.jpg is available
 
 #storing only current date data
-myHome=$HOME/weather_app
+myHome=`pwd`
 #if [ ! -d ${myHome} ]; then
 #	mkdir ${myHome}
 #fi
 
-if ! [ -d ${myHome}/data ];then
-	mkdir ${myHome}/data
-fi
+#if ! [ -d ../data ];then
+#	mkdir ${myHome}/data
+#fi
 #cd $myHome
 monty=$(date "+%m")
 day=$(date "+%d")
 hora=$(date "+%H")
 
 #setting up variables
-tenki_file=$myHome/data/${area}_${rate}.html
-hour_file=$myHome/data/tenki_tmp.txt
-temp_file=$myHome/data/tenki_hour_$monty$day.csv
+tenki_file=../data/${area}_${rate}.html
+hour_file=../data/tenki_tmp.txt
+temp_file=../data/tenki_hour_$monty$day.csv
 
 #min=$(date "+%M")
 #week=("日" "月" "火" "水" "木" "金" "土")

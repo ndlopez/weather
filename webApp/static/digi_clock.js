@@ -15,7 +15,7 @@ setInterval(function(){
   //formatAMPM = (hh >= 12?'PM':'AM');
   //hh = hh % 12 || 12;
   currentTime = hh + ":" + zeropadder(mm) + ":" + zeropadder(ss);// + " " + formatAMPM;
-  console.log(currentTime)
+  //console.log(currentTime)
   document.getElementById("currtime").innerHTML = currentTime;
   //setTimeout(updateTime,1000);
 },1000);

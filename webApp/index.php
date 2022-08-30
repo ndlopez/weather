@@ -18,6 +18,7 @@ ob_start();
 <meta charset="utf-8"/>
 <!--meta http-equiv="refresh" content="3600"-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="favicon.ico">
 <link rel="stylesheet" type="text/css" href="static/estilo.css">
 <script src="libs/d3.v4.js"></script>
 <script src="static/digi_clock.js"></script>
@@ -56,7 +57,7 @@ $myMsg = "Good Morning";
 
 <div class="clearfix">
 <?php
-$dbTable = weather_data;
+$dbTable = "weather_data";
 /*$dbhost = "127.0.0.1:3306";
 $dbname = "weather";$dbuser = "root";$dbpass = "";
 //when coding on the server side, should use root not kathy;
