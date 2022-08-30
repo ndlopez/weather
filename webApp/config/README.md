@@ -22,3 +22,7 @@ Rename it to: *.htaccess* and save it at:<br>
 
 !Note:<br>
 Better edit files with VIM
+
+## Non-related
+
+[Pana](https://stream-28.zeno.fm/pnwpbyfambruv?zs=m9vXss-OR-a2FxxJTU8LSQ)
