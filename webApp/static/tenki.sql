@@ -1,10 +1,16 @@
 #SQL code
 
-#New user on MariaDB
+## Login to MariaDB
+sudo mariadb -u root
+-> input sudo password
+-> input mariadb(root) password
+
+## New user on MariaDB
 CREATE USER 'mysql_user'@'%' IDENTIFIED BY 'mysql_password';
 GRANT ALL PRIVILEGES ON *.* TO 'mysql_user'@'%' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 EXIT;
+
 #display DB
 SHOW DATABASES;
 CREATE DATABASE tenki;

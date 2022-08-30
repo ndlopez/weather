@@ -1,16 +1,18 @@
 <?php
 class BaseController{
     /* call magic method */
-    public function __call($name,$args){
-        $this->sendOutput('',array('HTTP/1.1 404 not found :('));
+    public function __call($name,$arguments){
+        $this->sendOutput('',array('HTTP/1.1 404 not found'));
     }
     /* get URI elems */
     protected function getUriSegments(){
-        $uri = parse_url($_SERVER['REQUEST_URI'],PHP_URL_PATH);
+        $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         $uri = explode('/',$uri);
+
+        return $uri;
     }
     /* get queryStr params */
-    protected function getQueryStrParams(){
+    protected function getQueryStringParams(){
         return parse_str($_SERVER['QUERY_STRING'],$query);
     }
     /*send api out */

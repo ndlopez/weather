@@ -4,7 +4,7 @@ class DataController extends BaseController{
     public function listAction(){
         $strErrorDesc = '';
         $requestMethod = $_SERVER["REQUEST_METHOD"];
-        $arrQueryStringParams = $this->getQueryStrParams();
+        $arrQueryStringParams = $this->getQueryStringParams();
 
         if(strtoupper($requestMethod) == 'GET'){
             try{
@@ -17,7 +17,7 @@ class DataController extends BaseController{
                 $responseData = json_encode($arrData);
             }catch(Error $e){
                 $strErrorDesc = $e->getMessage().'sth went wrong';
-                $strErrorHeader = 'HTTP/1.1 500 Internal server error?';
+                $strErrorHeader = 'HTTP/1.1 500 kinda internal server error?';
             }
         }else{
             $strErrorDesc = 'MEthod not supported';
