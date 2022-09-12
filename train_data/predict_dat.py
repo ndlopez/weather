@@ -1,4 +1,5 @@
 #data manipulation
+from logging.config import _LoggerConfiguration
 import numpy as np
 import pandas as pd
 
@@ -51,4 +52,30 @@ steps=36 # the last 36 months are used as the test to eval the predict capacity 
 data_train = data[:-steps]
 data_test = data[-steps:]
 
-print(f"train dates: {data_train.index.min()} --- {}")
+print(f"train dates: {data_train.index.min()} --- {data_train.index.max()} (n={len(data_train)})")
+print(f"test dates: {data_test.index.min()} --- {data_test.index.max()} (n={len(data_test)})")
+
+fig, ax= plt.subplots(figsize=(9,4))
+data_train['y'].plot(ax=ax,label='train')
+data_test['y'].plot(ax=ax,label='test')
+ax.legend();
+plt.show()
+
+exit()
+#create and train forecaster
+forecaster = ForecasterAutoreg(regresssor = RandomForestRegressor(random_state=123),lags=6)
+forecaster.fit(y=data_train['y'])
+forecaster
+
+# predictions
+mysteps = 36
+predict = forecaster.predict(steps=mysteps)
+predict.head(5)
+#nshould display 5 sets of data
+# plot
+fig,ax = plt.subplots(figsize=(9,4))
+data_train['y'].plot(ax=ax,label='train')
+data_test['y'].plot(ax=ax,label='test')
+predict.plot(ax=ax,label='predictions')
+ax.legend()
+plt.show()
