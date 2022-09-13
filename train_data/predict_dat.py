@@ -1,7 +1,7 @@
 #data manipulation
-from logging.config import _LoggerConfiguration
 import numpy as np
 import pandas as pd
+from datetime import datetime
 
 #plots
 import matplotlib.pyplot as plt
@@ -28,27 +28,34 @@ from joblib import dump,load
 import warnings
 
 #fetch data
-url = 'https://raw.githubusercontent.com/JoaquinAmatRodrigo/skforecast/master/data/h2o_exog.csv'
-data = pd.read_csv(url, sep=',')
+# url = 'https://raw.githubusercontent.com/JoaquinAmatRodrigo/skforecast/master/data/h2o_exog.csv'
+url = "../data/data_2022-08-02_2022-08-06.csv"
 
-data = data.rename(columns={'fecha':'date'})
-data['date'] = pd.to_datetime(data['date'],format='%Y/%m/%d')
-data = data.set_index('date')
-data= data.rename(columns={'x':'y'})
-data = data.asfreq('MS') # Monthly started
+# custom_date_parse = lambda x: datetime.strptime(x, "%Y-%m-%d %H")
+# when merging date and hour cols: 
+data = pd.read_csv(url,parse_dates={'date_time':[0,1]},sep=',')
+# data = pd.read_csv(url,sep=',')
+# print(data.head())
+# data = data.rename(columns={'fecha':'date'})
+data['date_time'] = pd.to_datetime(data['date_time'],format='%Y-%m-%d %H:%M')
+# data['hour'] = pd.to_datetime(data['hour'])
+data = data.set_index('date_time')
+# data= data.rename(columns={'x':'y'})
+data = data.asfreq('H') # H: hourly ,MS: Monthly started
 data = data.sort_index()
-print(data.head())
+print(data.head(),data.info())
 
 print(f'number of rows with missing vals: {data.isnull().any(axis=1).mean()}')
 
 # verify that temporary index is complete
-(data.index== pd.date_range(start=data.index.min(),end=data.index.max(),freq=data.index.freq)).all()
+# (data.index== pd.date_range(start=data.index.min(),end=data.index.max(),freq=data.index.freq)).all()
 
 # if empty vals then fill in gaps
-# data.asfreq(freq='30min',fill_value=np.nan)
+#data.asfreq(freq='1hour',fill_value=np.nan)
 
-#split data into train-test
-steps=36 # the last 36 months are used as the test to eval the predict capacity of the model
+# split data into train-test
+# steps=36 # the last 36 months are used as the test to eval the predict capacity of the model
+steps = 90 # the last 90 hours are used 
 data_train = data[:-steps]
 data_test = data[-steps:]
 
@@ -56,14 +63,13 @@ print(f"train dates: {data_train.index.min()} --- {data_train.index.max()} (n={l
 print(f"test dates: {data_test.index.min()} --- {data_test.index.max()} (n={len(data_test)})")
 
 fig, ax= plt.subplots(figsize=(9,4))
-data_train['y'].plot(ax=ax,label='train')
-data_test['y'].plot(ax=ax,label='test')
+data_train['temp'].plot(ax=ax,label='train')
+data_test['temp'].plot(ax=ax,label='test')
 ax.legend();
 plt.show()
 
-exit()
 #create and train forecaster
-forecaster = ForecasterAutoreg(regresssor = RandomForestRegressor(random_state=123),lags=6)
+"""forecaster = ForecasterAutoreg(regresssor = RandomForestRegressor(random_state=123),lags=6)
 forecaster.fit(y=data_train['y'])
 forecaster
 
@@ -78,4 +84,4 @@ data_train['y'].plot(ax=ax,label='train')
 data_test['y'].plot(ax=ax,label='test')
 predict.plot(ax=ax,label='predictions')
 ax.legend()
-plt.show()
+plt.show()"""

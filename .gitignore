@@ -12,6 +12,7 @@
 # Shell generated data
 notif_app/data/*
 notif_app/plots/*
+data/*
 
 # PHP generated files
 webapp/data/*
