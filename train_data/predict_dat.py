@@ -43,7 +43,9 @@ data = data.set_index('date_time')
 # data= data.rename(columns={'x':'y'})
 data = data.asfreq('H') # H: hourly ,MS: Monthly started
 data = data.sort_index()
-print(data.head(),data.info())
+print(data.head())
+
+# print(data.info())
 
 print(f'number of rows with missing vals: {data.isnull().any(axis=1).mean()}')
 
@@ -55,16 +57,18 @@ print(f'number of rows with missing vals: {data.isnull().any(axis=1).mean()}')
 
 # split data into train-test
 # steps=36 # the last 36 months are used as the test to eval the predict capacity of the model
-steps = 90 # the last 90 hours are used 
+steps = 30 # the last 90 hours are used 
 data_train = data[:-steps]
 data_test = data[-steps:]
 
 print(f"train dates: {data_train.index.min()} --- {data_train.index.max()} (n={len(data_train)})")
 print(f"test dates: {data_test.index.min()} --- {data_test.index.max()} (n={len(data_test)})")
+print(data.columns.tolist())
 
+myCol = "temp"
 fig, ax= plt.subplots(figsize=(9,4))
-data_train['temp'].plot(ax=ax,label='train')
-data_test['temp'].plot(ax=ax,label='test')
+data_train[myCol].plot(ax=ax,label='train')
+data_test[myCol].plot(ax=ax,label='test')
 ax.legend();
 plt.show()
 
