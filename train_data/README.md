@@ -8,7 +8,21 @@ Sample data: weather for Kobe city on August 2022
 
 ![sample](20220802_20220812_temp.png)
 
-## Dependencies
+## Predictions
+
+|2022-08-11 | 06:00:00  |  28.184|
+|2022-08-11 | 07:00:00  | 28.821|
+|2022-08-11 | 08:00:00  | 29.579|
+|2022-08-11 | 09:00:00  |  30.338|
+| 022-08-11 | 10:00:00  |  31.163|
+
+Freq: H, Name: pred, dtype: float64
+
+test error (mse):4.815604928571416
+
+Quite large error, perhaps sample data is small.
+
+# Dependencies
 
 Python3.10 on Fedora 36:
 - numpy: v1.23.3

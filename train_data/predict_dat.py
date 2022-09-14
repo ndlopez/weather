@@ -81,7 +81,7 @@ print(forecaster)
 # predictions
 mysteps = 42
 predict = forecaster.predict(steps=mysteps)
-predict.head(5)
+print(predict.head(5))
 #nshould display 5 sets of data
 # plot
 fig,ax = plt.subplots(figsize=(9,4))
@@ -92,3 +92,7 @@ plt.title("August 2022")
 plt.ylabel('\u2103', style='italic', loc='top')
 ax.legend()
 plt.show()
+
+# test error
+error_mse = mean_squared_error(y_true=data_test[myCol],y_pred=predict)
+print(f"test error (mse):{error_mse}")
