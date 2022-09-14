@@ -4,6 +4,10 @@ Data to be trained should have no gaps, if there are gaps, fill them with Pandas
 
 Please refer to the following [link](https://www.cienciadedatos.net/documentos/py27-time-series-forecasting-python-scikitlearn.html)
 
+Sample data: weather for Kobe city on August 2022
+
+![sample](20220802_20220812_temp.png)
+
 ## Dependencies
 
 Python3.10 on Fedora 36:

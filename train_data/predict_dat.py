@@ -57,7 +57,7 @@ print(f'number of rows with missing vals: {data.isnull().any(axis=1).mean()}')
 
 # split data into train-test
 # steps=36 # the last 36 months are used as the test to eval the predict capacity of the model
-steps = 36 # the last 90 hours are used 
+steps = 42 # the last 45 hours are used 
 data_train = data[:-steps]
 data_test = data[-steps:]
 
@@ -67,9 +67,12 @@ print(data.columns.tolist())
 
 myCol = "temp"
 fig, ax= plt.subplots(figsize=(9,4))
+
 data_train[myCol].plot(ax=ax,label='train')
 data_test[myCol].plot(ax=ax,label='test')
-ax.legend();
+ax.legend()
+plt.title("August 2022")
+plt.ylabel('\u2103', style='italic', loc='top')
 plt.show()
 
 #create and train forecaster
