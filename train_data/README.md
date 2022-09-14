@@ -10,11 +10,11 @@ Sample data: weather for Kobe city on August 2022
 
 ## Predictions
 
-|2022-08-11 | 06:00:00  |  28.184|
-|2022-08-11 | 07:00:00  | 28.821|
-|2022-08-11 | 08:00:00  | 29.579|
-|2022-08-11 | 09:00:00  |  30.338|
-| 022-08-11 | 10:00:00  |  31.163|
+    |2022-08-11 | 06:00:00  |  28.184|
+    |2022-08-11 | 07:00:00  | 28.821|
+    |2022-08-11 | 08:00:00  | 29.579|
+    |2022-08-11 | 09:00:00  |  30.338|
+    |2022-08-11 | 10:00:00  |  31.163|
 
 Freq: H, Name: pred, dtype: float64
 
@@ -31,6 +31,8 @@ Refitting `forecaster` using the best found parameters and the whole data set:
   params: {'max_depth': 5, 'n_estimators': 100}
 
 The best results are obtained using a time window of 20lags and a random forest set up of *{'max_depth': 5, 'n_estimators': 100}*
+
+In fact with the above mse_error got worst. I should tune in other parameters of the grid_search function.
 
 # Dependencies
 
