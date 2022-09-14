@@ -17,13 +17,13 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import make_pipeline
 
 # Require Visual C++ tools, not avail on Windows11
-'''
+
 from skforecast.ForecasterAutoreg import ForecasterAutoreg
 from skforecast.ForecasterAutoregCustom import ForecasterAutoregCustom
 from skforecast.ForecasterAutoregMultiOutput import ForecasterAutoregMultiOutput
 from skforecast.model_selection import grid_search_forecaster
 from skforecast.model_selection import backtesting_forecaster
-'''
+
 from joblib import dump,load
 import warnings
 
@@ -66,29 +66,29 @@ print(f"test dates: {data_test.index.min()} --- {data_test.index.max()} (n={len(
 print(data.columns.tolist())
 
 myCol = "temp"
-fig, ax= plt.subplots(figsize=(9,4))
-
+#sample and test data
+"""fig, ax= plt.subplots(figsize=(9,4))
 data_train[myCol].plot(ax=ax,label='train')
 data_test[myCol].plot(ax=ax,label='test')
 ax.legend()
-plt.title("August 2022")
-plt.ylabel('\u2103', style='italic', loc='top')
-plt.show()
+plt.show()"""
 
 #create and train forecaster
-"""forecaster = ForecasterAutoreg(regresssor = RandomForestRegressor(random_state=123),lags=6)
-forecaster.fit(y=data_train['y'])
-forecaster
+forecaster = ForecasterAutoreg(regressor = RandomForestRegressor(random_state=123),lags=6)
+forecaster.fit(y=data_train[myCol])
+print(forecaster)
 
 # predictions
-mysteps = 36
+mysteps = 42
 predict = forecaster.predict(steps=mysteps)
 predict.head(5)
 #nshould display 5 sets of data
 # plot
 fig,ax = plt.subplots(figsize=(9,4))
-data_train['y'].plot(ax=ax,label='train')
-data_test['y'].plot(ax=ax,label='test')
-predict.plot(ax=ax,label='predictions')
+data_train[myCol].plot(ax=ax,label='train')
+data_test[myCol].plot(ax=ax,label='test')
+predict.plot(ax=ax,label='predictions',color='b')
+plt.title("August 2022")
+plt.ylabel('\u2103', style='italic', loc='top')
 ax.legend()
-plt.show()"""
+plt.show()
