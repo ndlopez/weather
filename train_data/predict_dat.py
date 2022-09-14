@@ -29,7 +29,7 @@ import warnings
 
 #fetch data
 # url = 'https://raw.githubusercontent.com/JoaquinAmatRodrigo/skforecast/master/data/h2o_exog.csv'
-url = "../data/data_2022-08-02_2022-08-06.csv"
+url = "../data/data_20220802_20220812.csv"
 
 # custom_date_parse = lambda x: datetime.strptime(x, "%Y-%m-%d %H")
 # when merging date and hour cols: 
@@ -57,7 +57,7 @@ print(f'number of rows with missing vals: {data.isnull().any(axis=1).mean()}')
 
 # split data into train-test
 # steps=36 # the last 36 months are used as the test to eval the predict capacity of the model
-steps = 30 # the last 90 hours are used 
+steps = 36 # the last 90 hours are used 
 data_train = data[:-steps]
 data_test = data[-steps:]
 
