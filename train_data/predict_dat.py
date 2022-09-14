@@ -43,8 +43,7 @@ data = data.set_index('date_time')
 # data= data.rename(columns={'x':'y'})
 data = data.asfreq('H') # H: hourly ,MS: Monthly started
 data = data.sort_index()
-print(data.head())
-
+# print(data.head())
 # print(data.info())
 
 print(f'number of rows with missing vals: {data.isnull().any(axis=1).mean()}')
@@ -57,9 +56,9 @@ print(f'number of rows with missing vals: {data.isnull().any(axis=1).mean()}')
 
 # split data into train-test
 # steps=36 # the last 36 months are used as the test to eval the predict capacity of the model
-steps = 42 # the last 45 hours are used 
-data_train = data[:-steps]
-data_test = data[-steps:]
+mySteps = 42 # the last 42 hours are used 
+data_train = data[:-mySteps]
+data_test = data[-mySteps:]
 
 print(f"train dates: {data_train.index.min()} --- {data_train.index.max()} (n={len(data_train)})")
 print(f"test dates: {data_test.index.min()} --- {data_test.index.max()} (n={len(data_test)})")
@@ -74,25 +73,56 @@ ax.legend()
 plt.show()"""
 
 #create and train forecaster
-forecaster = ForecasterAutoreg(regressor = RandomForestRegressor(random_state=123),lags=6)
-forecaster.fit(y=data_train[myCol])
-print(forecaster)
+myForecaster = ForecasterAutoreg(regressor = RandomForestRegressor(random_state=123),lags=6)
+myForecaster.fit(y=data_train[myCol])
+print(myForecaster)
 
 # predictions
-mysteps = 42
-predict = forecaster.predict(steps=mysteps)
-print(predict.head(5))
+myPredict = myForecaster.predict(steps=mySteps)
+print(myPredict.head(5))
 #nshould display 5 sets of data
 # plot
-fig,ax = plt.subplots(figsize=(9,4))
-data_train[myCol].plot(ax=ax,label='train')
-data_test[myCol].plot(ax=ax,label='test')
-predict.plot(ax=ax,label='predictions',color='b')
-plt.title("August 2022")
-plt.ylabel('\u2103', style='italic', loc='top')
-ax.legend()
-plt.show()
 
 # test error
-error_mse = mean_squared_error(y_true=data_test[myCol],y_pred=predict)
+error_mse = mean_squared_error(y_true=data_test[myCol],y_pred=myPredict)
+print(f"test error (mse):{error_mse}")
+
+# hiperparam tuning: use 12 windows instead of 6
+myForecaster = ForecasterAutoreg(regressor = RandomForestRegressor(random_state=123),lags=12)
+
+lagsGrid = [10,20] # as predictors
+
+paramGrid = {'n_estimators':[100,500],'max_depth':[3,5,10]}
+
+result_grid = grid_search_forecaster(forecaster=myForecaster, y = data_train[myCol], 
+    param_grid=paramGrid,lags_grid=lagsGrid,steps=mySteps,refit=True, 
+    metric='mean_squared_error', initial_train_size= int(len(data_train)*0.5),
+    return_best=True,verbose=False)
+
+print(result_grid)
+
+exit()
+#Once the above was found re-calc
+myRegressor = RandomForestRegressor(max_depth=5, n_estimators=100, random_state=123)
+
+myForecaster = ForecasterAutoreg(regressor=myRegressor,lags=20)
+myForecaster.fit(y=data_train[myCol])
+
+# predictors
+myPredict = myForecaster.predict(steps=mySteps)
+
+def plot_graph():
+    # plot graph
+    fig, ax = plt.subplots(figsize=(9,4))
+    data_train[myCol].plot(ax=ax,label='train')
+    data_test[myCol].plot(ax=ax,label='test')
+    myPredict.plot(ax=ax,label='predicted',color='b')
+    plt.title("August 2022")
+    plt.ylabel('\u2103', style='italic', loc='top')
+    ax.legend()
+    plt.show()
+
+plot_graph()
+# test error
+error_mse = mean_squared_error(y_true=data_test[myCol],y_pred=myPredict)
 print(f"test error (mse):{error_mse}")

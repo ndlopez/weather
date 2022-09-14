@@ -22,6 +22,16 @@ test error (mse):4.815604928571416
 
 Quite large error, perhaps sample data is small.
 
+---
+
+Hiperparam grid search:
+
+Refitting `forecaster` using the best found parameters and the whole data set: 
+  lags: [ 1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20] 
+  params: {'max_depth': 5, 'n_estimators': 100}
+
+The best results are obtained using a time window of 20lags and a random forest set up of *{'max_depth': 5, 'n_estimators': 100}*
+
 # Dependencies
 
 Python3.10 on Fedora 36:
