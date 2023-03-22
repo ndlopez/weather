@@ -11,8 +11,8 @@
 # this_script lives at ${myhome}/../scripts however
 #
 place=$1
-myhome=$HOME/Projects/get_weather/data
-temp_file=${myhome}/morning_call.txt #base file
+myhome=$HOME/Projects/weather_app/data
+temp_file=${myhome}/morningCall.txt #base file
 #rm ${weather_file}
 #when no place is input
 if [[ -z $1 ]];then

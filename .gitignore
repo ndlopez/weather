@@ -12,6 +12,7 @@
 # Shell generated data
 notif_app/data/*
 notif_app/plots/*
+notif_app/*.aiff
 data/*.csv
 data/*.json
 
