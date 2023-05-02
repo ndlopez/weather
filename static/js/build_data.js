@@ -353,7 +353,7 @@ function yellow_dust(){
     innDiv.setAttribute("class","inner_div");
 
     const myDiv = document.createElement("div");
-    myDiv.innerHTML = "<img src='" + imgName + "' onerror='this.onerror=null;this.src=\"../assets/100_0999.jpg\"'/>";
+    myDiv.innerHTML = "<img src='" + imgName + "' onerror='this.onerror=null;this.src=\"assets/100_0999.jpg\"'/>";
     innDiv.appendChild(myDiv);
     outDiv.appendChild(innDiv);
     centDiv.appendChild(outDiv);

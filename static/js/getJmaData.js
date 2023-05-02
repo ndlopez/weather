@@ -1,7 +1,7 @@
 //import { theseMonths } from "./build_data.js"; SyntaxError!
 // 120x120 px Moon, courtesy of timeanddate.com
 /* append png image to svg Object
-<svg xmlns="http://www.w3.org/2000/svg"
+    <svg xmlns="http://www.w3.org/2000/svg"
      xmlns:xlink="http://www.w3.org/1999/xlink">
 
     ...
@@ -10,14 +10,10 @@
         xlink:href="data:image/png;base64,IMAGE_DATA"
         />
     ...
-</svg>
-Chibineko request PM img:
-202304080900
+    </svg>
+*/
 
-An image is generated every 3hours
- */
-
-const svg_org = "http://www.w3.org/2000/svg"
+const svg_org = "http://www.w3.org/2000/svg";
 const not_curr_Moon = "https://www.timeanddate.com/scripts/moon.php?i=0.809&p=5.670&r=5.592";
 // console.log(getBase64Img(document.getElementById("pngImg")));
 /* Fetching data from JMA.go.jp */
@@ -236,15 +232,15 @@ async function disp_info(kat){
     if(nowTenki !== null){
         var kaisa="";
         if((thisHour > parseInt(gotTime.sunset[0])) || (thisHour < parseInt(gotTime.sunrise[0]))){
-            kaisa = "<img src='assets/cloudy_night.svg'/><br/>";
+            kaisa = "<img src='static/assets/cloudy_night.svg'/><br/>";
             weathernfo.style.backgroundColor = "#0B1026";
-            weathernfo.style.backgroundImage = "url('assets/clear_night.svg')";
+            weathernfo.style.backgroundImage = "url('static/assets/clear_night.svg')";
         }else{
             weathernfo.style.backgroundColor = "#87ceeb";
             weathernfo.style.color = "#2e4054";
-            weathernfo.style.backgroundImage = "url('assets/clear_day.svg')";
+            weathernfo.style.backgroundImage = "url('static/assets/clear_day.svg')";
             kaisa = "<img src='" + ico_url + gotData.icon[0] +
-            ".svg' onerror='this.onerror=null;this.src=\"assets/cloudy_all.svg\"'/><br/>";
+            ".svg' onerror='this.onerror=null;this.src=\"static/assets/cloudy_all.svg\"'/><br/>";
         }
         nowTenki.innerHTML = kaisa + gotData.weather[0] + "<br/>" + gotData.wind[0];
     }
@@ -287,7 +283,7 @@ async function disp_info(kat){
         
         texty += "<div class='column3 float-left'><img src='"+
         ico_url+ gotData.forecast[1][idx]+
-        ".svg' onerror='this.onerror=null;this.src=\"assets/overcast.svg\"'/>"+
+        ".svg' onerror='this.onerror=null;this.src=\"static/assets/overcast.svg\"'/>"+
         "<span style='margin-top:'>"+
         gotData.forecast[4][idx]+"%</span></div>";
 
@@ -316,7 +312,7 @@ async function disp_info(kat){
     
     texty += "<span>Min "+ myMin +"&#8451; | Max "+ myMax+"&#8451;</span>";
     iconElm.innerHTML = "<img src='"+ico_url+gotData.icon[1]+
-    ".svg' onerror='this.onerror=null;this.src=\"assets/cloudy_all.svg\"'/>"+
+    ".svg' onerror='this.onerror=null;this.src=\"static/assets/cloudy_all.svg\"'/>"+
     texty;
     
     const tempElm = document.createElement("div");//tomorrow temp
