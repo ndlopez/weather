@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>.::Weather Report::. </title>
+    <meta charset="utf-8">
+    <meta name="author" content="DLopez (github.com/ndlopez)">
+    <meta name="description" content="Current weather">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="https://ndlopez.github.io/static/estilo2.css">
+    <link rel="stylesheet" type="text/css" href="https://ndlopez.github.io/static/burger.css">
+    <script src="https://ndlopez.github.io/static/d3.v4.js"></script>
+    <!--script src="https://raw.githubusercontent.com/ndlopez/webApp/main/static/build_svg.js"></script-->
+    <script src="static/build_data.js"></script><!--type="module"-->
+  </head>
+  <body>
+    <nav class="top-nav">
+      <div><h2>Weather Report</h2></div>
+      <input id="menu-toggle" type="checkbox"/><label class="menu-button-container" for="menu-toggle">
+        <div class="menu-button"></div>
+      </label>
+      <ul class="menu">
+        <li><a href="/">Home</a></li>
+        <li><a href="research.html">Research</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="https://ndzerglink.wordpress.com">Articles</a></li>
+        <!--li><a href="../tools/todo.html">ToDo</a></li-->
+        <li class="no-desktop"><a href="../tools/calendar.html">Tools / Calendar</a></li>
+        <li class="no-desktop"><a href="../tools/passGen.html">Tools / Lazy Pass</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </nav>
+
+    <!--header>
+    <button>Nagoya</button><button>Takayama</button><onclick="disp_info(1)"></header-->
+    <!--Weather conditions-->
+    <main class="row" id="weather_info">
+      <div id="curr_weather"></div>
+      <div class="row" id="weather_details"></div>
+      <section class="clearfix" id="radar_img"></section>
+      <section class="clearfix" >
+        <div id="pm25_div"></div>
+      </section>
+      <section class="row"><!--d3js plot-->
+        <div id="weather_bar" class="column80 float-left"></div>
+        <div class="column20 align-right"></div></section>
+    </main>
+
+    <aside class="clearfix" id="foreDiv"></aside>
+    <aside class="clearfix" id="forecaster"><h2>5-day forecast</h2></aside>
+    
+    <script src="static/getJmaData.js"></script>
+  
+    <footer>
+      <div class="row"><hr>
+        <div class="column clearfix align-left float-left">
+          <p><img src="../assets/globe-asia.svg" width="24"/> Hello from
+            <a target="blank" href="https://www.openstreetmap.org/search?whereami=1&query=34.7022%2C135.1940#map=14/34.7021/135.1940">34°41'N 135°11'E</a></p>
+        </div>
+        <div class="column clearfix align-right float-left">
+          <a class="mySNS" href="https://twitter.com/ndzerglink" target="_blank"><img src="../assets/twitter-logo.svg"/></a>
+          <a class="mySNS" href="https://github.com/ndlopez"><img src="../assets/github-logo.svg"/></a>
+          <a class="mySNS" target="blank" href="https://jp.linkedin.com/in/diego-lopez-58a033147"><img src="../assets/linkein-logo.svg" /></a>
+        </div>
+      </div>
+      <div class="clearfix">
+        <p>Weather data are real-time (delayed ~10min) observations and courtesy of the <a target="blank" href="https://www.jma.go.jp">Japan Meteorological Agency</a></p>
+      </div>
+      <div class="clearfix">
+        <!--img id="pngImg" class="centered" alt="Current Moon" src="https://www.timeanddate.com/scripts/moon.php?i=0.809&p=5.670&r=5.592"-->
+        <p class="centered">Made with lots of &#9749; by ndzerglink</p>
+        <p class="centered"><span class="copy-left">&copy;</span>
+        <span>2023-04-28</span></p>
+      </div>
+    </footer>
+    <nav class="no-desktop menu" id="nav-menu">
+      <ul>
+        <li><a class="link-off" href="/"><img src="../assets/home.svg"/> home</a></li>
+        <li><a class="link-off" href="research.html"><img src="../assets/telescope.svg"/> research</a></li>
+        <li><a class="link-off" href="projects.html"><img src="../assets/code.svg"/> projects</a></li>
+        <li><a class="link-on" href="#"><img src="../assets/cloudy_all.svg"/> weather</a></li>
+        <li><a class="link-off" href="/web_player"><img src="../assets/music.svg"/> music</a></li>
+      </ul></nav>
+  </body>
+</html>
