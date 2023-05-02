@@ -16,6 +16,8 @@ Chibineko request PM img:
 
 An image is generated every 3hours
  */
+
+const svg_org = "http://www.w3.org/2000/svg"
 const not_curr_Moon = "https://www.timeanddate.com/scripts/moon.php?i=0.809&p=5.670&r=5.592";
 // console.log(getBase64Img(document.getElementById("pngImg")));
 /* Fetching data from JMA.go.jp */
@@ -81,7 +83,8 @@ function build_obj_pos(sunSetRise,moonSetRise) {
     const sun_times = [sunSetRise.sunrise[0],sunSetRise.sunrise[1],sunSetRise.sunset[0],sunSetRise.sunset[1]];
     const moon_times = [parseInt(moonSetRise[2][0].trim()),parseInt(moonSetRise[2][1]),
     parseInt(moonSetRise[1][0].trim()),parseInt(moonSetRise[1][1])];
-    const width = window.screen.width -20, height = Math.floor(220*width/360) ;//px, 330x200;300x180, 120 for summer
+    // const width = window.screen.width -20, height = Math.floor(220*width/360) ;//px, 300x180, 120 for summer
+    const width = 330, height = 220;
 
     const sun_pos = calc_obj_pos(sun_times);//[0]:rr,[1]:x0, [2]:y0
     const moon_pos = calc_obj_pos(moon_times);
@@ -92,7 +95,7 @@ function build_obj_pos(sunSetRise,moonSetRise) {
     subDiv.setAttribute("class","clearfix");
     subDiv.setAttribute("id","sun-pos");
 
-    const svgGroup = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    const svgGroup = document.createElementNS(svg_org, 'svg');
     svgGroup.setAttribute("width",width);
     svgGroup.setAttribute("height",height);
     
@@ -108,7 +111,7 @@ function build_obj_pos(sunSetRise,moonSetRise) {
     }
     //console.log("_Moon",moon_pos,moon_x0y0);
 
-    const svgCircle = document.createElementNS('http://www.w3.org/2000/svg','circle');
+    const svgCircle = document.createElementNS(svg_org,'circle');
     svgCircle.setAttribute("stroke","#2e4054");
     svgCircle.setAttribute("stroke-width","2");
     svgCircle.setAttribute("fill","transparent");//
@@ -119,54 +122,54 @@ function build_obj_pos(sunSetRise,moonSetRise) {
 
     offset = 5; 
     if(thisHour < 12){offset = -5;}
-    /*const svgSun = document.createElementNS('http://www.w3.org/2000/svg','circle');
+    /*const svgSun = document.createElementNS(svg_org,'circle');
     svgSun.setAttribute("fill","#E8B720");svgSun.setAttribute("r",5);
     svgSun.setAttribute("cx",posX0Y0[0]-offset);svgSun.setAttribute("cy",posX0Y0[1]);*/
     
-    const svgSun = document.createElementNS('http://www.w3.org/2000/svg','text');
+    const svgSun = document.createElementNS(svg_org,'text');
     svgSun.setAttribute("fill","#E8B720");
     svgSun.setAttribute("x",posX0Y0[0] - offset);
     svgSun.setAttribute("y",posX0Y0[1]);
     svgSun.setAttribute("font-size","36px");
     svgSun.textContent = "\u2600";//String.fromCodePoint(0x1F506);
     
-    const svgMoon = document.createElementNS('http://www.w3.org/2000/svg','text');
+    const svgMoon = document.createElementNS(svg_org,'text');
     svgMoon.setAttribute("x",moon_x0y0[0] + offset);//width/24*thisHour
     svgMoon.setAttribute("y",moon_x0y0[1]);//0.1*height
     svgMoon.setAttribute("font-size","24px");
     svgMoon.textContent = String.fromCodePoint(0x1F314);
     //for some reason not parsed :(
-    /*const svgSubG = document.createElementNS('http://www.w3.org/2000/svg','g');
+    /*const svgSubG = document.createElementNS(svg_org,'g');
     svgSubG.setAttribute("font-size","30");svgSubG.setAttribute("fill","#ececec");
     svgSubG.textContent = '<text x="'+(0.1*width)+'" y="'+(0.25*width)+'">\u2601</text>'+
     '<text x="10" y="40">\u2601</text>';*/
     offset = (width-20)/24*thisHour;
-    const svgFlying = document.createElementNS('http://www.w3.org/2000/svg','text');
+    const svgFlying = document.createElementNS(svg_org,'text');
     svgFlying.setAttribute("x",(width - offset));
     svgFlying.setAttribute("y",0.3*height);
     svgFlying.setAttribute("font-size","24px");
     svgFlying.textContent = String.fromCodePoint(0x1F681);//"\u2601"; //cloud
     // String.fromCodePoint(0x1F681); helicopter, 1F699, jeep
-    const svgRunner = document.createElementNS('http://www.w3.org/2000/svg','text');
+    const svgRunner = document.createElementNS(svg_org,'text');
     svgRunner.setAttribute("x",0.8*width);
     svgRunner.setAttribute("y",height-2);
     svgRunner.setAttribute("font-size","20px");
     svgRunner.textContent = String.fromCodePoint(0x1F6B4);
     // Sun Rise/Set times on svg bkg
-    const svgRise = document.createElementNS('http://www.w3.org/2000/svg','text');
+    const svgRise = document.createElementNS(svg_org,'text');
     svgRise.setAttribute("fill","#cc274c");
     svgRise.setAttribute("x",18);
     svgRise.setAttribute("y",0.5*width + 35);//+28
     svgRise.setAttribute("font-size","18px");
     svgRise.textContent = sun_times[0] + ":" + sun_times[1];
-    const svgSet = document.createElementNS('http://www.w3.org/2000/svg','text');
+    const svgSet = document.createElementNS(svg_org,'text');
     svgSet.setAttribute("fill","#fff");
     svgSet.setAttribute("x",width - 48);
     svgSet.setAttribute("y",0.5*width + 35);//28
     svgSet.setAttribute("font-size","18px");
     svgSet.textContent = sun_times[2] + ":" + sun_times[3];
     // Clock on tower of svg bkg
-    const svgHour = document.createElementNS('http://www.w3.org/2000/svg','text');
+    const svgHour = document.createElementNS(svg_org,'text');
     svgHour.setAttribute("fill","#fff");svgHour.setAttribute("font-size","13px");
     svgHour.setAttribute("x",0.77*width);svgHour.setAttribute("y",0.51*height);
     svgHour.textContent = thisHour + ":" + zero_pad(thisMins);
@@ -412,7 +415,7 @@ function getBase64Img(img){
     return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
 }
 /*
-    const svgLine = document.createElementNS('http://www.w3.org/2000/svg','rect');
+    const svgLine = document.createElementNS(svg_org,'rect');
     svgLine.setAttribute("x",0);//26
     svgLine.setAttribute("y",0.5*width);
     svgLine.setAttribute("stroke","#50653b");//059862 smbc color
@@ -423,7 +426,7 @@ function getBase64Img(img){
     //var myPath = "M240 100 A40 40 40 10 90 100 0"; semicirc
     //var myPath = "M3.034,56C18.629,24.513,52.554,2.687,91.9,2.687S165.172,24.513,180.766,56h3.033 
     C168.016,23.041,132.807,0.098,91.9,0.098C50.995,0.098,15.785,23.041,0.002,56H3.034z";
-    const svgPath = document.createElementNS('http://www.w3.org/2000/svg','path');
+    const svgPath = document.createElementNS(svg_org,'path');
     svgPath.setAttribute("id","road");
     svgPath.setAttribute("stroke","#2e4054");
     svgPath.setAttribute("stroke-width","2");
