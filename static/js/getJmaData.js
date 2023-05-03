@@ -80,7 +80,7 @@ function build_obj_pos(sunSetRise,moonSetRise) {
     const moon_times = [parseInt(moonSetRise[2][0].trim()),parseInt(moonSetRise[2][1]),
     parseInt(moonSetRise[1][0].trim()),parseInt(moonSetRise[1][1])];
     // const width = window.screen.width -20, height = Math.floor(220*width/360) ;//px, 300x180, 120 for summer
-    const width = 330, height = 220;
+    const width = 350, height = 220;
 
     const sun_pos = calc_obj_pos(sun_times);//[0]:rr,[1]:x0, [2]:y0
     const moon_pos = calc_obj_pos(moon_times);
