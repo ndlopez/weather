@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>.::Welcome to my static page::. </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="../static/estilo2.css">
+    <script src="../static/d3.v4.js"></script>
+    <!--script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script-->
+  </head>
+  <body>
+    <nav class="top-menu">
+      <div class="navlink inline-block">
+        <a title="Home" href="/" class="navlink-on">home</a></div>
+      <div class="navlink inline-block"><a target="blank" title="Research" href="research.html" class="navlink-off">research</a></div>
+      <div class="navlink inline-block"><a title="Projects" href="projects.html" class="navlink-off">projects</a></div>
+      <div class="navlink inline-block"><a target="blank" title="JumbleGame" href="/jumble_game" class="navlink-off">jumble game</a></div>
+      <div class="navlink inline-block"><a title="Todo" href="todo_list.html" class="navlink-off">to do</a></div>
+    </nav>
+
+    <div class="header"><h2>Weather Report</h2></div>
+    <!--Weather conditions-->
+    <div class="row" id="weather_info">
+      <div class="clearfix" id="curr_weather"></div>
+      <div class="row" id="weather_details"></div>
+      <div class="row align-right" id="currDate"></div>
+      <div class="row">
+        <div id="weather_bar" class="column80 float-left"></div>
+        <div class="column20 align-right"><!--canvas id="myChart" width="400" height="400"></canvas--></div></div>
+    </div>
+
+    <script src="../static/fetch_weather.js"></script>
+  </body>
+  <footer>
+    <div class="row"><hr>
+      <div class="column clearfix align-left float-left">
+        <p>Data from <em>tenki.jp</em> scraped using <i>Shell, curl, SED and </i>&#9749;</p>
+        <p>Hello from
+          <a target="blank" href="https://www.openstreetmap.org/search?whereami=1&query=34.7022%2C135.1940#map=14/34.7021/135.1940">34°41'24"N 135°11'44"E</a></p>
+      </div>
+      <div class="column clearfix align-right float-left">
+        <a class="mySNS" href="https://twitter.com/ndzerglink" target="_blank"><img src="../assets/twitter-logo.svg"/></a>
+        <a class="mySNS" href="https://github.com/ndlopez"><img src="../assets/github-logo.svg"/></a>
+        <a class="mySNS" target="blank" href="https://jp.linkedin.com/in/diego-lopez-58a033147"><img src="../assets/linkein-logo.svg" /></a>
+      </div>
+    </div>
+    <div class="clearfix">
+      <p style="text-align:center;"><span class="copy-left">&copy;</span><span> 2022-09-22 Made by ndzerglink </span></p>
+    </div>
+  </footer>
+  <nav class="menu" id="nav-menu">  
+    <ul>
+      <li><a class="link-off" href="https://ndlopez.github.io"><img src="../assets/home.svg"/> home</a></li>
+      <li><a class="link-off" href="research.html"><img src="../assets/telescope.svg"/> research</a></li>
+      <li><a class="link-off" href="projects.html"><img src="../assets/code.svg"/> projects</a></li>
+      <li><a class="link-off" href="https://ndzerglink.wordpress.com"><img src="../assets/article.svg"/> articles</a></li>
+      <li><a class="link-off" href="todo_list.html"><img src="../assets/todo.svg"/> todo</a></li>
+    </ul></nav>
+</html>
