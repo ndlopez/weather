@@ -11,3 +11,10 @@ async function disp_info(kat){
     jennaDiv.innerHTML = texty;
     weathernfo.appendChild(jennaDiv);
 }
+function build_obj_pos(){
+    //for some reason not parsed :(
+    const svgSubG = document.createElementNS(svg_org,'g');
+    svgSubG.setAttribute("font-size","30");svgSubG.setAttribute("fill","#ececec");
+    svgSubG.textContent = '<text x="'+(0.1*width)+'" y="'+(0.25*width)+'">\u2601</text>'+
+    '<text x="10" y="40">\u2601</text>';
+}

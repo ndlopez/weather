@@ -130,13 +130,11 @@ function build_obj_pos(sunSetRise,moonSetRise) {
     const svgMoon = document.createElementNS(svg_org,'text');
     svgMoon.setAttribute("x",moon_x0y0[0] + offset);//width/24*thisHour
     svgMoon.setAttribute("y",moon_x0y0[1]);//0.1*height
+    // svgMoon.setAttribute("fill","#2e4054"); doesnt work
     svgMoon.setAttribute("font-size","24px");
     svgMoon.textContent = String.fromCodePoint(0x1F314);
-    //for some reason not parsed :(
-    /*const svgSubG = document.createElementNS(svg_org,'g');
-    svgSubG.setAttribute("font-size","30");svgSubG.setAttribute("fill","#ececec");
-    svgSubG.textContent = '<text x="'+(0.1*width)+'" y="'+(0.25*width)+'">\u2601</text>'+
-    '<text x="10" y="40">\u2601</text>';*/
+    // svgMoon.setAttribute("opacity","0.5"); //add opacity to text
+    
     offset = (width-20)/24*thisHour;
     const svgFlying = document.createElementNS(svg_org,'text');
     svgFlying.setAttribute("x",(width - offset));
