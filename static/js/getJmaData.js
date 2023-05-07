@@ -210,21 +210,13 @@ async function disp_info(kat){
     const gotTime = await getTimes();//fetch Sun rise/set
     const moonTimes = await getMoonTimes();//fetch Moon rise/set
     console.log("Moon",moonTimes);
+    // mobile icon
+    const thisIcon = document.getElementsByClassName("link-on");
+    thisIcon.innerHTML = "<img src='" + ico_url + gotData.icon[0] + 
+    ".svg' onerror='this.onerror=null;this.src=\"static/assets/cloudy_all.svg\"'/>";
     //sunrise/sunset + wind info
     const weathernfo = document.getElementById("curr_weather");
     weathernfo.appendChild(build_obj_pos(gotTime,moonTimes));
-    
-    /*var jennaDiv = document.createElement("div");
-    jennaDiv.setAttribute("class","clearfix");
-    jennaDiv.style.background = "url(../assets/daylen.svg) no-repeat";
-    jennaDiv.style.backgroundPosition = "50% 0%";
-    jennaDiv.setAttribute("id","sunRiseSet");
-    texty = "<div class='column3 float-left'><img src='../assets/sunrise.svg' width=32/><p class='no-margin'>"+gotTime.sunrise[0]+":"+gotTime.sunrise[1]+
-    "</p></div>" + "<div class='column3 float-left'><h3>"+ gotData.wind[0] +
-    "</h3></div><div class='column3 float-left'><img src='../assets/sunset.svg' width=32/><p class='no-margin'>" + 
-    gotTime.sunset[0]+":"+gotTime.sunset[1] + "</p></div>";
-    jennaDiv.innerHTML = texty;
-    weathernfo.appendChild(jennaDiv);*/
     
     const nowTenki = document.getElementById("now_weather");
     if(nowTenki !== null){
