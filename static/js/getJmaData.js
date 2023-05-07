@@ -211,9 +211,9 @@ async function disp_info(kat){
     const moonTimes = await getMoonTimes();//fetch Moon rise/set
     console.log("Moon",moonTimes);
     // mobile icon
-    const thisIcon = document.getElementsByClassName("link-on");
-    thisIcon.innerHTML = "<img src='" + ico_url + gotData.icon[0] + 
-    ".svg' onerror='this.onerror=null;this.src=\"static/assets/cloudy_all.svg\"'/>";
+    const thisIcon = document.getElementById("linkOn");
+    thisIcon.innerHTML = "<img width='32px' src='" + ico_url + gotData.icon[0] + 
+    ".svg' onerror='this.onerror=null;this.src=\"static/assets/cloudy_all.svg\"'/> weather";
     //sunrise/sunset + wind info
     const weathernfo = document.getElementById("curr_weather");
     weathernfo.appendChild(build_obj_pos(gotTime,moonTimes));
