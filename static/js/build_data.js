@@ -1,13 +1,5 @@
 /*
     Fetch data from jma website and organize it to display and plot.
-    New feature to be added later:
-    Up to a certain date all earthquakes in Japan
-    https://www.jma.go.jp/bosai/quake/data/list.json
-    Latest observation
-    https://www.jma.go.jp/bosai/ltpgm/data/list.json
-    From the above url fetch json field and request data to the following path
-    https://www.jma.go.jp/bosai/quake/data/ + jsonFileName
-    jsonFileName = 20230325071721_20230325071439_VXSE5k_1.json
     CORS problem import {buildProgressCircle, buildGaugeMeter } from "https://raw.githubusercontent.com/ndlopez/webApp/main/static/build_svg.js";
 */
 let months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
