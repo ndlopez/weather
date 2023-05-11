@@ -369,14 +369,14 @@ async function getMoonTimes(){
     const response = await fetch("https://raw.githubusercontent.com/ndlopez/weather/main/static/data/moon_setrise.csv");
     const data = await response.text();
     const rows = data.split('\n').slice(1);
-    const thisDay = my_date.getFullYear() + "-" + zero_pad(my_date.getMonth()+1) + 
+    const thisDate = my_date.getFullYear() + "-" + zero_pad(my_date.getMonth()+1) + 
     "-" + zero_pad(my_date.getDate()); //Current date
     var thisData = [];
     rows.forEach(row => {
         const thisVal = row.split(","); // [2022-12-05, 08:32, 21:20]
         
-        if(thisDay == thisVal[0]){
-            // console.log(thisDay,thisVal);
+        if(thisDate == thisVal[0]){
+            // console.log(thisDate,thisVal);
             thisData.push(thisVal[0]);
             thisData.push(thisVal[1].split(":"));
             thisData.push(thisVal[2].split(":"))
@@ -384,7 +384,7 @@ async function getMoonTimes(){
     });
     if (thisData.length == 0){
         // Just in case moon_data is not updated
-        thisData = ["2023-04-01",["03","20"],["13","27"]];
+        thisData = [thisDate,["03","20"],["13","27"]];
     }
     return thisData;
 }

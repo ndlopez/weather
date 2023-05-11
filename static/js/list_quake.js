@@ -24,11 +24,15 @@ async function gotdata(){
 }
 
 async function get_info(){
+    let openMap = "https://www.openstreetmap.org/#map=11/";
     const response = await fetch(quake_url);
     const data = await response.json();
-    let det_time = data[0]["rdt"];
+    let det_time = data[0]["at"];
     let location = data[0]["anm"];
     let magni = data[0]["mag"];
-    
-    return {"location":location,"det_time":det_time,"magnitud":magni}; 
+    let coord = data[0]["cod"]; //+36.4+138.1+0/
+    let lat = coord.split("+")[1], lon= coord.split("+")[2];
+    openMap += lat + "/" + lon;
+    console.log(lat,lon,aux);
+    return {"location":location,"det_time":det_time,"magnitud":magni,"link":aux}; 
 }
