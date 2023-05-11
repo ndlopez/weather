@@ -18,9 +18,7 @@ async function gotdata(){
     const main_div = document.getElementById("quake_info");
     main_div.setAttribute("class","row");
     main_div.innerHTML = "<div class='column float-left'><h3>Earthquake and Seismic Intensity Information</h3></div>" + "<div class='column float-left'><p>M "+ 
-    this_info.magnitud + " in " + this_info.location + "<br/>on " + this_date + " @" + this_time + "</p></div>";
-
-    //console.log(tagHeure);
+    this_info.magnitud + " in <a target='_blank' href='" + this_info.link + "'>" + this_info.location + "</a><br/>on " + this_date + " @" + this_time + "</p></div>";
 }
 
 async function get_info(){
@@ -30,9 +28,9 @@ async function get_info(){
     let det_time = data[0]["at"];
     let location = data[0]["anm"];
     let magni = data[0]["mag"];
-    let coord = data[0]["cod"]; //+36.4+138.1+0/
-    let lat = coord.split("+")[1], lon= coord.split("+")[2];
+    let coord = data[0]["cod"].split("+"); //+36.4+138.1+0/
+    let lat = coord[1], lon= coord[2];
     openMap += lat + "/" + lon;
-    console.log(lat,lon,aux);
-    return {"location":location,"det_time":det_time,"magnitud":magni,"link":aux}; 
+    // console.log(lat,lon,openMap);
+    return {"location":location,"det_time":det_time,"magnitud":magni,"link":openMap}; 
 }
