@@ -10,8 +10,6 @@ const quake_url = "https://www.jma.go.jp/bosai/quake/data/list.json";
 
 gotdata();
 
-
-
 async function gotdata(){
     const this_info = await get_info();
     let tagHeure = new Date(this_info.det_time);
@@ -24,14 +22,14 @@ async function gotdata(){
     const map = L.map('map').setView([this_info.latitud-0.05, this_info.longitud], 11);
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
 
-    let popup = 'M' + this_info.magnitud + " in " + this_info.location + "<br>" + 
+    let popMsg = 'M' + this_info.magnitud + " in " + this_info.location + "<br>" + 
     this_date + " @" + this_time;
 
     L.marker([this_info.latitud, this_info.longitud]).addTo(map)
-        .bindPopup(popup)
+        .bindPopup(popMsg)
         .openPopup();
 }
 
