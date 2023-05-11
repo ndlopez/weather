@@ -10,6 +10,8 @@ const quake_url = "https://www.jma.go.jp/bosai/quake/data/list.json";
 
 gotdata();
 
+
+
 async function gotdata(){
     const this_info = await get_info();
     let tagHeure = new Date(this_info.det_time);
@@ -17,8 +19,20 @@ async function gotdata(){
     let this_time = tagHeure.getHours() + ":" + tagHeure.getMinutes();
     const main_div = document.getElementById("quake_info");
     main_div.setAttribute("class","row");
-    main_div.innerHTML = "<div class='column float-left'><h3>Earthquake and Seismic Intensity Information</h3></div>" + "<div class='column float-left'><p>M "+ 
-    this_info.magnitud + " in <a target='_blank' href='" + this_info.link + "'>" + this_info.location + "</a><br/>on " + this_date + " @" + this_time + "</p></div>";
+    main_div.innerHTML = "<div class='column float-left'><h3>Earthquake and Seismic Intensity Information</h3><p>M " + this_info.magnitud + " in <a target='_blank' href='" + this_info.link + "'>" + this_info.location + "</a><br/>on " + this_date + " @" + this_time + "</p></div>" + "<div id='map' class='column float-left' style='height:180px;'></div>";
+    
+    const map = L.map('map').setView([this_info.latitud-0.05, this_info.longitud], 11);
+
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    let popup = 'M' + this_info.magnitud + " in " + this_info.location + "<br>" + 
+    this_date + " @" + this_time;
+
+    L.marker([this_info.latitud, this_info.longitud]).addTo(map)
+        .bindPopup(popup)
+        .openPopup();
 }
 
 async function get_info(){
@@ -32,5 +46,5 @@ async function get_info(){
     let lat = coord[1], lon= coord[2];
     openMap += lat + "/" + lon;
     // console.log(lat,lon,openMap);
-    return {"location":location,"det_time":det_time,"magnitud":magni,"link":openMap}; 
+    return {"location":location,"det_time":det_time,"magnitud":magni,"link":openMap,"latitud":lat,"longitud":lon}; 
 }
