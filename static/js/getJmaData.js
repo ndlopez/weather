@@ -1,4 +1,3 @@
-//import { theseMonths } from "./build_data.js"; SyntaxError!
 /* append png image to svg Object
     <svg xmlns="http://www.w3.org/2000/svg"
      xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -175,15 +174,15 @@ function build_obj_pos(sunSetRise,moonSetRise) {
         svgGroup.appendChild(svgSun);
         //if not(thisHour > sun_times[2]) || (thisHour < sun_times[0])
     }else{
-        console.log(thisHour,thisMins,"Sun below horizon");
+        // console.log(thisHour,thisMins,"Sun below horizon");
         svgGroup.appendChild(svgRunner);
     }
     if(moon_pos[1] < moon_pos[0]){
         //(thisHour <= moon_times[2]) || (thisHour >= moon_times[0])
         svgGroup.appendChild(svgMoon);
-    }else{
+    }/*else{
         console.log(thisHour,thisMins,"Moon below horizon");
-    }
+    }*/
     svgGroup.appendChild(svgHour);
     subDiv.appendChild(svgGroup);
     return subDiv;
@@ -207,7 +206,7 @@ async function disp_info(kat){
     }
     const gotTime = await getTimes();//fetch Sun rise/set
     const moonTimes = await getMoonTimes();//fetch Moon rise/set
-    console.log("Moon",moonTimes);
+    // console.log("Moon",moonTimes);
     // mobile icon
     const thisIcon = document.getElementById("linkOn");
     thisIcon.innerHTML = "<img width='32px' src='" + ico_url + gotData.icon[0] + 

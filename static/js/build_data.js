@@ -369,6 +369,8 @@ function build_plot(json_array){
     centerDiv.setAttribute("class","column-right float-left");
     const outerDiv = document.createElement("div");
     outerDiv.setAttribute("class","outer");
+    outerDiv.style.width = "auto";
+    //.outer{width: auto;/*320px;*/  overflow-x: auto;  }
     const innerDiv = document.createElement("div");
     innerDiv.setAttribute("class","inner");
 
