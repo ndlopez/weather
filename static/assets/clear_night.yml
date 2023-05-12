@@ -1,0 +1,23 @@
+About <clear_night.svg> file
+
+lightsOn: #f2f5f5
+
+building on right side
+  id: g3671
+  lines: 1726 to 1855
+  walls: #8a9da5
+windows 
+  lightsOn: #f2f5f5
+  lightsOff: #555753
+
+antennae on building:
+  lines: 1711 to 1725
+  color: #fbfbfb
+
+building on left side
+  id: 8297
+  lines: 3994
+
+Ucraine flag:
+  azure: #0057b8
+  yellow: #ffd700
