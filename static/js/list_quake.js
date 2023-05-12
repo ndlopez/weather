@@ -17,7 +17,7 @@ async function gotdata(){
     let this_time = tagHeure.getHours() + ":" + tagHeure.getMinutes();
     const main_div = document.getElementById("quake_info");
     main_div.setAttribute("class","row");
-    main_div.innerHTML = "<div class='column float-left'><h3>Earthquake and Seismic Intensity Information</h3><p>M " + this_info.magnitud + " in <a target='_blank' href='" + this_info.link + "'>" + this_info.location + "</a><br/>on " + this_date + " @" + this_time + "</p></div>" + "<div id='map' class='column float-left' style='height:180px;'></div>";
+    main_div.innerHTML = "<div class='column float-left no_mobil'><h3>Earthquake and Seismic Intensity Information</h3><p>M " + this_info.magnitud + " in <a target='_blank' href='" + this_info.link + "'>" + this_info.location + "</a><br/>on " + this_date + " @" + this_time + "</p></div><div id='map' class='column float-left' style='height:200px;'></div>";
     
     const map = L.map('map').setView([this_info.latitud-0.05, this_info.longitud], 11);
 
