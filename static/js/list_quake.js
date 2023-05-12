@@ -40,7 +40,11 @@ async function get_info(){
     let det_time = data[0]["at"];
     let location = data[0]["anm"];
     let magni = data[0]["mag"];
-    let coord = data[0]["cod"].split("+"); //+36.4+138.1+0/
+    let coord = data[0]["cod"]; //+36.4+138.1-1000/ or +34.3+139.2+100
+    if(coord.includes("-")){
+        coord = data[0]["cod"].split("-")[0];
+    }
+    coord = coord.split("+");
     let lat = coord[1], lon= coord[2];
     openMap += lat + "/" + lon;
     // console.log(lat,lon,openMap);
