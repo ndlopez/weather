@@ -1710,14 +1710,14 @@
         </g>
         <rect
            id="rect2924"
-           style="fill:#fbfbfb;fill-opacity:1"
+           style="fill:#f2f5f5;fill-opacity:1"
            height="23.334999"
            width="2.8283999"
            y="44.735001"
            x="-596.58002" />
         <rect
            id="rect2926"
-           style="fill:#fbfbfb;fill-opacity:1"
+           style="fill:#f2f5f5;fill-opacity:1"
            height="62.932999"
            width="2.8283999"
            y="4.4299002"
@@ -1742,14 +1742,14 @@
            x="-923.70001" />
         <rect
            id="rect2938"
-           style="fill:#555753"
+           style="fill:#0057b8"
            height="9.1924"
            width="113.14"
            y="106.25"
            x="-915.70001" />
         <rect
            id="rect2940"
-           style="fill:#555753"
+           style="fill:#ffd700"
            height="9.1924"
            width="113.14"
            y="127.37"
@@ -1826,7 +1826,7 @@
            x="-915.70001" />
         <rect
            id="rect2962"
-           style="fill:#f2f5f5;fill-opacity:1"
+           style="fill:#555753;fill-opacity:1"
            height="9.1924"
            width="113.14"
            y="169.61"
@@ -3956,14 +3956,14 @@
          transform="matrix(2.3394 0 0 1 1778.3 -798)">
         <rect
            id="rect8241"
-           style="fill:#f2f5f5;fill-opacity:1"
+           style="fill:#0057b8;fill-opacity:1"
            height="9.1924"
            width="113.14"
            y="106.25"
            x="-914.29" />
         <rect
            id="rect8243"
-           style="fill:#555753"
+           style="fill:#0057b8"
            height="9.1924"
            width="113.14"
            y="127.37"
@@ -3998,7 +3998,7 @@
            x="-914.29" />
         <rect
            id="rect8253"
-           style="fill:#555753"
+           style="fill:#f2f5f5"
            height="9.1924"
            width="113.14"
            y="338.56"
@@ -4012,7 +4012,7 @@
            x="-914.29" />
         <rect
            id="rect8257"
-           style="fill:#f2f5f5;fill-opacity:1"
+           style="fill:#555753;fill-opacity:1"
            height="9.1924"
            width="113.14"
            y="380.8"
@@ -4033,14 +4033,14 @@
            x="-914.29" />
         <rect
            id="rect8263"
-           style="fill:#555753"
+           style="fill:#ffd700"
            height="9.1924"
            width="113.14"
            y="148.49"
            x="-914.29" />
         <rect
            id="rect8265"
-           style="fill:#555753"
+           style="fill:#ffd700"
            height="9.1924"
            width="113.14"
            y="169.61"
