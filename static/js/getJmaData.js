@@ -366,20 +366,19 @@ async function getTimes(){
 }
 
 async function getMoonTimes(){
-    const response = await fetch("https://raw.githubusercontent.com/ndlopez/weather/main/static/data/moon_setrise.csv");
+    const response = await fetch("https://raw.githubusercontent.com/ndlopez/weather/main/static/dev/moon_times.csv");
     const data = await response.text();
     const rows = data.split('\n').slice(1);
     const thisDate = my_date.getFullYear() + "-" + zero_pad(my_date.getMonth()+1) + 
     "-" + zero_pad(my_date.getDate()); //Current date
     var thisData = [];
     rows.forEach(row => {
-        const thisVal = row.split(","); // [2022-12-05, 08:32, 21:20]
+        const thisVal = row.split(";"); // [2022-12-05, 08:32, 21:20]
         
         if(thisDate == thisVal[0]){
-            // console.log(thisDate,thisVal);
             thisData.push(thisVal[0]);
-            thisData.push(thisVal[1].split(":"));
-            thisData.push(thisVal[2].split(":"))
+            thisData.push(thisVal[2].split(":"));
+            thisData.push(thisVal[3].split(":"))
         }
     });
     if (thisData.length == 0){
