@@ -18,8 +18,9 @@ async function gotdata(){
     const main_div = document.getElementById("quake_info");
     main_div.setAttribute("class","row");
     main_div.innerHTML = "<div class='column float-left no_mobil'><h3>Earthquake and Seismic Intensity Information</h3><p>M " + this_info.magnitud + " in <a target='_blank' href='" + this_info.link + "'>" + this_info.location + "</a><br/>on " + this_date + " @" + this_time + "</p></div><div id='map' class='column float-left' style='height:200px;'></div>";
+    if(this_info.longitud != "0"){
     
-    const map = L.map('map').setView([this_info.latitud-0.05, this_info.longitud], 11);
+    const map = L.map('map').setView([this_info.latitud-0.05, this_info.longitud], 10);
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -31,6 +32,7 @@ async function gotdata(){
     L.marker([this_info.latitud, this_info.longitud]).addTo(map)
         .bindPopup(popMsg)
         .openPopup();
+    }
 }
 
 async function get_info(){
@@ -39,13 +41,16 @@ async function get_info(){
     const data = await response.json();
     let det_time = data[0]["at"];
     let location = data[0]["anm"];
-    let magni = data[0]["mag"];
+    let magni = data[0]["mag"]; // -23.2+170.7
     let coord = data[0]["cod"]; //+36.4+138.1-1000/ or +34.3+139.2+100
     if(coord.includes("-")){
         coord = data[0]["cod"].split("-")[0];
     }
     coord = coord.split("+");
     let lat = coord[1], lon= coord[2];
+    if(lat === undefined || lon === undefined){
+        lat = 0; lon=0;
+    }
     openMap += lat + "/" + lon;
     // console.log(lat,lon,openMap);
     return {"location":location,"det_time":det_time,"magnitud":magni,"link":openMap,"latitud":lat,"longitud":lon}; 

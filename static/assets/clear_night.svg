@@ -2,6 +2,7 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
+   onload="karly(evt)"
    id="svg15438"
    sodipodi:docname="clear_night.svg"
    viewBox="0 0 1168.2 540.43"
@@ -368,7 +369,19 @@
          style="stop-color:#2e4054;stop-opacity:0.3137255;"
          offset="1" />
     </linearGradient>
+    
+    <script type="text/javascript">
+      <![CDATA[
+      function karly(e){
+         var now = new Date();
+         var svg = e.target.ownerDocument;
+         svg.getElementById("thisTime").innerHTML = now.getHours() + ":" + now.getMinutes();
+         console.log(now.getHours() + ":" + now.getMinutes());
+      }
+      ]]>
+    </script>
   </defs>
+  
   <sodipodi:namedview
      id="namedview15442"
      bordercolor="#666666"
@@ -4560,6 +4573,7 @@
        id="path9164"
        style="fill:url(#linearGradient9171)"
        d="m 693.21462,1058.4971 c -4.2721,-0.01 -8.3164,2.655 -10.462,6.2904 -7.3134,-2.9507 -15.797,-1.9372 -22.574,1.963 v 60.205 c 6.0824,-3.1057 14.191,2.5128 20.477,-1.2715 5.2845,4.9794 13.701,5.7614 20.076,2.4983 5.8847,-6.3461 12.877,3.9927 20.344,1.383 7.0621,-6.1344 10.682,4.5235 17.354,4.0152 10.652,0.676 17.903,-11.1 16.306,-20.79 -0.4923,-9.5627 -11.467,-18.072 -20.544,-13.228 -3.7107,-7.7963 -13.633,-11.944 -21.771,-9.0118 -4.786,5.125 -13.984,-1.4071 -11.332,-7.4281 8.2899,-7.0216 4.4389,-23.772 -7.0265,-24.582 -0.28644,-0.025 -0.56284,-0.044 -0.84764,-0.045 z" />
+   <text id="thisTime" y="106.25" x="-915.70001" fill="wheat"></text>
   </g>
   <metadata
      id="metadata1417">
