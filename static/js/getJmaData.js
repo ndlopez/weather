@@ -255,15 +255,15 @@ async function disp_info(kat){
     
     /* Weekly forecast Max/Min*/
     const colDiv = document.getElementById("forecaster");
-    var init_idx = 2;
+    let init_idx = 2;
     if(thisHour >= 11){init_idx=1;}
     //create as many group div as forecast are available
     for(let idx = init_idx;idx < gotData.forecast[0].length; idx++){
         const groupDiv = document.createElement("div");
         groupDiv.setAttribute("class","row");
 
-        var aux = getDateHour(gotData.forecast[0][idx]);
-        var tempMin = gotData.forecast[2][idx], tempMax = gotData.forecast[3][idx];
+        const aux = getDateHour(gotData.forecast[0][idx]);
+        const tempMin = gotData.forecast[2][idx], tempMax = gotData.forecast[3][idx];
         texty = "<div class='column3 float-left' style='margin:0;border-radius:inherit;'><div class='row-date'>" + 
         "<h2 class='col-date float-left'>"+ aux.tag + "</h2><div class='col-date float-left' style='text-align:left;padding-left:0;'><p><strong>"+theseDays[aux.day] + 
         "</strong></p><p><small>"+theseMonths[aux.monty-1]+"</small></p></div></div></div>";
@@ -320,26 +320,26 @@ async function disp_info(kat){
 }
 
 async function get_data(jdx){
-    var my_url = jmaURL + city_code[jdx].code + ".json";
+    const my_url = jmaURL + city_code[jdx].code + ".json";
     const response = await fetch(my_url);
     const data = await response.json();
     //0: currDay, 1: nextDay, 2:dayAfter2moro
     const place = data[1].timeSeries[1].areas[jdx].area.name;
-    var upTime = data[0].timeSeries[0].timeDefines;
-    var thisWeather = data[0].timeSeries[0].areas[jdx].weathers;
-    var weatherIcon = data[0].timeSeries[0].areas[jdx].weatherCodes;
-    var winds = data[0].timeSeries[0].areas[jdx].winds;
-    var rainTimes = data[0].timeSeries[1].timeDefines;//6:every 6hrs
-    var rainProb = data[0].timeSeries[1].areas[jdx].pops;//6 data
-    var tempTimes = data[0].timeSeries[2].timeDefines;//max/min only
-    var temp = data[0].timeSeries[2].areas[jdx].temps;//currDay:0,1; nextDay:2,3
+    const upTime = data[0].timeSeries[0].timeDefines;
+    const thisWeather = data[0].timeSeries[0].areas[jdx].weathers;
+    const weatherIcon = data[0].timeSeries[0].areas[jdx].weatherCodes;
+    const winds = data[0].timeSeries[0].areas[jdx].winds;
+    const rainTimes = data[0].timeSeries[1].timeDefines;//6:every 6hrs
+    const rainProb = data[0].timeSeries[1].areas[jdx].pops;//6 data
+    const tempTimes = data[0].timeSeries[2].timeDefines;//max/min only
+    const temp = data[0].timeSeries[2].areas[jdx].temps;//currDay:0,1; nextDay:2,3
     //weekly forecast
-    var weekDates = data[1].timeSeries[0].timeDefines;// 7dates
-    var weekIcons = data[1].timeSeries[0].areas[jdx].weatherCodes; // 7 code Icons
-    //var weekTempDates = data[1].timeSeries[1].timeDefines; //7dates
-    var weekTempMin = data[1].timeSeries[1].areas[jdx].tempsMin;
-    var weekTempMax = data[1].timeSeries[1].areas[jdx].tempsMax;
-    var weekRainProb = data[1].timeSeries[0].areas[jdx].pops;
+    const weekDates = data[1].timeSeries[0].timeDefines;// 7dates
+    const weekIcons = data[1].timeSeries[0].areas[jdx].weatherCodes; // 7 code Icons
+    //const weekTempDates = data[1].timeSeries[1].timeDefines; //7dates
+    const weekTempMin = data[1].timeSeries[1].areas[jdx].tempsMin;
+    const weekTempMax = data[1].timeSeries[1].areas[jdx].tempsMax;
+    const weekRainProb = data[1].timeSeries[0].areas[jdx].pops;
     //console.log("RainProb",weekRainProb);
     return {"location":place,"time":upTime,"weather":thisWeather,"icon":weatherIcon,
     "wind":winds,"rain":[rainTimes,rainProb],"temp":[tempTimes,temp],
@@ -348,11 +348,8 @@ async function get_data(jdx){
 
 function convTime(unixT){
     const myTime = new Date(unixT *1000);
-    var minut = myTime.getMinutes();
-    if(minut < 10){
-        minut = "0" + minut;
-    }
-    return [myTime.getHours(), minut];
+    // if(minut < 10){ minut = "0" + minut;}
+    return [myTime.getHours(), zero_pad(myTime.getMinutes())];
 }
 
 async function getTimes(){

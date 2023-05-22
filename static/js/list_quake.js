@@ -14,7 +14,7 @@ async function gotdata(){
     const this_info = await get_info();
     let tagHeure = new Date(this_info[0].det_time);
     let this_date = (tagHeure.getMonth()+1) + "月" + tagHeure.getDate() + "日";
-    let this_time = tagHeure.getHours() + ":" + tagHeure.getMinutes();
+    let this_time = zero_pad(tagHeure.getHours())  + ":" + zero_pad(tagHeure.getMinutes());
     const main_div = document.getElementById("quake_info");
     main_div.setAttribute("class","row");
     main_div.innerHTML = "<div class='column float-left no_mobil'><h3>Earthquake and Seismic Intensity Information</h3><p>M " + this_info[0].magnitud + " in <a target='_blank' href='" + this_info[0].link + "'>" + this_info[0].location + "</a><br/>on " + this_date + " @" + this_time + "</p></div><div id='map' class='column float-left' style='height:200px;'></div>";
@@ -33,6 +33,8 @@ async function gotdata(){
             .bindPopup(popMsg)
             .openPopup();
     }
+    const list_div = document.getElementById("quake_list");
+
 }
 
 async function get_info(){
@@ -62,3 +64,5 @@ async function get_info(){
     console.log(five_events);
     return five_events;
 }
+
+function zero_pad(tit){return (tit<10)?"0"+tit:tit;}
