@@ -57,7 +57,7 @@ function getDateHour(isoStr){
 function calc_obj_pos(setRiseArr){
     // setRiseArr = [riseHr,riseMin,setHr,setMin]
     console.log("thisTimes:",setRiseArr);
-    var offset = [thisHour - setRiseArr[0], setRiseArr[2] - setRiseArr[0]];
+    let offset = [thisHour - setRiseArr[0], setRiseArr[2] - setRiseArr[0]];
     if(setRiseArr[0] > setRiseArr[2]){
         offset[1] = 24-setRiseArr[0]+setRiseArr[2];
     }
@@ -81,7 +81,7 @@ function build_obj_pos(sunSetRise,moonSetRise) {
 
     const sun_pos = calc_obj_pos(sun_times);//[0]:rr,[1]:x0, [2]:y0
     const moon_pos = calc_obj_pos(moon_times);
-    var posX0Y0 = [0,0],moon_x0y0 = [0,0];
+    let posX0Y0 = [0,0],moon_x0y0 = [0,0];
     
     //console.log("Moon",calc_obj_pos(moon_times),"Sun",calc_obj_pos(sun_times));
     const subDiv = document.createElement("div");
@@ -92,7 +92,7 @@ function build_obj_pos(sunSetRise,moonSetRise) {
     svgGroup.setAttribute("width",width);
     svgGroup.setAttribute("height",height);
     
-    var offset = 20;
+    let offset = 20;
     if((sun_pos[1] <= sun_pos[0]) && (sun_pos[1] > 0)){
         //const theta = Math.acos(1 - (2*sun_pos[1]/sun_pos[0]));//radians
         posX0Y0 = [sun_pos[1]*width/sun_pos[0] - offset,height-0.5*width*sun_pos[2]];//px
@@ -192,13 +192,13 @@ async function disp_info(kat){
     await sleepy(1500);
     const gotData = await get_data(kat);
     // console.log(gotData.temp);
-    var myMin = gotData.temp[1][2];
-    var myMax = gotData.temp[1][3];
+    let myMin = gotData.temp[1][2];
+    let myMax = gotData.temp[1][3];
     if(myMax === undefined){
         myMax = gotData.temp[1][1];
         myMin = gotData.temp[1][0];
     }
-    var texty = "";
+    let texty = "";
     const city_name = document.getElementById("this_place");
     if (city_name !== null){
         document.title = gotData.location + ": " + gotData.weather[0];
@@ -217,7 +217,7 @@ async function disp_info(kat){
     
     const nowTenki = document.getElementById("now_weather");
     if(nowTenki !== null){
-        var kaisa="";
+        let kaisa="";
         if((thisHour > parseInt(gotTime.sunset[0])) || (thisHour < parseInt(gotTime.sunrise[0]))){
             kaisa = "<img src='static/assets/cloudy_night.svg'/><br/>";
             weathernfo.style.backgroundColor = "#0B1026";
@@ -288,7 +288,7 @@ async function disp_info(kat){
     const headTitle = document.createElement("h2");
     init_idx = 1;//Before 11AM 0:today, 1: tomorrow
     if(thisHour >= 11){init_idx = 0;}     
-    var sofy = getDateHour(gotData.forecast[0][init_idx]);
+    const sofy = getDateHour(gotData.forecast[0][init_idx]);
     headTitle.innerText = "Tomorrow: " + theseDays[sofy.day] + ", " + theseMonths[sofy.monty-1] +
     " " + sofy.tag;
     myDiv.appendChild(headTitle);
@@ -307,7 +307,7 @@ async function disp_info(kat){
     texty = "";
     let jdx = gotData.rain[0].length-1;
     let kdx = 0;
-    var textW = "<p>降水確率</p><div class='row'>";
+    let textW = "<p>降水確率</p><div class='row'>";
     for(let idx = jdx-3;idx < jdx+1;idx++){
         const get_date = getDateHour(gotData.rain[0][idx]);
         texty += "<p class='col4'>"+get_date.heure+" - "+hh[kdx]+"<br/>"+gotData.rain[1][idx]+"%</p>";
@@ -367,7 +367,7 @@ async function getMoonTimes(){
     const rows = data.split('\n').slice(1);
     const thisDate = my_date.getFullYear() + "-" + zero_pad(my_date.getMonth()+1) + 
     "-" + zero_pad(my_date.getDate()); //Current date
-    var thisData = [];
+    let thisData = [];
     rows.forEach(row => {
         const thisVal = row.split(";"); // [2022-12-05, 08:32, 21:20]
         
