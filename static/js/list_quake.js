@@ -7,6 +7,8 @@
     jsonFileName = 20230325071721_20230325071439_VXSE5k_1.json
 */
 const quake_url = "https://www.jma.go.jp/bosai/quake/data/list.json";
+const openMap = "https://www.openstreetmap.org/#map=11/";
+
 const these_Months = ["January","February","March","April","May","June","July",
 "August","September","October","November","December"];
 const these_Days = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
@@ -44,10 +46,14 @@ async function gotdata(){
             .openPopup();
     }
     const list_div = document.getElementById("quake_list");
+    const div_title = document.createElement("h2");
+    div_title.innerHTML = "Earthquake and Seismic Information<br>Last 5-recent events";
+    list_div.appendChild(div_title);
     //create as many group div as forecast are available
     for(let idx = 0;idx < this_info.length; idx++){
         const groupDiv = document.createElement("div");
         groupDiv.setAttribute("class","row");
+        groupDiv.style.backgroundColor = "#bed2ed40";
         const tina = getDateHour(this_info[idx].det_time);
 
         texty = "<div class='column3 float-left' style='margin:0;border-radius:inherit;'><div class='row-date'>" + 
@@ -59,7 +65,8 @@ async function gotdata(){
         
         texty += "<div class='column3 float-left'><p>M" +
         this_info[idx].magnitud + " in " + this_info[idx].location + "</p>"+
-        "<span style='margin-top:'><a href='" +  this_info[idx].link + "'>" +
+        "<span style='margin-top:'><a href='" +  openMap + 
+        this_info[idx].latitud + "/" + this_info[idx].longitud + "'>" +
         loc_icon + "</a></span></div>";        
         
         groupDiv.innerHTML = texty;
@@ -68,7 +75,6 @@ async function gotdata(){
 }
 
 async function get_info(){
-    let openMap = "https://www.openstreetmap.org/#map=11/";
     const response = await fetch(quake_url);
     const data = await response.json();
     let five_events = [];
@@ -87,9 +93,9 @@ async function get_info(){
         if(lat === undefined || lon === undefined){
             lat = 0; lon=0;
         }
-        openMap += lat + "/" + lon;
+        // openMap += lat + "/" + lon;
         // console.log(lat,lon,openMap);
-        let eve = {"location":location,"det_time":det_time,"magnitud":magni,"link":openMap,"latitud":lat,"longitud":lon};
+        let eve = {"location":location,"det_time":det_time,"magnitud":magni,"latitud":lat,"longitud":lon};
         five_events.push(eve);
     }
     console.log(five_events);
