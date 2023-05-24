@@ -7,8 +7,17 @@
     jsonFileName = 20230325071721_20230325071439_VXSE5k_1.json
 */
 const quake_url = "https://www.jma.go.jp/bosai/quake/data/list.json";
+const theseMonths = ["January","February","March","April","May","June","July",
+"August","September","October","November","December"];
+const theseDays = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
 
 gotdata();
+
+function getDateHour(isoStr){
+    // isoStr: ISO format 2023-04-20T20:04:23
+    const gotDate = new Date(isoStr);
+    return {"monty":gotDate.getMonth() + 1,"tag":gotDate.getDate(),"day":gotDate.getDay(),"heure":gotDate.getHours()};
+}
 
 async function gotdata(){
     const this_info = await get_info();
@@ -34,7 +43,30 @@ async function gotdata(){
             .openPopup();
     }
     const list_div = document.getElementById("quake_list");
+    //create as many group div as forecast are available
+    for(let idx = 0;idx < this_info.length; idx++){
+        const groupDiv = document.createElement("div");
+        groupDiv.setAttribute("class","row");
+        const tina = getDateHour(this_info[idx].det_time);
 
+        texty = "<div class='column3 float-left' style='margin:0;border-radius:inherit;'><div class='row-date'>" + 
+        "<h2 class='col-date float-left'>"+ tina.tag + "</h2><div class='col-date float-left' style='text-align:left;padding-left:0;'><p><strong>"+theseDays[tina.day] + 
+        "</strong></p><p><small>"+theseMonths[tina.monty-1]+"</small></p></div></div></div>";
+        
+        texty += "<div class='column3 float-left'><img src='"+
+        ico_url+ gotData.forecast[1][idx]+
+        ".svg' onerror='this.onerror=null;this.src=\"static/assets/overcast.svg\"'/>"+
+        "<span style='margin-top:'>"+
+        gotData.forecast[4][idx]+"%</span></div>";
+
+        /*if(idx==0){ tempMin = myMin;tempMax = myMax; }*/
+        texty += "<div class='column3 float-left'><h4>"+tempMin+"&#8451; | "+tempMax+"&#8451;</h4></div>";
+        if((idx == 1) && (gotData.wind[2] != undefined)){
+            texty += "<p style='text-align:center;font-size:small;'>"+gotData.weather[2]+"、"+gotData.wind[2]+"</p>";            
+        }
+        groupDiv.innerHTML = texty;
+        colDiv.appendChild(groupDiv);
+    }
 }
 
 async function get_info(){
