@@ -11,12 +11,14 @@ const theseMonths = ["January","February","March","April","May","June","July",
 "August","September","October","November","December"];
 const theseDays = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
 
+const loc_icon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="#bed2e0" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="16" cy="11" r="4" /><path d="M24 15 C21 22 16 30 16 30 16 30 11 22 8 15 5 8 10 2 16 2 22 2 27 8 24 15 Z" /></svg>';
+
 gotdata();
 
 function getDateHour(isoStr){
     // isoStr: ISO format 2023-04-20T20:04:23
     const gotDate = new Date(isoStr);
-    return {"monty":gotDate.getMonth() + 1,"tag":gotDate.getDate(),"day":gotDate.getDay(),"heure":gotDate.getHours()};
+    return {"monty":gotDate.getMonth() + 1,"tag":gotDate.getDate(),"day":gotDate.getDay(),"heure":gotDate.getHours(),"minute":gotDate.getMinutes()};
 }
 
 async function gotdata(){
@@ -27,16 +29,15 @@ async function gotdata(){
     const main_div = document.getElementById("quake_info");
     main_div.setAttribute("class","row");
     main_div.innerHTML = "<div class='column float-left no_mobil'><h3>Earthquake and Seismic Intensity Information</h3><p>M " + this_info[0].magnitud + " in <a target='_blank' href='" + this_info[0].link + "'>" + this_info[0].location + "</a><br/>on " + this_date + " @" + this_time + "</p></div><div id='map' class='column float-left' style='height:200px;'></div>";
-    if(this_info[0].longitud != "0"){
     
+    if(this_info[0].longitud != "0"){
         const map = L.map('map').setView([this_info[0].latitud-0.05, this_info[0].longitud], 10);
 
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(map);
 
-        let popMsg = 'M' + this_info[0].magnitud + " in " + this_info[0].location + "<br>" + 
-        this_date + " @" + this_time;
+        let popMsg = this_date + " " + this_time + '<br>M' + this_info[0].magnitud + " in " + this_info[0].location;
 
         L.marker([this_info[0].latitud, this_info[0].longitud]).addTo(map)
             .bindPopup(popMsg)
@@ -53,19 +54,17 @@ async function gotdata(){
         "<h2 class='col-date float-left'>"+ tina.tag + "</h2><div class='col-date float-left' style='text-align:left;padding-left:0;'><p><strong>"+theseDays[tina.day] + 
         "</strong></p><p><small>"+theseMonths[tina.monty-1]+"</small></p></div></div></div>";
         
-        texty += "<div class='column3 float-left'><img src='"+
-        ico_url+ gotData.forecast[1][idx]+
-        ".svg' onerror='this.onerror=null;this.src=\"static/assets/overcast.svg\"'/>"+
+        texty += "<div class='column3 float-left'><p>M" +
+        this_info[idx].magnitud + " in " + this_info[idx].location + "</p>"+
         "<span style='margin-top:'>"+
         gotData.forecast[4][idx]+"%</span></div>";
 
-        /*if(idx==0){ tempMin = myMin;tempMax = myMax; }*/
         texty += "<div class='column3 float-left'><h4>"+tempMin+"&#8451; | "+tempMax+"&#8451;</h4></div>";
         if((idx == 1) && (gotData.wind[2] != undefined)){
             texty += "<p style='text-align:center;font-size:small;'>"+gotData.weather[2]+"、"+gotData.wind[2]+"</p>";            
         }
         groupDiv.innerHTML = texty;
-        colDiv.appendChild(groupDiv);
+        list_div.appendChild(groupDiv);
     }
 }
 
