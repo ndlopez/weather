@@ -54,6 +54,8 @@ async function gotdata(){
         const groupDiv = document.createElement("div");
         groupDiv.setAttribute("class","row");
         groupDiv.style.backgroundColor = "#bed2ed40";
+        groupDiv.style.marginBottom = "8px";
+
         const tina = getDateHour(this_info[idx].det_time);
 
         texty = "<div class='column3 float-left' style='margin:0;border-radius:inherit;'><div class='row-date'>" + 
@@ -65,7 +67,7 @@ async function gotdata(){
         
         texty += "<div class='column3 float-left'><p>M" +
         this_info[idx].magnitud + " in " + this_info[idx].location + "</p>"+
-        "<span style='margin-top:'><a href='" +  openMap + 
+        "<span style='margin-top:'><a target='_blank' href='" +  openMap + 
         this_info[idx].latitud + "/" + this_info[idx].longitud + "'>" +
         loc_icon + "</a></span></div>";        
         
@@ -86,7 +88,7 @@ async function get_info(){
         let magni = data[idx]["mag"]; // -23.2+170.7
         let coord = data[idx]["cod"]; //+36.4+138.1-1000/ or +34.3+139.2+100
         if(coord.includes("-")){
-            coord = data[0]["cod"].split("-")[0];
+            coord = data[idx]["cod"].split("-")[0];
         }
         coord = coord.split("+");
         let lat = coord[1], lon= coord[2];
@@ -98,7 +100,7 @@ async function get_info(){
         let eve = {"location":location,"det_time":det_time,"magnitud":magni,"latitud":lat,"longitud":lon};
         five_events.push(eve);
     }
-    console.log(five_events);
+    //console.log(five_events);
     return five_events;
 }
 
