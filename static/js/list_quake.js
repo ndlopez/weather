@@ -30,6 +30,7 @@ async function gotdata(){
     let this_time = zero_pad(tagHeure.getHours())  + ":" + zero_pad(tagHeure.getMinutes());
     const main_div = document.getElementById("quake_info");
     main_div.setAttribute("class","row");
+    
     main_div.innerHTML = "<div class='column float-left no_mobil'><h3>Earthquake and Seismic Intensity Information</h3><p>M " + this_info[0].magnitud + " in <a target='_blank' href='" + this_info[0].link + "'>" + this_info[0].location + "</a><br/>on " + this_date + " @" + this_time + "</p></div><div id='map' class='column float-left' style='height:200px;'></div>";
     
     if(this_info[0].longitud != "0"){
@@ -54,6 +55,9 @@ async function gotdata(){
         const groupDiv = document.createElement("div");
         groupDiv.setAttribute("class","row");
         groupDiv.style.backgroundColor = "#bed2ed40";
+        if(this_info[idx].magnitud > 5.0){
+            groupDiv.style.backgroundColor = "#cc274c";
+        }
         groupDiv.style.marginBottom = "8px";
 
         const tina = getDateHour(this_info[idx].det_time);
