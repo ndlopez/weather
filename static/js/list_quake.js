@@ -59,6 +59,7 @@ async function gotdata(){
             groupDiv.style.backgroundColor = "#cc274c";
         }
         groupDiv.style.marginBottom = "8px";
+        groupDiv.style.borderRadius = "8px";
 
         const tina = getDateHour(this_info[idx].det_time);
 
