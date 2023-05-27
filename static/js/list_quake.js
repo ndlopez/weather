@@ -58,9 +58,7 @@ async function gotdata(){
         if(this_info[idx].magnitud > 5.0){
             groupDiv.style.backgroundColor = "#cc274c";
         }
-        groupDiv.style.marginBottom = "8px";
-        groupDiv.style.borderRadius = "8px";
-
+        
         const tina = getDateHour(this_info[idx].det_time);
 
         texty = "<div class='column3 float-left' style='margin:0;border-radius:inherit;'><div class='row-date'>" + 

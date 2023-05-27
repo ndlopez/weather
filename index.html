@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="icon" type="image/svg+xml" href="static/assets/favicon.svg">
     <link rel="apple-touch-icon" type="image/svg+xml" href="assets/favicon_60.png">
-    <link rel="stylesheet" type="text/css" href="https://ndlopez.github.io/static/estilo2.css">
+    <link rel="stylesheet" type="text/css" href="static/js/estilo2.css">
     <link rel="stylesheet" type="text/css" href="https://ndlopez.github.io/static/burger.css">
     <script src="https://ndlopez.github.io/static/d3.v4.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
@@ -21,10 +21,10 @@
     <script src="static/js/build_data.js"></script><!--type="module"-->
   </head>
   <body>
-    <aside id="quake_info"></aside>
-    <nav class="top-nav">
-      <div><h2>Weather Report</h2></div>
-      <input id="menu-toggle" type="checkbox"/><label class="menu-button-container no_mobil" for="menu-toggle">
+    
+    <nav class="top-nav sticky">
+      <div><h2>Weather</h2></div>
+      <input id="menu-toggle" type="checkbox"/><label class="menu-button-container" for="menu-toggle">
         <div class="menu-button"></div>
       </label>
       <ul class="menu">
@@ -38,6 +38,7 @@
         <li><a href="/pages/about.html">About</a></li>
       </ul>
     </nav>
+    <aside id="quake_info"></aside>
 
     <!--header>
     <button>Nagoya</button><button>Takayama</button><onclick="disp_info(1)"></header-->
