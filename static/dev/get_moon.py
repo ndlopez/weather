@@ -1,23 +1,26 @@
-#extracting data from www.timeanddate.com
+#!/usr/bin/python3
+# Moon Rise/Set times, distance to Earth, % illumination
+# extracting data from www.timeanddate.com
+# 
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
 from urllib.error import HTTPError
 
 year = "2023"
-monty = "5"
+monty = "6"
+location = "nagoya"
 
-my_url='https://www.timeanddate.com/moon/japan/nagoya?month=' + \
+my_url='https://www.timeanddate.com/moon/japan/'+ location + '?month=' + \
     monty + '&year=' + year
 
-#when downloading a page...
-"""try:
+try:
+    #when downloading a page...
     source=urlopen(my_url)
     print("Access granted")
 except HTTPError as err:
     print("Access denied or...", err.code)
-    print("Better use curl to fetch the page...")"""
-    
-source = open('../../../MoonTimes.html','r')
+    print("Better use curl to fetch the page...")
+    source = open('../../../MoonTimes.html','r')
 
 soup = BeautifulSoup(source.read(),'html.parser')
 
