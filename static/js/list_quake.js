@@ -13,7 +13,7 @@ const these_Months = ["January","February","March","April","May","June","July",
 "August","September","October","November","December"];
 const these_Days = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
 
-const loc_icon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="#bed2e0" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="16" cy="11" r="4" /><path d="M24 15 C21 22 16 30 16 30 16 30 11 22 8 15 5 8 10 2 16 2 22 2 27 8 24 15 Z" /></svg>';
+const loc_icon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24" fill="none" stroke="#bed2e0" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="16" cy="11" r="4" /><path d="M24 15 C21 22 16 30 16 30 16 30 11 22 8 15 5 8 10 2 16 2 22 2 27 8 24 15 Z" /></svg>';
 
 gotdata();
 
@@ -70,13 +70,14 @@ async function gotdata(){
         //":" + zero_pad(tina.minute) + "</h4></div>";
 
         texty += "<div class='column3 float-left' style='margin:0;border-radius:inherit;'><div class='row-date'>" + 
-        "<h2 class='col-date float-left'>M"+ this_info[idx].magnitud + "</h2><div class='col-date float-left' style='text-align:left;padding-left:0;'><p><strong>" + zero_pad(tina.heure) + ":" + 
-        zero_pad(tina.minute) + "</strong></p><p><small>"+"</small></p></div></div></div>";
+        "<div class='col-date float-left' style='text-align:left;padding-left:0;'><p>" + "</p><p><strong>" + zero_pad(tina.heure) + ":" + zero_pad(tina.minute) + "</p></div>"+
+        "<h3 class='col-date float-left'>M"+ this_info[idx].magnitud + "</h3>"+
+        "</div></div>";
         
         texty += "<div class='column3 float-left'>" + 
         "<span style='margin-top:'><a target='_blank' href='" +  openMap + 
         this_info[idx].latitud + "/" + this_info[idx].longitud + "'><p>" +
-        this_info[idx].location + "</p>" + loc_icon + "</a></span></div>";        
+        this_info[idx].location + "</p>" + loc_icon + "</a></span></div>";
         
         groupDiv.innerHTML = texty;
         list_div.appendChild(groupDiv);
