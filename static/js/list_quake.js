@@ -48,7 +48,8 @@ async function gotdata(){
     }
     const list_div = document.getElementById("quake_list");
     const div_title = document.createElement("h2");
-    div_title.innerHTML = "Earthquake and Seismic Information<br>Last 5-recent events";
+    div_title.innerHTML = "Earthquake and Seismic Information<br>Last "+
+    this_info.length + "-recent events";
     list_div.appendChild(div_title);
     //create as many group div as forecast are available
     for(let idx = 0;idx < this_info.length; idx++){
@@ -65,14 +66,17 @@ async function gotdata(){
         "<h2 class='col-date float-left'>"+ tina.tag + "</h2><div class='col-date float-left' style='text-align:left;padding-left:0;'><p><strong>"+these_Days[tina.day] + 
         "</strong></p><p><small>"+these_Months[tina.monty-1]+"</small></p></div></div></div>";
 
-        texty += "<div class='column3 float-left'><h4>" + zero_pad(tina.heure)+
-        ":" + zero_pad(tina.minute) + "</h4></div>";
+        //texty += "<div class='column3 float-left'><h4>" + zero_pad(tina.heure)+
+        //":" + zero_pad(tina.minute) + "</h4></div>";
+
+        texty += "<div class='column3 float-left' style='margin:0;border-radius:inherit;'><div class='row-date'>" + 
+        "<h2 class='col-date float-left'>M"+ this_info[idx].magnitud + "</h2><div class='col-date float-left' style='text-align:left;padding-left:0;'><p><strong>" + zero_pad(tina.heure) + ":" + 
+        zero_pad(tina.minute) + "</strong></p><p><small>"+"</small></p></div></div></div>";
         
-        texty += "<div class='column3 float-left'><p>M" +
-        this_info[idx].magnitud + " in " + this_info[idx].location + "</p>"+
+        texty += "<div class='column3 float-left'>" + 
         "<span style='margin-top:'><a target='_blank' href='" +  openMap + 
-        this_info[idx].latitud + "/" + this_info[idx].longitud + "'>" +
-        loc_icon + "</a></span></div>";        
+        this_info[idx].latitud + "/" + this_info[idx].longitud + "'><p>" +
+        this_info[idx].location + "</p>" + loc_icon + "</a></span></div>";        
         
         groupDiv.innerHTML = texty;
         list_div.appendChild(groupDiv);
@@ -97,11 +101,12 @@ async function get_info(){
         let lat = coord[1], lon= coord[2];
         if(lat === undefined || lon === undefined){
             lat = 0; lon=0;
+        }else{
+            let eve = {"location":location,"det_time":det_time,"magnitud":magni,"latitud":lat,"longitud":lon};
+            five_events.push(eve);
         }
         // openMap += lat + "/" + lon;
-        // console.log(lat,lon,openMap);
-        let eve = {"location":location,"det_time":det_time,"magnitud":magni,"latitud":lat,"longitud":lon};
-        five_events.push(eve);
+        // console.log(lat,lon,openMap);        
     }
     //console.log(five_events);
     return five_events;
