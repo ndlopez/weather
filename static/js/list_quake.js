@@ -47,8 +47,8 @@ async function gotdata(){
             .openPopup();
     }
     const list_div = document.getElementById("quake_list");
-    const div_title = document.createElement("h2");
-    div_title.innerHTML = "Earthquake and Seismic Information<br>Last "+
+    const div_title = document.createElement("h2");//and Seismic
+    div_title.innerHTML = "Earthquake Information<br>Last "+
     this_info.length + "-recent events";
     list_div.appendChild(div_title);
     //create as many group div as forecast are available

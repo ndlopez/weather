@@ -254,8 +254,12 @@ async function disp_info(kat){
     
     /* Weekly forecast Max/Min*/
     const colDiv = document.getElementById("forecaster");
+    const colTitle = document.createElement("h2");
+
     let init_idx = 2;
     if(thisHour >= 11){init_idx=1;}
+    colTitle.innerHTML =  (gotData.forecast[0].length - init_idx) + "-day forecast";
+    colDiv.appendChild(colTitle);
     //create as many group div as forecast are available
     for(let idx = init_idx;idx < gotData.forecast[0].length; idx++){
         const groupDiv = document.createElement("div");
