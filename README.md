@@ -5,8 +5,12 @@
 ## Features
 
 - Fully responsive
-- Data rendered with d3.js
-- Weather data is from JMA site
+- All Data rendered with d3.js
+- Weather and earthquake data are from Japan Metereological Agency
+- Rain radar image is grabbed from tenki.jp
+- Moon rise/set times are scrapped from timeanddate.com
+- Sun rise/set times is courtesy of dayspedia.com
+- Map rendered with openStreetMap.org and Leaflet.js
 
 ## WebApp
 
@@ -43,7 +47,7 @@ Branch created "notif"
 ---
 Enviroment: 
 - MacBookPro/MacOS 15.5<br>
-- Panasonic Let'sNote/Linux Fedora 24<br>
+- Panasonic Let'sNote/Linux Fedora 36<br>
 
 Languages: Shell, JavaScript, Ruby<br>
 Editors: VIM and Emacs
