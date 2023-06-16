@@ -51,13 +51,14 @@ async function gotdata(){
     div_title.innerHTML = "Earthquake Information<br>Last "+
     this_info.length + "-recent events";
     list_div.appendChild(div_title);
-    //create as many group div as forecast are available
+    //create as many group div as info is available
     for(let idx = 0;idx < this_info.length; idx++){
-        const groupDiv = document.createElement("div");
-        groupDiv.setAttribute("class","row");
-        groupDiv.style.backgroundColor = "#bed2ed40";
+        const groupDiv = document.createElement("details");
+        const sumDiv = document.createElement("summary");
+        sumDiv.setAttribute("class","row");
+        sumDiv.style.backgroundColor = "#bed2ed40";
         if(this_info[idx].magnitud > 5.0){
-            groupDiv.style.backgroundColor = "#cc274c";
+            sumDiv.style.backgroundColor = "#cc274c";
         }
         
         const tina = getDateHour(this_info[idx].det_time);
@@ -79,7 +80,11 @@ async function gotdata(){
         this_info[idx].latitud + "/" + this_info[idx].longitud + "'><p>" +
         this_info[idx].location + "</p>" + loc_icon + "</a></span></div>";
         
-        groupDiv.innerHTML = texty;
+        sumDiv.innerHTML = texty;
+        groupDiv.appendChild(sumDiv);
+        const mapDiv = document.createElement("div");
+        mapDiv.innerHTML = "<h3>insert map here</h3>";
+        groupDiv.appendChild(mapDiv);
         list_div.appendChild(groupDiv);
     }
 }
