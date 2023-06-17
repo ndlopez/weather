@@ -15,7 +15,9 @@ const these_Days = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
 
 const loc_icon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24" fill="none" stroke="#bed2e0" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="16" cy="11" r="4" /><path d="M24 15 C21 22 16 30 16 30 16 30 11 22 8 15 5 8 10 2 16 2 22 2 27 8 24 15 Z" /></svg>';
 
-gotdata();
+// gotdata();
+
+pointMap();
 //console.log(pointMap(135,35,div_map_1));
 function getDateHour(isoStr){
     // isoStr: ISO format 2023-04-20T20:04:23
@@ -31,10 +33,10 @@ async function gotdata(){
     const main_div = document.getElementById("quake_info");
     main_div.setAttribute("class","row");
     
-    main_div.innerHTML = `<div class='column float-left no_mobil'><h3>Earthquake and Seismic Intensity Information</h3><p>M${this_info[0].magnitud} in <a target='_blank' href='${this_info[0].link}'> ${this_info[0].location} </a><br/>on ${this_date} ${this_time}</p></div><div id='map' class='column float-left' style='height:200px;'></div>`;
+    main_div.innerHTML = `<div class='column float-left no_mobil'><h3>Earthquake and Seismic Intensity Information</h3><p>M${this_info[0].magnitud} in <a target='_blank' href='${this_info[0].link}'> ${this_info[0].location} </a><br/>on ${this_date} ${this_time}</p></div><div id='top_map' class='column float-left' style='height:200px;'></div>`;
     
     if(this_info[0].longitud != "0"){
-        const map = L.map('map').setView([this_info[0].latitud-0.05, this_info[0].longitud], 10);
+        const map = L.map('top_map').setView([this_info[0].latitud-0.05, this_info[0].longitud], 9);
 
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -72,30 +74,33 @@ async function gotdata(){
         <div class='col-date float-left' style='text-align:left;padding-left:0;'><p></p><p><strong> ${zero_pad(tina.heure)}:${zero_pad(tina.minute)}</p></div><h3 class='col-date float-left'>M${this_info[idx].magnitud}</h3></div></div>`;
         
         texty += `<div class='column3 float-left'>
-        <span style='margin-top:'><a target='_blank' href='${openMap}${this_info[idx].latitud}/${this_info[idx].longitud}'><p>${this_info[idx].location}</p></a></span></div>`;
-        
+        <span style='margin-top:'><p>${this_info[idx].location}</p></span></div>`;
+        // <a target='_blank' href='${openMap}${this_info[idx].latitud}/${this_info[idx].longitud}'></a>
         sumDiv.innerHTML = texty;
         groupDiv.appendChild(sumDiv);
         const mapDiv = document.createElement("div");
         mapDiv.setAttribute("id","div_map_"+idx);
-        mapDiv.innerHTML = pointMap(this_info[idx].latitud,this_info[idx].longitud,"div_map_"+idx);
+        mapDiv.style.height = "200px";
+        // mapDiv.innerHTML = "some"; 
+        //let aux = pointMap(this_info[idx].latitud,this_info[idx].longitud,idx);
         groupDiv.appendChild(mapDiv);
         list_div.appendChild(groupDiv);
-    }
-    function pointMap(latitud,longitud,divMap){
-        const map = L.map(divMap).setView([latitud-0.05, longitud], 10);
-    
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }).addTo(map);
-    
-        let popMsg = this_date + " " + this_time;
-    
-        L.marker([latitud, longitud]).addTo(map)
-            .bindPopup(popMsg)
-            .openPopup();
-        return map
-    }
+    }   
+}
+
+async function pointMap(latitud=35,longitud=135){
+    await gotdata();
+    const map = L.map("div_map_1").setView([latitud-0.05, longitud], 10);
+
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+    let popMsg = "this_date" + " " + "this_time";
+
+    L.marker([latitud, longitud]).addTo(map)
+        .bindPopup(popMsg)
+        .openPopup();
 }
 
 async function get_info(){
