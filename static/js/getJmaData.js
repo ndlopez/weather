@@ -231,7 +231,14 @@ async function disp_info(kat){
         nowTenki.innerHTML = kaisa + gotData.weather[0] + "<br/>" + gotData.wind[0];
     }
     /* today rain Prob*/
-    const div_rain = document.getElementById("rainToday")
+    const div_rain = document.getElementById("rainToday");
+    let susy = "", kdx=0, jdx = gotData.rain[0].length-1;
+    for(let idx = jdx-3;idx < jdx+1;idx++){
+        const get_date = getDateHour(gotData.rain[1][idx]);
+        susy += "<p class='col4'>"+get_date.heure+" - "+hh[kdx]+"<br/>"+gotData.rain[1][idx]+"%</p>";
+	    kdx++;
+    }
+    div_rain.innerHTML = susy; 
     const rainP = document.getElementById("rainProb");
     if(rainP !== null){
         rainP.innerText = gotData.rain[1][0] + "%";
@@ -310,8 +317,8 @@ async function disp_info(kat){
     const tempElm = document.createElement("div");//tomorrow temp
     tempElm.setAttribute("class","column float-left");
     texty = "";
-    let jdx = gotData.rain[0].length-1;
-    let kdx = 0;
+    
+    kdx = 0;
     let textW = "<p>降水確率</p><div class='row'>";
     for(let idx = jdx-3;idx < jdx+1;idx++){
         const get_date = getDateHour(gotData.rain[0][idx]);
