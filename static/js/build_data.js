@@ -31,7 +31,7 @@ const maxValue = 6; //m/s when 10m/s too many scales, should display half
 // const ngo_pred = [{xp:0,yp:14.0},{xp:7,yp:11.0},{xp:14,yp:20.0},{xp:23,yp:12.0}];//spring
 const ngo_pred = [{xp:0,yp:20.0},{xp:7,yp:18.0},{xp:14,yp:26.0},{xp:23,yp:19.0}];//late spring
 const tky_pred = [{xp:0,yp:5.0},{xp:7,yp:3},{xp:14,yp:13},{xp:23,yp:4}];
-var hours = [];
+let hours = [];
 for (let idx = 0; idx < 24; idx++) hours.push(idx);
 
 /* Fixing bug at 0:00 ~ 0:20 */
@@ -64,7 +64,7 @@ const desc_wind = [{"speed":0.28,"en_desc":"calm","jp_desc":"静穏"},
 //more at https://www.i-kahaku.jp/friend/kagaku/0306/kaze/index.html
 function get_wind_desc(wspeed){
     // wspeed is float
-    var thisWind = "";
+    let thisWind = "";
     for (let item in desc_wind) {
         if(wspeed <= desc_wind[item].speed){
             thisWind = desc_wind[item].jp_desc;
@@ -89,7 +89,7 @@ function get_min_attr(tit){
 }
 
 function buildProgressCircle(percent,title,texty) {
-    let radius = 52;
+    const radius = 52;
     const pTitle = document.createElement("p");
     pTitle.innerText = title;
     const subDiv = document.createElement("div");
@@ -120,13 +120,13 @@ function buildProgressCircle(percent,title,texty) {
     svgGroup.appendChild(svgBkgCircle);
     svgGroup.appendChild(svgCircle);
     
-    var circumference = radius * 2 * Math.PI;
+    const circumference = radius * 2 * Math.PI;
     svgCircle.style.strokeDasharray = `${circumference} ${circumference}`;
     svgCircle.style.strokeDashoffset = `${circumference}`;
     const offset = circumference - percent / 100 * circumference;
     svgCircle.style.strokeDashoffset = offset;
     subDiv.appendChild(svgGroup);
-    var subDivVal = document.createElement("div");
+    const subDivVal = document.createElement("div");
     subDivVal.setAttribute("class","value");
     subDivVal.innerHTML = texty;
     subDiv.appendChild(subDivVal);
@@ -158,8 +158,8 @@ function buildGaugeMeter(value,title,htmlTxt){
     svgPath.setAttribute("stroke-linecap","round");
     svgPath.setAttribute("fill","none");
 
-    var posXY = buildPath(value,radius,10);
-    var myPath = "M 15 90 A 50 50 0 " + posXY[2] + " 1 " + posXY[0] + " "+ posXY[1];
+    const posXY = buildPath(value,radius,10);
+    const myPath = "M 15 90 A 50 50 0 " + posXY[2] + " 1 " + posXY[0] + " "+ posXY[1];
     svgPath.setAttribute("d",myPath);//60 18
     //console.log(value,posXY[0],myPath);//"M 15 90 A 50 50 0 0 1 95.35 32.64"
 
@@ -178,15 +178,15 @@ function buildGaugeMeter(value,title,htmlTxt){
     for (let index = 0; index <= maxValue; index++) {
         //var thisAng = 0;//index/maxValue*180;
         const rr = 30;
-        var xx = 0;
+        let xx = 0;
 
         /* if(index < (maxValue/2)){xx = 20 + rr*(1-Math.cos(thisAng*toRadians));}
         else{thisAng = 180 - thisAng;xx = 60 + rr*Math.cos(thisAng*toRadians);} */
-        var pos = buildPath(index,rr,20);
+        const pos = buildPath(index,rr,20);
         xx = pos[0];
         if (index == maxValue/2){xx = 55;}
         
-        var yy = pos[1];
+        let yy = pos[1];
         if(index == maxValue){xx = 85;}
         const myText = buildSVGtext(xx,yy,index);
         svgGroup.appendChild(myText);
@@ -205,8 +205,8 @@ function buildGaugeMeter(value,title,htmlTxt){
 }
 function buildPath(inValue,radio,xOffset){
     //calc circ_path based on MaxValue = 6m/s
-    var beta = 0; 
-    var dx = 0;
+    let beta = 0; 
+    let dx = 0;
 
     if (inValue < (maxValue/2)){
         beta = inValue * 38.614 - 25.842;
@@ -216,8 +216,8 @@ function buildPath(inValue,radio,xOffset){
         //angle = 180 - angle;//231.566
         dx = 60 + radio*Math.cos(beta*toRadians);
     }
-    var flag = 0;
-    var dy = 68 - radio*Math.sin(beta*toRadians); //68
+    let flag = 0;
+    let dy = 68 - radio*Math.sin(beta*toRadians); //68
 
     if (inValue == 0){dy=90;}
     if (inValue == 6){
@@ -228,7 +228,7 @@ function buildPath(inValue,radio,xOffset){
     if (inValue == 5){flag = 1;}
     //thisPath = "M 15 90 A 50 50 0 " + flag + " 1 " + String(dx) + " "+ String(dy);
 
-    var arr = [];
+    let arr = [];
     arr.push(dx);
     arr.push(dy);
     arr.push(flag);
@@ -252,7 +252,7 @@ function buildSVGtext(dx,dy,text){
         try {
             const response = await fetch(path);
             const data = await response.json();
-            var newHour = parseInt(dataHours[jdx]);
+            const newHour = parseInt(dataHours[jdx]);
             build_array(newHour,data);
         } catch (error) {
             console.log(error);
@@ -263,26 +263,29 @@ function buildSVGtext(dx,dy,text){
     //var img_url = "";
     //let temp_max_min = maxmin[0];//the date: myData.curr_weather[0][0]
     const lastElm = curr_weather.length-1;
-    var text = "<h2 id='this_place'></h2><h3 class='no-padding'>"+ days[today] + ", " + months[monty-1] + " " + tag + " "+curr_weather[lastElm].hour_min+"</h3>";
+    let text = "<h2 id='this_place'></h2><h3 class='no-padding'>"+ days[today] + ", " + months[monty-1] + " " + tag + " "+curr_weather[lastElm].hour_min+"</h3>";
     text += "<div class='clearfix'><span class='large'>" + 
     "&emsp;" + curr_weather[lastElm].temp + "&#8451;</span><span id='now_weather' class='middle'></span>" + 
     "<h4>Max "+ maxmin[0] + "&#8451;&emsp;Min " + maxmin[1] +  "&#8451;</h4></div>";
+
+    text += "<div id='rainToday' class='clearfix'></div>";
+    
     document.getElementById("curr_weather").innerHTML = text;
 
-    var detailsDiv = document.getElementById("weather_details");
+    const detailsDiv = document.getElementById("weather_details");
     text = "<h4>mm/H</h4><h2 id='rainProb'></h2>";
     //console.log("rain1H",Math.round(curr_weather[lastElm].rain));
-    var rainDiv = buildGaugeMeter(Math.round(curr_weather[lastElm].rain),"RAIN",text);
+    const rainDiv = buildGaugeMeter(Math.round(curr_weather[lastElm].rain),"RAIN",text);
     detailsDiv.appendChild(rainDiv);
 
     text = "<h2><br><br>" + curr_weather[lastElm].humid + "%</h2>";
-    var humidDiv = buildProgressCircle(curr_weather[lastElm].humid,"HUMIDITY",text);
+    const humidDiv = buildProgressCircle(curr_weather[lastElm].humid,"HUMIDITY",text);
     detailsDiv.appendChild(humidDiv);
 
     text = "<h4>m/s<br/>"+get_wind_desc(curr_weather[lastElm].wind) +"</h4><h2>" + 
     windChar(curr_weather[lastElm].windDir) + "</h2>";
-    var kelly = Math.round(curr_weather[lastElm].wind);
-    var windDiv = buildGaugeMeter(kelly,"WIND",text);
+    const kelly = Math.round(curr_weather[lastElm].wind);
+    const windDiv = buildGaugeMeter(kelly,"WIND",text);
     detailsDiv.appendChild(windDiv);
     
 })();
@@ -293,14 +296,14 @@ function build_array(hour,gotData){
     // here I should distinguish between Max and Min at every 10min obs.
     const limit = 2;
     for(let idx = hour; idx <= hour + limit; idx++){
-        var aux = build_attrib(idx);
+        let aux = build_attrib(idx);
         if (gotData[aux] === undefined){break;}
         const abby = {"hour":idx,"temp":gotData[aux].temp[0],"humid":gotData[aux].humidity[0],
         "wind":Math.round(gotData[aux].wind[0]) ,"windDir":gotData[aux].windDirection[0],"rain":gotData[aux].precipitation1h[0]};
         result.push(abby);
     }
     //get last data of each JSON object
-    var lena = Object.keys(gotData)[Object.keys(gotData).length-1];
+    const lena = Object.keys(gotData)[Object.keys(gotData).length-1];
     //console.log(hour,lena,gotData[lena].temp[0]);
     /*if(currMin < 20){currMin = 60;currHH = currHH -1;}*/
     //console.log(lena.slice(-6,-4),lena.slice(-4,-2));
@@ -385,7 +388,7 @@ function build_plot(json_array){
     containDiv.appendChild(rightDiv);
 
     const xSize = 735,ySize=450;
-    var margin = {top:40,right:20,bottom:50,left:0},
+    const margin = {top:40,right:20,bottom:50,left:0},
     w = xSize - margin.left - margin.right,
     h = ySize - margin.top - margin.bottom;
     
@@ -425,13 +428,13 @@ function build_plot(json_array){
     svgRight.append("g").call(d3.axisRight(yHumid));//.attr("transform","translate("+w+",0)");
     svgRight.append("g").append("text").text("%").attr("x",10).attr("y",-10);
 
-    var svg2 = d3.select("#mainPlot")
+    const svg2 = d3.select("#mainPlot")
     .append("svg")
     .attr('width',w+margin.left+margin.right)
     .attr('height',h+margin.top+margin.bottom)
     .append("g")
     .attr("transform",`translate(${margin.left},${margin.top})`);
-    var xScale=d3.scaleBand().range([0,w])
+    const xScale=d3.scaleBand().range([0,w])
     .domain(hours)
     /*.domain(json_array.map(function(d){return d.hour;})) //scale up to currHour*/
     .padding(0.3);
@@ -523,7 +526,7 @@ function build_plot(json_array){
     .attr("y",(d)=>{return h-25;})
     .attr("font-size","11px");
     //prediction curve
-    var thisCurve = d3.line()
+    const thisCurve = d3.line()
     .x((d)=> xScale(d.xp))
     .y((d)=> yScale(d.yp))
     .curve(d3.curveCardinal);

@@ -93,11 +93,11 @@ async function gotdata(){
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(map);
 
-        // let popMsg = this_date + " " + this_time;
+        let popMsg = this_info[jdx].location;//this_date + " " + this_time;
 
-        L.marker([this_info[jdx].latitud, this_info[jdx].longitud]).addTo(map);
-        //    .bindPopup(popMsg)
-        //    .openPopup();
+        L.marker([this_info[jdx].latitud, this_info[jdx].longitud]).addTo(map)
+            .bindPopup(popMsg)
+            .openPopup();
     }
 }
 

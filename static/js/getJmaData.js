@@ -231,9 +231,11 @@ async function disp_info(kat){
         nowTenki.innerHTML = kaisa + gotData.weather[0] + "<br/>" + gotData.wind[0];
     }
     /* today rain Prob*/
+    const div_rain = document.getElementById("rainToday")
     const rainP = document.getElementById("rainProb");
     if(rainP !== null){
         rainP.innerText = gotData.rain[1][0] + "%";
+        console.log("rest",gotData.rain[1][1],gotData.rain[1][2],gotData.rain[1][3]);
     }
 
     const radarImg = document.getElementById("radar_img");
