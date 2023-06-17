@@ -15,9 +15,9 @@ const these_Days = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
 
 const loc_icon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24" fill="none" stroke="#bed2e0" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="16" cy="11" r="4" /><path d="M24 15 C21 22 16 30 16 30 16 30 11 22 8 15 5 8 10 2 16 2 22 2 27 8 24 15 Z" /></svg>';
 
-// gotdata();
+gotdata();
 
-pointMap();
+//pointMap();
 //console.log(pointMap(135,35,div_map_1));
 function getDateHour(isoStr){
     // isoStr: ISO format 2023-04-20T20:04:23
@@ -85,7 +85,20 @@ async function gotdata(){
         //let aux = pointMap(this_info[idx].latitud,this_info[idx].longitud,idx);
         groupDiv.appendChild(mapDiv);
         list_div.appendChild(groupDiv);
-    }   
+    }
+    for(let jdx=0; jdx < this_info.length; jdx++){
+        const map = L.map("div_map_"+jdx).setView([this_info[jdx].latitud-0.05, this_info[jdx].longitud], 10);
+
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+
+        // let popMsg = this_date + " " + this_time;
+
+        L.marker([this_info[jdx].latitud, this_info[jdx].longitud]).addTo(map);
+        //    .bindPopup(popMsg)
+        //    .openPopup();
+    }
 }
 
 async function pointMap(latitud=35,longitud=135){
