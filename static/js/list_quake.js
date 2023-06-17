@@ -16,14 +16,12 @@ const these_Days = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
 const loc_icon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24" fill="none" stroke="#bed2e0" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="16" cy="11" r="4" /><path d="M24 15 C21 22 16 30 16 30 16 30 11 22 8 15 5 8 10 2 16 2 22 2 27 8 24 15 Z" /></svg>';
 
 gotdata();
-
+//console.log(pointMap(135,35,div_map_1));
 function getDateHour(isoStr){
     // isoStr: ISO format 2023-04-20T20:04:23
     const gotDate = new Date(isoStr);
     return {"monty":gotDate.getMonth() + 1,"tag":gotDate.getDate(),"day":gotDate.getDay(),"heure":gotDate.getHours(),"minute":gotDate.getMinutes()};
 }
-
-function pointMap(){}
 
 async function gotdata(){
     const this_info = await get_info();
@@ -48,6 +46,7 @@ async function gotdata(){
             .bindPopup(popMsg)
             .openPopup();
     }
+    // Recent events
     const list_div = document.getElementById("quake_list");
     const div_title = document.createElement("h2");//and Seismic
     div_title.innerHTML = `Earthquake Information<br>Last ${this_info.length}-recent events`;
@@ -73,14 +72,29 @@ async function gotdata(){
         <div class='col-date float-left' style='text-align:left;padding-left:0;'><p></p><p><strong> ${zero_pad(tina.heure)}:${zero_pad(tina.minute)}</p></div><h3 class='col-date float-left'>M${this_info[idx].magnitud}</h3></div></div>`;
         
         texty += `<div class='column3 float-left'>
-        <span style='margin-top:'><a target='_blank' href='${openMap}${this_info[idx].latitud}/${this_info[idx].longitud}'><p>${this_info[idx].location}</p>${loc_icon}</a></span></div>`;
+        <span style='margin-top:'><a target='_blank' href='${openMap}${this_info[idx].latitud}/${this_info[idx].longitud}'><p>${this_info[idx].location}</p></a></span></div>`;
         
         sumDiv.innerHTML = texty;
         groupDiv.appendChild(sumDiv);
         const mapDiv = document.createElement("div");
-        mapDiv.innerHTML = "<h3>insert map here</h3>";
+        mapDiv.setAttribute("id","div_map_"+idx);
+        mapDiv.innerHTML = pointMap(this_info[idx].latitud,this_info[idx].longitud,"div_map_"+idx);
         groupDiv.appendChild(mapDiv);
         list_div.appendChild(groupDiv);
+    }
+    function pointMap(latitud,longitud,divMap){
+        const map = L.map(divMap).setView([latitud-0.05, longitud], 10);
+    
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+    
+        let popMsg = this_date + " " + this_time;
+    
+        L.marker([latitud, longitud]).addTo(map)
+            .bindPopup(popMsg)
+            .openPopup();
+        return map
     }
 }
 
