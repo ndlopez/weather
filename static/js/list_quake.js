@@ -23,6 +23,8 @@ function getDateHour(isoStr){
     return {"monty":gotDate.getMonth() + 1,"tag":gotDate.getDate(),"day":gotDate.getDay(),"heure":gotDate.getHours(),"minute":gotDate.getMinutes()};
 }
 
+function pointMap(){}
+
 async function gotdata(){
     const this_info = await get_info();
     let tagHeure = new Date(this_info[0].det_time);
@@ -31,7 +33,7 @@ async function gotdata(){
     const main_div = document.getElementById("quake_info");
     main_div.setAttribute("class","row");
     
-    main_div.innerHTML = "<div class='column float-left no_mobil'><h3>Earthquake and Seismic Intensity Information</h3><p>M " + this_info[0].magnitud + " in <a target='_blank' href='" + this_info[0].link + "'>" + this_info[0].location + "</a><br/>on " + this_date + " " + this_time + "</p></div><div id='map' class='column float-left' style='height:200px;'></div>";
+    main_div.innerHTML = `<div class='column float-left no_mobil'><h3>Earthquake and Seismic Intensity Information</h3><p>M${this_info[0].magnitud} in <a target='_blank' href='${this_info[0].link}'> ${this_info[0].location} </a><br/>on ${this_date} ${this_time}</p></div><div id='map' class='column float-left' style='height:200px;'></div>`;
     
     if(this_info[0].longitud != "0"){
         const map = L.map('map').setView([this_info[0].latitud-0.05, this_info[0].longitud], 10);
@@ -48,8 +50,7 @@ async function gotdata(){
     }
     const list_div = document.getElementById("quake_list");
     const div_title = document.createElement("h2");//and Seismic
-    div_title.innerHTML = "Earthquake Information<br>Last "+
-    this_info.length + "-recent events";
+    div_title.innerHTML = `Earthquake Information<br>Last ${this_info.length}-recent events`;
     list_div.appendChild(div_title);
     //create as many group div as info is available
     for(let idx = 0;idx < this_info.length; idx++){
@@ -63,22 +64,16 @@ async function gotdata(){
         
         const tina = getDateHour(this_info[idx].det_time);
 
-        texty = "<div class='column3 float-left' style='margin:0;border-radius:inherit;'><div class='row-date'>" + 
-        "<h2 class='col-date float-left'>"+ tina.tag + "</h2><div class='col-date float-left' style='text-align:left;padding-left:0;'><p><strong>"+these_Days[tina.day] + 
-        "</strong></p><p><small>"+these_Months[tina.monty-1]+"</small></p></div></div></div>";
+        texty = `<div class='column3 float-left' style='margin:0;border-radius:inherit;'><div class='row-date'><h2 class='col-date float-left'> ${tina.tag} </h2><div class='col-date float-left' style='text-align:left;padding-left:0;'><p><strong> ${these_Days[tina.day]} </strong></p><p><small>${these_Months[tina.monty-1]}</small></p></div></div></div>`;
 
         //texty += "<div class='column3 float-left'><h4>" + zero_pad(tina.heure)+
         //":" + zero_pad(tina.minute) + "</h4></div>";
 
-        texty += "<div class='column3 float-left' style='margin:0;border-radius:inherit;'><div class='row-date'>" + 
-        "<div class='col-date float-left' style='text-align:left;padding-left:0;'><p>" + "</p><p><strong>" + zero_pad(tina.heure) + ":" + zero_pad(tina.minute) + "</p></div>"+
-        "<h3 class='col-date float-left'>M"+ this_info[idx].magnitud + "</h3>"+
-        "</div></div>";
+        texty += `<div class='column3 float-left' style='margin:0;border-radius:inherit;'><div class='row-date'> 
+        <div class='col-date float-left' style='text-align:left;padding-left:0;'><p></p><p><strong> ${zero_pad(tina.heure)}:${zero_pad(tina.minute)}</p></div><h3 class='col-date float-left'>M${this_info[idx].magnitud}</h3></div></div>`;
         
-        texty += "<div class='column3 float-left'>" + 
-        "<span style='margin-top:'><a target='_blank' href='" +  openMap + 
-        this_info[idx].latitud + "/" + this_info[idx].longitud + "'><p>" +
-        this_info[idx].location + "</p>" + loc_icon + "</a></span></div>";
+        texty += `<div class='column3 float-left'>
+        <span style='margin-top:'><a target='_blank' href='${openMap}${this_info[idx].latitud}/${this_info[idx].longitud}'><p>${this_info[idx].location}</p>${loc_icon}</a></span></div>`;
         
         sumDiv.innerHTML = texty;
         groupDiv.appendChild(sumDiv);
