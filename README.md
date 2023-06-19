@@ -2,6 +2,8 @@
 
 [Live demo](https://ndlopez.github.io/weather)
 
+Weather applications developed with various technologies and OS-environments GNU/Linux, MacOS and Windows. Uses APIs from different providers, listed on features.
+
 ## Features
 
 - Fully responsive

@@ -213,8 +213,7 @@ button{
 @media (max-width: 700px){
   .no_mobil{display: none;}
   header{padding: 0px;}
-  header img{margin:0;width: 40vh;
-    /*src: url("https://sdo.gsfc.nasa.gov/assets/img/latest/latest_256_0171.jpg");*/}
+  header img{margin:0;width: 40vh;}
   .sticky{position: inherit;}
   .column,.column80,.column20{
     width:100%;/*text-align: justify;*/
