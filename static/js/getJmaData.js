@@ -12,7 +12,15 @@
     format seems to be yyyymmdd_hh.json, hh< currHour, hh=0,3,6,9,...
     also https://www.jma.go.jp/bosai/amedas/#area_type=offices&area_code=230000&amdno=51106&format=table1h&elems=53414
     might be helpful when rain https://codepen.io/aureliendotpro/pen/kVwyVe
-*/
+
+    To no longer borrow radar image from tenki.jp; img:border:0;
+    top layer updated every hour 
+    https://www.data.jma.go.jp/obd/bunpu/img/wthr/306/wthr_306_202306192100.png
+    css attrib: position:absolute;top:1px;left:1px;
+    background https://www.data.jma.go.jp/obd/bunpu/img/munic/munic_306.png
+    css: position:absolute;top:1px;left:1px;width:520px;opacity:0.5;
+    ocean is white, either color on Gimp or directly using JS+CSS
+    */
 
 const svg_org = "http://www.w3.org/2000/svg";
 const not_curr_Moon = "https://www.timeanddate.com/scripts/moon.php?i=0.809&p=5.670&r=5.592";
@@ -236,7 +244,13 @@ async function disp_info(kat){
     // rainProb depends on the hour, if time < 6 then idx=0, 
     for(let idx = jdx-3;idx < jdx+1;idx++){
         const get_date = getDateHour(gotData.rain[0][idx]);
-        susy += `<p class='col4'>${get_date.heure} - ${hh[kdx]}<br/>${gotData.rain[1][idx]}%</p>`;
+        let this_value = "";
+        if (thisHour < hh[kdx]){
+            this_value = gotData.rain[1][idx-idx];
+        }else{
+            this_value = "-";
+        }
+        susy += `<p class='col4'>${get_date.heure} - ${hh[kdx]}<br/>${this_value}%</p>`;
         console.log(idx,jdx,get_date.heure,hh[idx],gotData.rain[1][idx]);
 	    kdx++;
     }
