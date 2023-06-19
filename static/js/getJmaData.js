@@ -233,9 +233,11 @@ async function disp_info(kat){
     /* today rain Prob*/
     const div_rain = document.getElementById("rainToday");
     let susy = "", kdx=0, jdx = gotData.rain[0].length-1;
+    // rainProb depends on the hour, if time < 6 then idx=0, 
     for(let idx = jdx-3;idx < jdx+1;idx++){
-        const get_date = getDateHour(gotData.rain[1][idx]);
-        susy += "<p class='col4'>"+get_date.heure+" - "+hh[kdx]+"<br/>"+gotData.rain[1][idx]+"%</p>";
+        const get_date = getDateHour(gotData.rain[0][idx]);
+        susy += `<p class='col4'>${get_date.heure} - ${hh[kdx]}<br/>${gotData.rain[1][idx]}%</p>`;
+        console.log(idx,jdx,get_date.heure,hh[idx],gotData.rain[1][idx]);
 	    kdx++;
     }
     div_rain.innerHTML = susy; 
