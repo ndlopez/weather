@@ -77,6 +77,11 @@ ul{list-style-type: none;}
 ul, li{margin: 0px;padding:5px}
 .large{font-size: 40px;font-weight: 200;}
 .title{font-weight: bold;}
+#radar_img{position: relative;}
+#radar_img img{
+  position: absolute;
+}
+#radar_img div{background-color: #4784bf;}
 #weather_details, #currDate{/*#curr_weather*/
   background-color:#bed2e030;
 }
