@@ -271,8 +271,10 @@ async function disp_info(kat){
         radarDiv.innerHTML = '<h3>Rain radar</h3><a href="' + 
         radar_url[1] + '" title="Click on the img for 1hour forecast. Redirects to JMA.go.jp" target="_blank"><img src="' + radar_url[0] + auxVar +'.jpg"></a>';
         */
+       //help! https://www.data.jma.go.jp/obd/bunpu/
         const radar_url = "https://www.data.jma.go.jp/obd/bunpu/img/wthr/306/wthr_306_"; //202306192100.png
-        radarDiv.innerHTML = `<h3>Rain radar</h3><div><img src='${radar_url}${my_date.getFullYear()}${zero_pad(my_date.getMonth()+1)}${zero_pad(my_date.getDate())}${zero_pad(thisHour)}00.png'><img src='https://www.data.jma.go.jp/obd/bunpu/img/munic/munic_306.png'></div>`;
+        let auxDate = `${radar_url}${my_date.getFullYear()}${zero_pad(my_date.getMonth()+1)}${zero_pad(my_date.getDate())}`;
+        radarDiv.innerHTML = `<h3>Rain radar</h3><div><img src='${auxDate}${zero_pad(thisHour)}00.png' onerror='this.onerror=null;this.src='${auxDate}${zero_pad(thisHour - 1)}'><img src='https://www.data.jma.go.jp/obd/bunpu/img/munic/munic_306.png'></div>`;
     }
     //when parsing currCond only: var currWeather = gotData.weather[1].split("　");
     /*for(let idx=0;idx<gotData.weather.length;idx++){
