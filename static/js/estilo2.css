@@ -89,6 +89,12 @@ ul, li{margin: 0px;padding:5px}
   top: 80px;
   left: 10px;
 }
+#radar_img h4{
+  position: absolute;
+  bottom: 1px;
+  right: 30px;
+  margin: 0;
+}
 #radar_img div{
   background-color: #4784bf !important;
   width: 520px;
