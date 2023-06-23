@@ -7,7 +7,7 @@ from urllib.request import urlopen
 from urllib.error import HTTPError
 
 year = "2023"
-monty = "6"
+monty = "7"
 location = "nagoya"
 
 my_url='https://www.timeanddate.com/moon/japan/'+ location + '?month=' + \
