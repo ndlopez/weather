@@ -51,10 +51,11 @@ async function gotdata(){
     // Recent events
     const list_div = document.getElementById("quake_list");
     const div_title = document.createElement("h2");//and Seismic
-    div_title.innerHTML = `Earthquake Information<br>Last ${this_info.length}-recent events`;
+    div_title.innerHTML = "Earthquake Information<br>Last " + 
+    (this_info.length -1)+"-recent events";
     list_div.appendChild(div_title);
     //create as many group div as info is available
-    for(let idx = 0;idx < this_info.length; idx++){
+    for(let idx = 1;idx < this_info.length; idx++){
         const groupDiv = document.createElement("details");
         const sumDiv = document.createElement("summary");
         sumDiv.setAttribute("class","row");
@@ -80,29 +81,30 @@ async function gotdata(){
         groupDiv.appendChild(sumDiv);
         const mapDiv = document.createElement("div");
         mapDiv.setAttribute("id","div_map_"+idx);
-        mapDiv.style.height = "200px";
+        mapDiv.style.height = "240px";
         // mapDiv.innerHTML = "some"; 
         //let aux = pointMap(this_info[idx].latitud,this_info[idx].longitud,idx);
         groupDiv.appendChild(mapDiv);
         list_div.appendChild(groupDiv);
     }
     for(let jdx=1; jdx < this_info.length; jdx++){
-        const map = L.map("div_map_"+jdx).setView([this_info[jdx].latitud, this_info[jdx].longitud], 9);
+        let mapIt = L.map("div_map_"+jdx).setView([this_info[jdx].latitud, this_info[jdx].longitud], 9);
 
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }).addTo(map);
+        }).addTo(mapIt);
 
-        let popUp = this_time + " " + this_info[jdx].location;//this_date + " " + ;
+        let popUp = `<b>${this_date} ${this_time}</b><br>${this_info[jdx].location}`;// + " " + ;
 
-        L.marker([this_info[jdx].latitud, this_info[jdx].longitud]).addTo(map)
+        L.marker([this_info[jdx].latitud - 0.05, this_info[jdx].longitud])
+            .addTo(mapIt)
             .bindPopup(popUp)
             .openPopup();
     }
 }
 
-async function pointMap(latitud,longitud){
-    await gotdata();
+function pointMap(latitud,longitud){
+    //await gotdata();
     const map = L.map("div_map_1").setView([latitud-0.05, longitud], 9);
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
