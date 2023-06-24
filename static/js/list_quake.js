@@ -86,24 +86,24 @@ async function gotdata(){
         groupDiv.appendChild(mapDiv);
         list_div.appendChild(groupDiv);
     }
-    for(let jdx=0; jdx < this_info.length; jdx++){
-        const map = L.map("div_map_"+jdx).setView([this_info[jdx].latitud-0.05, this_info[jdx].longitud], 10);
+    for(let jdx=1; jdx < this_info.length; jdx++){
+        const map = L.map("div_map_"+jdx).setView([this_info[jdx].latitud, this_info[jdx].longitud], 9);
 
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(map);
 
-        let popMsg = this_info[jdx].location;//this_date + " " + this_time;
+        let popUp = this_time + " " + this_info[jdx].location;//this_date + " " + ;
 
         L.marker([this_info[jdx].latitud, this_info[jdx].longitud]).addTo(map)
-            .bindPopup(popMsg)
+            .bindPopup(popUp)
             .openPopup();
     }
 }
 
-async function pointMap(latitud=35,longitud=135){
+async function pointMap(latitud,longitud){
     await gotdata();
-    const map = L.map("div_map_1").setView([latitud-0.05, longitud], 10);
+    const map = L.map("div_map_1").setView([latitud-0.05, longitud], 9);
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -120,7 +120,7 @@ async function get_info(){
     const response = await fetch(quake_url);
     const data = await response.json();
     let five_events = [];
-    const num_events = 5;
+    const num_events = 6;
 
     for (let idx = 0;idx < num_events;idx++) {
         let det_time = data[idx]["at"];

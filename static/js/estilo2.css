@@ -84,20 +84,20 @@ ul, li{margin: 0px;padding:5px}
   left: 20px;
   top: 1px;
   padding: 10px 0px;
+  background-color: #4784bf !important;
 }
 #radar_img img{
   position: absolute;
-  top: 80px;
+  top: 0px;
   left: 0px;
 }
 #radar_img h4{
   position: absolute;
   bottom: 1px;
-  right: 30px;
+  right: 0px;
   margin: 0;
 }
 #radar_img div{
-  background-color: #4784bf !important;
   width: 520px;
   height: 500px;
 }

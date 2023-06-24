@@ -65,7 +65,7 @@ function getDateHour(isoStr){
 
 function calc_obj_pos(setRiseArr){
     // setRiseArr = [riseHr,riseMin,setHr,setMin]
-    console.log("thisTimes:",setRiseArr);
+    // console.log("thisTimes:",setRiseArr);
     let offset = [thisHour - setRiseArr[0], setRiseArr[2] - setRiseArr[0]];
     if(setRiseArr[0] > setRiseArr[2]){
         offset[1] = 24-setRiseArr[0]+setRiseArr[2];
@@ -200,13 +200,14 @@ function build_obj_pos(sunSetRise,moonSetRise) {
 async function disp_info(kat){
     await sleepy(1500);
     const gotData = await get_data(kat);
-    // console.log(gotData.temp);
+    console.log(gotData.temp);
     let myMin = gotData.temp[1][2];
     let myMax = gotData.temp[1][3];
     if(myMax === undefined){
         myMax = gotData.temp[1][1];
         myMin = gotData.temp[1][0];
     }
+
     let texty = "";
     const city_name = document.getElementById("this_place");
     if (city_name !== null){
@@ -253,14 +254,14 @@ async function disp_info(kat){
             this_value = "-";
         }
         susy += `<p class='col4'>${get_date.heure} - ${hh[kdx]}<br/>${this_value}%</p>`;
-        console.log(idx,jdx,get_date.heure,hh[idx],gotData.rain[1][idx]);
+        // console.log(idx,jdx,get_date.heure,hh[idx],gotData.rain[1][idx]);
 	    kdx++;
     }
     div_rain.innerHTML = susy; 
     const rainP = document.getElementById("rainProb");
     if(rainP !== null){
         rainP.innerText = gotData.rain[1][0] + "%";
-        console.log("rest",gotData.rain[1][1],gotData.rain[1][2],gotData.rain[1][3]);
+        //console.log("rest",gotData.rain[1][1],gotData.rain[1][2],gotData.rain[1][3]);
     }
     console.log("rainProb",gotData.rain[1]);
     const radarDiv = document.getElementById("radar_img");
@@ -277,7 +278,7 @@ async function disp_info(kat){
     }
     //help! https://www.data.jma.go.jp/obd/bunpu/
     let auxDate = `${radar_url[2]}${my_date.getFullYear()}${zero_pad(my_date.getMonth()+1)}${zero_pad(my_date.getDate())}`;
-    radarDiv.innerHTML = `<h3><a target="_blank" href='${radar_url[1]}'>weather radar</a></h3><div><img src="${auxDate}${zero_pad(thisHour)}00.png" width=100% onerror="this.onerror=null;this.src='${auxDate}${zero_pad(thisHour - 1)}00.png'"><img src='https://www.data.jma.go.jp/obd/bunpu/img/munic/munic_306.png' width=100%><h4>Last updated ${zero_pad(thisHour)}:00</h4></div>`;
+    radarDiv.innerHTML = `<div><img src="${auxDate}${zero_pad(thisHour)}00.png" width=100% onerror="this.onerror=null;this.src='${auxDate}${zero_pad(thisHour - 1)}00.png'"><img src='https://www.data.jma.go.jp/obd/bunpu/img/munic/munic_306.png' width=100%><a target="_blank" href='${radar_url[1]}'><h4>Last updated ${zero_pad(thisHour)}:00</h4></a></div>`;
     
     //when parsing currCond only: var currWeather = gotData.weather[1].split("　");
     /*for(let idx=0;idx<gotData.weather.length;idx++){
