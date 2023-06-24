@@ -262,7 +262,7 @@ async function disp_info(kat){
         rainP.innerText = gotData.rain[1][0] + "%";
         console.log("rest",gotData.rain[1][1],gotData.rain[1][2],gotData.rain[1][3]);
     }
-
+    console.log("rainProb",gotData.rain[1]);
     const radarDiv = document.getElementById("radar_img");
     if(gotData.rain[1][0] > 0){
         console.log("Click on the img for 1hour forecast. Redirects to JMA.go.jp");
@@ -278,7 +278,6 @@ async function disp_info(kat){
     //help! https://www.data.jma.go.jp/obd/bunpu/
     let auxDate = `${radar_url[2]}${my_date.getFullYear()}${zero_pad(my_date.getMonth()+1)}${zero_pad(my_date.getDate())}`;
     radarDiv.innerHTML = `<h3><a target="_blank" href='${radar_url[1]}'>weather radar</a></h3><div><img src="${auxDate}${zero_pad(thisHour)}00.png" width=100% onerror="this.onerror=null;this.src='${auxDate}${zero_pad(thisHour - 1)}00.png'"><img src='https://www.data.jma.go.jp/obd/bunpu/img/munic/munic_306.png' width=100%><h4>Last updated ${zero_pad(thisHour)}:00</h4></div>`;
-    console.log(auxDate);
     
     //when parsing currCond only: var currWeather = gotData.weather[1].split("　");
     /*for(let idx=0;idx<gotData.weather.length;idx++){
