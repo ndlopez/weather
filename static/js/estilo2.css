@@ -83,11 +83,12 @@ ul, li{margin: 0px;padding:5px}
   height: 550px;
   left: 20px;
   top: 1px;
+  padding: 10px 0px;
 }
 #radar_img img{
   position: absolute;
   top: 80px;
-  left: 10px;
+  left: 0px;
 }
 #radar_img h4{
   position: absolute;
@@ -276,7 +277,7 @@ button{
     height: 110vw;
   }
   #radar_img div{
-    width: 95vw;
+    width: 100vw;
     height: 95vw;
   }
   .outer{width: auto;/*320px;*/  overflow-x: auto;  }

@@ -358,7 +358,7 @@ function yellow_dust(){
 
 function build_plot(json_array){
     // fetch yellow dust forecast
-    yellow_dust();
+    // sleep til next season yellow_dust();
     /*d3js bar plot-> https://jsfiddle.net/matehu/w7h81xz2/38/*/
     const containDiv = document.getElementById("weather_bar");
     const leftDiv = document.createElement("div");
