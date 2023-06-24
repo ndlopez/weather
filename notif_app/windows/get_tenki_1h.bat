@@ -2,7 +2,7 @@
 @echo off
 
 set python_exe=D:\Python\Python-3.9.7\python.exe
-set home=C:\Users\tgA5313\Documents\test\
+set home=C:\Users\yours_truly\Documents\test\
 set pyCode=%home%get_tenki_1h.py
 set txtFile=%home%get_tenki_1h.txt
 

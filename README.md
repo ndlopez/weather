@@ -2,16 +2,15 @@
 
 [Live demo](https://ndlopez.github.io/weather)
 
-Weather applications developed with various technologies and OS-environments GNU/Linux, MacOS and Windows. Uses APIs from different providers, listed on features.
+Weather applications developed with various technologies and OS-environments (GNU/Linux, MacOS and Windows). Uses APIs from different providers, listed on features.
 
 ## Features
 
-- Fully responsive
-- All Data rendered with d3.js
+- Fully responsive website
+- All data rendered with d3.js
 - Weather and earthquake data are from Japan Metereological Agency
-- Rain radar image is grabbed from tenki.jp
 - Moon rise/set times are scrapped from timeanddate.com
-- Sun rise/set times is courtesy of dayspedia.com
+- Sun rise/set times are courtesy of dayspedia.com
 - Map rendered with openStreetMap.org and Leaflet.js
 
 ## WebApp
@@ -22,9 +21,13 @@ Running on local WSL Debian server
 
 ## CLI application
 
+[repo](https://github.com/ndlopez/weather/tree/main/get_tenki)
+
 Grep data from tenki.jp. Displays current weather conditions, updates every 3 hours.
 
 ## GNOME Extension
+
+[repo](https://github.com/ndlopez/weather/tree/main/tenki%40moji.physics)
 
 Display a notification every 30min. It auto-updates.
 
@@ -40,11 +43,21 @@ Then pull-request to merge with main
 
 ## MacOS Notification
 
+[repo](https://github.com/ndlopez/weather/tree/main/notif_app/mac_os)
+
 Display @the Notification Center and pop up every 30 minutes.
 
 Requires manual update and conversion of CJK chars to Unicode.
 
 Branch created "notif"
+
+[repo](https://github.com/ndlopez/weather/tree/main/xbar_plugin)
+
+# Windows Notification
+
+[repo](https://github.com/ndlopez/weather/tree/main/notif_app/windows)
+
+Windows PopUp message application (to be added)
 
 ---
 Enviroment: 
