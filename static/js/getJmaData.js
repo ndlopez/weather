@@ -301,9 +301,7 @@ async function disp_info(kat){
 
         const aux = getDateHour(gotData.forecast[0][idx]);
         const tempMin = gotData.forecast[2][idx], tempMax = gotData.forecast[3][idx];
-        texty = "<div class='column3 float-left' style='margin:0;border-radius:inherit;'><div class='row-date'>" + 
-        "<h2 class='col-date float-left'>"+ aux.tag + "</h2><div class='col-date float-left' style='text-align:left;padding-left:0;'><p><strong>"+theseDays[aux.day] + 
-        "</strong></p><p><small>"+theseMonths[aux.monty-1]+"</small></p></div></div></div>";
+        texty = `<div class='column3 float-left' style='margin:0;border-radius:inherit;'><div class='row-date'><h2 class='col-date float-left'>${aux.tag}</h2><div class='col-date float-left' style='text-align:left;padding-left:0;'><p><strong>${theseDays[aux.day]}</strong></p><p><small>${theseMonths[aux.monty-1]}</small></p></div></div></div>`;
         
         texty += "<div class='column3 float-left'><img src='"+
         ico_url+ gotData.forecast[1][idx]+

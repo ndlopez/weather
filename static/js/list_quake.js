@@ -79,7 +79,7 @@ async function gotdata(){
         groupDiv.appendChild(sumDiv);
         const mapDiv = document.createElement("div");
         mapDiv.setAttribute("id","div_map_"+idx);
-        mapDiv.style.height = "240px"; 
+        mapDiv.style.height = "200px"; 
         //let aux = pointMap(this_info[idx].latitud,this_info[idx].longitud,idx);
         groupDiv.appendChild(mapDiv);
         list_div.appendChild(groupDiv);
@@ -91,9 +91,9 @@ async function gotdata(){
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(mapIt);
 
-        let popUp = this_info[jdx].location;// + " " + ;
+        let popUp = this_info[jdx].location;
 
-        L.marker([this_info[jdx].latitud - 0.05, this_info[jdx].longitud])
+        L.marker([this_info[jdx].latitud, this_info[jdx].longitud])
             .addTo(mapIt)
             .bindPopup(popUp)
             .openPopup();
