@@ -17,8 +17,6 @@ const loc_icon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" wi
 
 gotdata();
 
-//pointMap();
-//console.log(pointMap(135,35,div_map_1));
 function getDateHour(isoStr){
     // isoStr: ISO format 2023-04-20T20:04:23
     const gotDate = new Date(isoStr);
@@ -81,8 +79,7 @@ async function gotdata(){
         groupDiv.appendChild(sumDiv);
         const mapDiv = document.createElement("div");
         mapDiv.setAttribute("id","div_map_"+idx);
-        mapDiv.style.height = "240px";
-        // mapDiv.innerHTML = "some"; 
+        mapDiv.style.height = "240px"; 
         //let aux = pointMap(this_info[idx].latitud,this_info[idx].longitud,idx);
         groupDiv.appendChild(mapDiv);
         list_div.appendChild(groupDiv);
@@ -94,7 +91,7 @@ async function gotdata(){
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(mapIt);
 
-        let popUp = `<b>${this_date} ${this_time}</b><br>${this_info[jdx].location}`;// + " " + ;
+        let popUp = this_info[jdx].location;// + " " + ;
 
         L.marker([this_info[jdx].latitud - 0.05, this_info[jdx].longitud])
             .addTo(mapIt)
