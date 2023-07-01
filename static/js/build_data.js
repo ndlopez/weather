@@ -259,14 +259,12 @@ function buildSVGtext(dx,dy,text){
             console.log(error);
         }
     }
-    //console.log("curr",curr_weather.length);
+    
     build_plot(result);
-    //var img_url = "";
     //let temp_max_min = maxmin[0];//the date: myData.curr_weather[0][0]
     const lastElm = curr_weather.length-1;
     let text = `<h2 id='this_place'></h2><h3 class='no-padding'>${days[today]}, ${months[monty-1]} ${tag} ${curr_weather[lastElm].hour_min}</h3>`;
-    text += `<div class='clearfix'><span class='large'>" + 
-    "&emsp; ${curr_weather[lastElm].temp}&#8451;</span><span id='now_weather' class='middle'></span><h4>Max ${maxmin[0]}&#8451;&emsp;Min ${maxmin[1]}&#8451;</h4></div>`;
+    text += `<div class='clearfix'><span class='large'>&emsp;${curr_weather[lastElm].temp}&#8451;</span><span id='now_weather' class='middle'></span><h4>Max ${maxmin[0]}&#8451;&emsp;Min ${maxmin[1]}&#8451;</h4></div>`;
 
     text += "<div id='rainToday' class='clearfix'></div>";
     
