@@ -30,7 +30,7 @@ const maxValue = 6; //m/s when 10m/s too many scales, should display half
 /* Autumn: const ngo_pred = [{xp:0,yp:10.0},{xp:7,yp:8.0},{xp:14,yp:15.5},{xp:23,yp:9.0}]; 
 const ngo_pred = [{xp:0,yp:14.0},{xp:7,yp:11.0},{xp:14,yp:20.0},{xp:23,yp:12.0}];//spring
 const ngo_pred = [{xp:0,yp:20.0},{xp:7,yp:18.0},{xp:14,yp:26.0},{xp:23,yp:19.0}];//late spring */
-const ngo_pred = [{xp:0,yp:24.5},{xp:6,yp:22.0},{xp:14,yp:30.0},{xp:22,yp:23.5}];//early summer
+const ngo_pred = [{xp:0,yp:24.5},{xp:5,yp:22.0},{xp:14,yp:33.0},{xp:22,yp:24.5}];//early summer
 const tky_pred = [{xp:0,yp:5.0},{xp:7,yp:3},{xp:14,yp:13},{xp:23,yp:4}];
 let hours = [];
 for (let idx = 0; idx < 24; idx++) hours.push(idx);
@@ -314,7 +314,7 @@ function build_array(hour,gotData){
     //return result;
 }
 
-function yellow_dust(){
+function yellow_dust(make_div=false){
     // 0:0~2, 1:3~5, 2:6~8, 3:9~11, 4:12~14, 5:15~17,6:18~20,7:21~23
     let myIdx = 0;
     for (let idx = 0; idx < mod3_hours.length; idx++) {
@@ -333,30 +333,33 @@ function yellow_dust(){
         // console.log("whatDay",new Date(aux *1000));
         tag = tag +1;
     }
-    const pm25Div = document.getElementById("pm25_div");
-    const pm25Title = document.createElement("h3");
-    pm25Title.innerText = "Yellow dust forecast";
-    pm25Div.appendChild(pm25Title);
     const imgName = pm25_url + jahre + zeroPad(monty) + zeroPad(tag) + zeroPad(mod3_hours[myIdx]) + "00_kosafcst-s_jp_jp.png";
-    // console.log(currHH,"pm25img",imgName);
-    const centDiv = document.createElement("div");
-    centDiv.setAttribute("class","column-right float-left");
-    const outDiv = document.createElement("div");
-    outDiv.setAttribute("class","outer_div");
-    const innDiv = document.createElement("div");
-    innDiv.setAttribute("class","inner_div");
 
-    const myDiv = document.createElement("div");
-    myDiv.innerHTML = "<img src='" + imgName + "' onerror='this.onerror=null;this.src=\"assets/100_0999.jpg\"'/>";
-    innDiv.appendChild(myDiv);
-    outDiv.appendChild(innDiv);
-    centDiv.appendChild(outDiv);
-    pm25Div.appendChild(centDiv);
+    if (make_div){
+        const pm25Div = document.getElementById("pm25_div");
+        const pm25Title = document.createElement("h3");
+        pm25Title.innerText = "Yellow dust forecast";
+        pm25Div.appendChild(pm25Title);
+        const centDiv = document.createElement("div");
+        centDiv.setAttribute("class","column-right float-left");
+        const outDiv = document.createElement("div");
+        outDiv.setAttribute("class","outer_div");
+        const innDiv = document.createElement("div");
+        innDiv.setAttribute("class","inner_div");
+
+        const myDiv = document.createElement("div");
+        myDiv.innerHTML = "<img src='" + imgName + "' onerror='this.onerror=null;this.src=\"assets/100_0999.jpg\"'/>";
+        innDiv.appendChild(myDiv);
+        outDiv.appendChild(innDiv);
+        centDiv.appendChild(outDiv);
+        pm25Div.appendChild(centDiv);}
+    return imgName;
 }
 
 function build_plot(json_array){
     // fetch yellow dust forecast
-    // sleep til next season yellow_dust();
+    // sleep til next season 
+    document.getElementById("yellow-dust").innerHTML = `<a href='${yellow_dust(false)}' target="_blank">Yellow dust</a>`;
     /*d3js bar plot-> https://jsfiddle.net/matehu/w7h81xz2/38/*/
     const containDiv = document.getElementById("weather_bar");
     const leftDiv = document.createElement("div");
