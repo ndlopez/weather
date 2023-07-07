@@ -5,7 +5,7 @@ Public repository for notification branch, which is set for MacOS environment.
 
 By removing $out_file$ it can work on GNU/Linux as well.
 
-![Screenshot](getTenki_1534.png)
+![Screenshot](mac_os/getTenki_1534.png)
 
 To display as a notification do:<br>
 
@@ -14,9 +14,9 @@ To display as a notification do:<br>
 > $ osascript -l JavaScript notif_app.js
 
 ## Windows 10/11 version
-Using the Windows notification and PowerShell snippet to display weather data. Once included batch code is set on task Scheduler it will run every set time.
+Display weather information using the Windows notification system and a PowerShell snippet. Once set on task Scheduler it will run every set time.
 
-Currently the app uses Python to fetch current data. A binary is in development.
+Currently the app uses Python to fetch/scrape current data. A binary is in development.
  
 ## Environment
 - MacBookPro, MacOS 15.5

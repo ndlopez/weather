@@ -13,25 +13,21 @@ Weather applications developed with various technologies and OS-environments (GN
 - Sun rise/set times are courtesy of dayspedia.com
 - Map rendered with openStreetMap.org and Leaflet.js
 
-## WebApp
+## [WebApp](https://github.com/ndlopez/webapp)
 
-Running on local WSL Debian server
+Runs on local WSL Debian server
 
-[repo](https://github.com/ndlopez/webapp)
+## [CLI application](https://github.com/ndlopez/weather/tree/main/get_tenki)
 
-## CLI application
+First attempt to extract weather data from a webpage. Grep data from tenki.jp. Displays current weather conditions, updates every 3 hours.
 
-[repo](https://github.com/ndlopez/weather/tree/main/get_tenki)
-
-Grep data from tenki.jp. Displays current weather conditions, updates every 3 hours.
-
-## GNOME Extension
-
-[repo](https://github.com/ndlopez/weather/tree/main/tenki%40moji.physics)
+## [GNOME Extension](https://github.com/ndlopez/weather/tree/main/tenki%40moji.physics)
 
 Display a notification every 30min. It auto-updates.
 
 Works on GNOME 30, 40+ versions
+
+![Screenshoot](tenki%40moji.physics/Screenshot.png)
 
 Create a new branch for this repository
 
@@ -41,9 +37,7 @@ Create a new branch for this repository
 
 Then pull-request to merge with main
 
-## MacOS Notification
-
-[repo](https://github.com/ndlopez/weather/tree/main/notif_app/mac_os)
+## [MacOS Notification](https://github.com/ndlopez/weather/tree/main/notif_app/mac_os)
 
 Display @the Notification Center and pop up every 30 minutes.
 
@@ -53,9 +47,7 @@ Branch created "notif"
 
 [repo](https://github.com/ndlopez/weather/tree/main/xbar_plugin)
 
-# Windows Notification
-
-[repo](https://github.com/ndlopez/weather/tree/main/notif_app/windows)
+## [Windows Notification](https://github.com/ndlopez/weather/tree/main/notif_app/windows)
 
 Windows PopUp message application (to be added)
 
