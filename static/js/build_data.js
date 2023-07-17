@@ -264,7 +264,7 @@ function buildSVGtext(dx,dy,text){
     //let temp_max_min = maxmin[0];//the date: myData.curr_weather[0][0]
     const lastElm = curr_weather.length-1;
     let text = `<h2 id='this_place'></h2><h3 class='no-padding'>${days[today]}, ${months[monty-1]} ${tag} ${curr_weather[lastElm].hour_min}</h3>`;
-    text += `<div class='clearfix'><span class='large'>&emsp;${curr_weather[lastElm].temp}&#8451;</span><span id='now_weather' class='middle'></span><h4>Max ${maxmin[0]}&#8451;&emsp;Min ${maxmin[1]}&#8451;</h4></div>`;
+    text += `<div class='clearfix'><span class='large'>&emsp;${curr_weather[lastElm].temp}&#8451;</span><span id='now_weather' class='middle'></span><h4>Max ${curr_weather[lastElm]['maxmin'][0]}&#8451;&emsp;Min ${maxmin[1]}&#8451;</h4></div>`;//prev ${maxmin[0]}
 
     text += "<div id='rainToday' class='clearfix'></div>";
     
@@ -291,7 +291,7 @@ function buildSVGtext(dx,dy,text){
 function build_array(hour,gotData){
     // void function, 
     // fills "result" array with data/hour, and "zoey" Obj with currentData
-    // here I should distinguish between Max and Min at every 10min obs.
+    // abby is data every hour
     const limit = 2;
     for(let idx = hour; idx <= hour + limit; idx++){
         let aux = build_attrib(idx);
@@ -306,9 +306,15 @@ function build_array(hour,gotData){
     /*if(currMin < 20){currMin = 60;currHH = currHH -1;}*/
     //console.log(lena.slice(-6,-4),lena.slice(-4,-2));
     // zoey: last elm of each json array, data/10min
-    const zoey = {"hour_min":lena.slice(-6,-4)+":"+lena.slice(-4,-2),"temp":gotData[lena].temp[0],
-    "humid":gotData[lena].humidity[0],"wind":gotData[lena].wind[0],"windDir":gotData[lena].windDirection[0],
-    "rain":gotData[lena].precipitation1h[0]};
+    // here I distinguish between Max and Min at every 10min obs.
+    const zoey = {
+        "hour_min":lena.slice(-6,-4)+":"+lena.slice(-4,-2),
+        "temp":gotData[lena].temp[0],"humid":gotData[lena].humidity[0],
+        "wind":gotData[lena].wind[0],
+        "windDir":gotData[lena].windDirection[0],
+        "rain":gotData[lena].precipitation1h[0],
+        "maxmin":[gotData[lena].maxTemp[0],gotData[lena].maxTempTime['hour']+9]
+    };
     curr_weather.push(zoey);
     //var lena = get_min_attr(idx);
     //return result;
