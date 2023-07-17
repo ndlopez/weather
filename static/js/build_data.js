@@ -415,7 +415,8 @@ function build_plot(json_array){
     const svgRight = d3.select("#rightAxis")
     .append("svg").attr("width",35).attr("height",ySize)
     .append("g")
-    .attr("transform","translate(" + 5 + "," + margin.top + ")");
+    .attr("transform","translate(" + 30 + "," + margin.top + ")"); // axisLeft
+    //.attr("transform","translate(" + 5 + "," + margin.top + ")"); axisRight
 
     /*Rain mm/H scale 
     const rainMin = d3.min(json_array,(d)=>{return d.rain;}), 
@@ -426,8 +427,9 @@ function build_plot(json_array){
     const yHumid = d3.scaleLinear()
     .domain([humidMin-5,humidMax])
     .range([h,0]);
-    svgRight.append("g").call(d3.axisRight(yHumid));//.attr("transform","translate("+w+",0)");
-    svgRight.append("g").append("text").text("%").attr("x",10).attr("y",-10);
+    svgRight.append("g").call(d3.axisLeft(yHumid)); //.attr("transform","translate("+w+",0)");
+    //svgRight.append("g").append("text").text("%").attr("x",10).attr("y",-10);//Right
+    svgRight.append("g").append("text").text("%").attr("x",-20).attr("y",-10);//axisLeft
 
     const svg2 = d3.select("#mainPlot")
     .append("svg")
