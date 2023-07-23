@@ -296,8 +296,14 @@ function build_array(hour,gotData){
     for(let idx = hour; idx <= hour + limit; idx++){
         let aux = build_attrib(idx);
         if (gotData[aux] === undefined){break;}
-        const abby = {"hour":idx,"temp":gotData[aux].temp[0],"humid":gotData[aux].humidity[0],
-        "wind":Math.round(gotData[aux].wind[0]) ,"windDir":gotData[aux].windDirection[0],"rain":gotData[aux].precipitation1h[0]};
+        const abby = {
+            "hour":idx,"temp":gotData[aux].temp[0],
+            "humid":gotData[aux].humidity[0],
+            "wind":Math.round(gotData[aux].wind[0]),
+            "windDir":gotData[aux].windDirection[0],
+            "rain":gotData[aux].precipitation1h[0],
+            "maxmin":[gotData[aux].maxTemp[0],gotData[aux].maxTempTime['hour']+9]
+        };
         result.push(abby);
     }
     //get last data of each JSON object
@@ -364,7 +370,7 @@ function yellow_dust(make_div=false){
 
 function build_plot(json_array){
     // fetch yellow dust forecast
-    // sleep til next season 
+    // sleep til next season: true on Feb, March,May, June 
     document.getElementById("yellow-dust").innerHTML = `<a href='${yellow_dust(false)}' target="_blank">Yellow dust</a>`;
     /*d3js bar plot-> https://jsfiddle.net/matehu/w7h81xz2/38/*/
     const containDiv = document.getElementById("weather_bar");
@@ -401,7 +407,9 @@ function build_plot(json_array){
     
     /* Y temp: left axis*/
     const tMin = d3.min(json_array,(d)=>{return d.temp;});
-    const tMax = d3.max(json_array,(d)=>{return d.temp;});
+    // Max of array d3.max(json_array,(d)=>{return d.temp;});
+    const tMax = d3.max(json_array,(d)=>{return d.maxmin[0];});
+    //console.log("input",json_array,);
     maxmin.push(tMax);
     maxmin.push(tMin);
     //console.log(tMin,tMax);
@@ -410,7 +418,7 @@ function build_plot(json_array){
     .append("g")
     .attr("transform","translate(" + 35 + "," + margin.top + ")");
     const yScale = d3.scaleLinear()
-    .domain([Math.round(tMin)-2,tMax+1]).range([h,0]);
+    .domain([Math.round(tMin)-2,tMax]).range([h,0]);
     svgLeft.append("g").call(d3.axisLeft(yScale)).attr("font-size","12");
     svgLeft.append("g").append("text").text("\u2103").attr("x",-24).attr("y",-10);
 
@@ -553,7 +561,7 @@ async function convToUpper(data){
     return data.toUpperCase();
 }
 async function main(){
-    const lowrCase = ["Vicky Vette","Alison Taylor","Armani Black"];
+    const lowrCase = ["Vicky V.","Alison Taylor","Candice"];
     const upperArr = await Promise.all(await lowrCase.map(async (word)=>{
         return await convToUpper(word)
     }));
