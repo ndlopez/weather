@@ -200,7 +200,7 @@ function build_obj_pos(sunSetRise,moonSetRise) {
 async function disp_info(kat){
     await sleepy(1500);
     const gotData = await get_data(kat);
-    console.log(gotData.temp);
+    // console.log(gotData.temp); maxMin forecast
     let myMin = gotData.temp[1][2];
     let myMax = gotData.temp[1][3];
     if(myMax === undefined){
@@ -263,7 +263,7 @@ async function disp_info(kat){
         rainP.innerText = gotData.rain[1][0] + "%";
         //console.log("rest",gotData.rain[1][1],gotData.rain[1][2],gotData.rain[1][3]);
     }
-    console.log("rainProb",gotData.rain[1]);
+    // console.log("rainProb",gotData.rain[1]); rain forecast
     const radarDiv = document.getElementById("radar_img");
     if(gotData.rain[1][0] > 0){
         console.log("Click on the img for 1hour forecast. Redirects to JMA.go.jp");
