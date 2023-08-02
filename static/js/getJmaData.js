@@ -397,7 +397,7 @@ async function getTimes(){
 }
 
 async function getMoonTimes(){
-    const response = await fetch("https://raw.githubusercontent.com/ndlopez/weather/main/static/dev/moon_times.csv");
+    const response = await fetch("https://raw.githubusercontent.com/ndlopez/scrapped/main/moon_times.csv");
     const data = await response.text();
     const rows = data.split('\n').slice(1);
     const thisDate = my_date.getFullYear() + "-" + zero_pad(my_date.getMonth()+1) + 
