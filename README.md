@@ -55,9 +55,10 @@ Plugin to display current conditions and radar image, all courtesy from tenki.jp
 
 ## [Windows Notification](https://github.com/ndlopez/weather/tree/main/notif_app/windows)
 
-Windows PopUp message application.
+Windows PopUp message application using Powershell to display.
 
 Auto-updates using task-scheduler.
+
 ---
 Enviroment: 
 - MacBookPro/MacOS 15.5<br>

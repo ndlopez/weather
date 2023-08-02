@@ -239,7 +239,7 @@ async function disp_info(kat){
             kaisa = "<img src='" + ico_url + gotData.icon[0] +
             ".svg' onerror='this.onerror=null;this.src=\"static/assets/cloudy_all.svg\"'/><br/>";
         }
-        nowTenki.innerHTML = kaisa + gotData.weather[0] + "<br/>" + gotData.wind[0];
+        nowTenki.innerHTML = kaisa + "愛知県西部: " + gotData.weather[0] + "<br/>" + gotData.wind[0];
     }
     /* today rain Prob*/
     const div_rain = document.getElementById("rainToday");
@@ -414,6 +414,7 @@ async function getMoonTimes(){
     });
     if (thisData.length == 0){
         // Just in case moon_data is not updated
+        console.log("Admin: Moon data are not updated.");
         thisData = [thisDate,["03","20"],["13","27"]];
     }
     return thisData;
