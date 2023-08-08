@@ -33,16 +33,17 @@ const ngo_pred = [{xp:0,yp:20.0},{xp:7,yp:18.0},{xp:14,yp:26.0},{xp:23,yp:19.0}]
 const ngo_pred = [{xp:0,yp:27.5},{xp:5,yp:25.0},{xp:14,yp:33.0},{xp:22,yp:28.5}];// summer
 const tky_pred = [{xp:0,yp:5.0},{xp:7,yp:3},{xp:14,yp:13},{xp:23,yp:4}];
 let hours = [];
-for (let idx = 0; idx < 24; idx++) hours.push(idx);
+let idx = 0;
+for (idx; idx < 24; idx++) hours.push(idx);
 
 /* Fixing bug at 0:00 ~ 0:20 */
 /*if (currHH == 0 && currMin < 20){tag = tag - 1;}*/
-/* build array of every 3 hours: 0 ~ hh */
-for (let idx=0;idx < currHH;idx++){
+/* build array every 3 hours: 0 ~ hh */
+for (idx=0; idx < currHH; idx++){
     if(idx % 3 == 0){ dataHours.push(idx); }
 }
-for (let idx=0;idx < 24;idx++){
-    if(idx %3 ==0){ mod3_hours.push(idx); }
+for (idx=0; idx < 24; idx++){
+    if(idx % 3 ==0){ mod3_hours.push(idx); }
 }
 // console.log("yester-you",tag,dataHours);
 function zeroPad(tit){return (tit<10)?"0"+tit:tit;}

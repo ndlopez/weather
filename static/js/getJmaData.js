@@ -19,7 +19,7 @@
     css attrib: position:absolute;top:1px;left:1px;
     background https://www.data.jma.go.jp/obd/bunpu/img/munic/munic_306.png
     css: position:absolute;top:1px;left:1px;width:520px;opacity:0.5;
-    ocean is white, either color on Gimp or directly using JS+CSS
+    ocean is white, either color on Gimp or directly using CSS
     https://www.data.jma.go.jp/obd/bunpu/img/wthr/306/wthr_306_202306240900.png
     https://www.timeanddate.com/scripts/sunmap.php?iso=20230623T1420
     */
@@ -189,9 +189,7 @@ function build_obj_pos(sunSetRise,moonSetRise) {
     if(moon_pos[1] < moon_pos[0]){
         //(thisHour <= moon_times[2]) || (thisHour >= moon_times[0])
         svgGroup.appendChild(svgMoon);
-    }/*else{
-        console.log(thisHour,thisMins,"Moon below horizon");
-    }*/
+    }/*else{console.log(thisHour,thisMins,"Moon below horizon");}*/
     svgGroup.appendChild(svgHour);
     subDiv.appendChild(svgGroup);
     return subDiv;
