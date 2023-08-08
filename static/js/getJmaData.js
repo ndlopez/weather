@@ -278,7 +278,11 @@ async function disp_info(kat){
     }
     //help! https://www.data.jma.go.jp/obd/bunpu/
     let auxDate = `${radar_url[2]}${my_date.getFullYear()}${zero_pad(my_date.getMonth()+1)}${zero_pad(my_date.getDate())}`;
-    radarDiv.innerHTML = `<div><img src="${auxDate}${zero_pad(thisHour)}00.png" width=100% onerror="this.onerror=null;this.src='${auxDate}${zero_pad(thisHour - 1)}00.png'"><img src='https://www.data.jma.go.jp/obd/bunpu/img/munic/munic_306.png' width=100%><a target="_blank" href='${radar_url[1]}'><h4>Last updated ${zero_pad(thisHour)}:00</h4></a></div>`;
+    let prevHour = thisHour;
+    if(thisMins < 20){
+        prevHour = thisHour - 1;
+    }
+    radarDiv.innerHTML = `<div><img src="${auxDate}${zero_pad(prevHour)}00.png" width=100% onerror="this.onerror=null;this.src='${auxDate}${zero_pad(prevHour)}00.png'"><img src='https://www.data.jma.go.jp/obd/bunpu/img/munic/munic_306.png' width=100%><a target="_blank" href='${radar_url[1]}'><h4>Last updated ${zero_pad(prevHour)}:00</h4></a></div>`;
     
     //when parsing currCond only: var currWeather = gotData.weather[1].split("　");
     /*for(let idx=0;idx<gotData.weather.length;idx++){
