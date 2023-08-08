@@ -403,14 +403,14 @@ async function getMoonTimes(){
     const thisDate = my_date.getFullYear() + "-" + zero_pad(my_date.getMonth()+1) + 
     "-" + zero_pad(my_date.getDate()); //Current date
     let thisData = [];
-    rows.every(row => {
-        const thisVal = row.split(";"); // [2022-12-05, 08:32, 21:20]
-        console.log("got this",thisDate,thisVal[0]);
+    rows.forEach(row => {
+        const thisVal = row.split(";"); // [2022-12-05; 08:32; 21:20]
+        
         if(thisDate == thisVal[0]){
             thisData.push(thisVal[0]);
             thisData.push(thisVal[2].split(":"));
             thisData.push(thisVal[3].split(":"));
-            return thisData;
+            console.log("got this",thisDate,thisVal[0]);
         }
     });
     if (thisData.length == 0){

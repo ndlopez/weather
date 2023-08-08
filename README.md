@@ -11,6 +11,8 @@ Weather applications developed with various technologies and environments (GNU/L
 - Map rendered with openStreetMap.org and Leaflet.js
 
 ## Credits
+- Some of the website icons are from [Dan Klammer](https://danklammer.com/bytesize-icons/)
+- Weather icon for iOS is from [Rain icon created by iconixar - Flaticon](https://www.flaticon.com/free-icons/rain)
 - Weather and earthquake data are from Japan Metereological Agency
 - Moon rise/set times are scrapped from timeanddate.com
 - Sun rise/set times are courtesy of dayspedia.com
