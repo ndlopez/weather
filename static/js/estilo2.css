@@ -91,7 +91,7 @@ ul, li{margin: 0px;padding:5px}
   top: 0px;
   left: 0px;
 }
-#radar_img h4{
+/*#radar_img h4{
   position: absolute;
   bottom: 1px;
   right: 0px;
@@ -100,6 +100,21 @@ ul, li{margin: 0px;padding:5px}
 #radar_img div{
   width: 520px;
   height: 500px;
+}*/
+.radar_div{
+  /*width: 520px;
+  height: 500px;*/
+  position: relative;
+  cursor: pointer;
+}
+.radar_link{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  bottom: 1px;
+  right: 0px;
+  margin: 0;
+  z-index: 1;
 }
 #weather_details, #currDate{/*#curr_weather*/
   background-color:#bed2e030;
