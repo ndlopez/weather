@@ -280,8 +280,7 @@ async function disp_info(kat){
     if(thisMins < 20){
         prevHour = thisHour - 1;
     }
-    radarDiv.innerHTML = `<div class="radar_div"><a target="_blank" href='${radar_url[1]}'> <img src="${auxDate}${zero_pad(prevHour)}00.png" width=100% onerror="this.onerror=null;this.src='${auxDate}${zero_pad(prevHour)}00.png'"><img src='https://www.data.jma.go.jp/obd/bunpu/img/munic/munic_306.png' width=100%></a></div>`;
-    // <span>Last updated ${zero_pad(prevHour)}:00</span>
+    radarDiv.innerHTML = `<div class="radar_div"><a target="_blank" href='${radar_url[1]}'> <img src="${auxDate}${zero_pad(prevHour)}00.png" width=100% onerror="this.onerror=null;this.src='${auxDate}${zero_pad(prevHour)}00.png'"><img src='https://www.data.jma.go.jp/obd/bunpu/img/munic/munic_306.png' width=100%></a><span class="radar_link">Image from JMA. Last updated ${zero_pad(prevHour)}:00</span></div>`;
     //when parsing currCond only: var currWeather = gotData.weather[1].split("　");
     /*for(let idx=0;idx<gotData.weather.length;idx++){
         var currWeather = gotData.weather[idx].split("　");
