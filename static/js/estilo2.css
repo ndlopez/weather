@@ -103,8 +103,8 @@ ul, li{margin: 0px;padding:5px}
 }*/
 .radar_div{
   /*width: 520px;
-  height: 500px;*/
-  position: relative;
+  height: 500px;
+  position: relative;*/
   cursor: pointer;
 }
 .radar_link{
