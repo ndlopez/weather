@@ -22,10 +22,12 @@
     ocean is white, either color on Gimp or directly using CSS
     https://www.data.jma.go.jp/obd/bunpu/img/wthr/306/wthr_306_202306240900.png
     https://www.timeanddate.com/scripts/sunmap.php?iso=20230623T1420
-    */
+    
+    const not_curr_Moon = "https://www.timeanddate.com/scripts/moon.php?i=0.809&p=5.670&r=5.592";
+*/
 
 const svg_org = "http://www.w3.org/2000/svg";
-const not_curr_Moon = "https://www.timeanddate.com/scripts/moon.php?i=0.809&p=5.670&r=5.592";
+
 // console.log(getBase64Img(document.getElementById("pngImg")));
 /* Fetching data from JMA.go.jp */
 const toRad = Math.PI/180.0;
