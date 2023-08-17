@@ -265,17 +265,16 @@ async function disp_info(kat){
     }
     // console.log("rainProb",gotData.rain[1]); rain forecast
     const radarDiv = document.getElementById("radar_img");
-    if(gotData.rain[1][0] > 0){
-        console.log("Click on the img for 1hour forecast. Redirects to JMA.go.jp");
-        /* put a radar img from tenki.jp
+    /*
+    if(gotData.rain[1][0] > 50){
+        console.log("Is it raining?");//put a radar img from tenki.jp
         let auxVar = ""; 
         if(navigator.userAgent.match(/(iPhone|iPad|Android|IEMobile)/)){
             auxVar = "middle";
         }else{auxVar = "large";}
         radarDiv.innerHTML = '<h3>Rain radar</h3><a href="' + 
         radar_url[1] + '" title="Click on the img for 1hour forecast. Redirects to JMA.go.jp" target="_blank"><img src="' + radar_url[0] + auxVar +'.jpg"></a>';
-        */
-    }
+    }*/
     //help! https://www.data.jma.go.jp/obd/bunpu/
     let auxDate = `${radar_url[2]}${my_date.getFullYear()}${zero_pad(my_date.getMonth()+1)}${zero_pad(my_date.getDate())}`;
     let prevHour = thisHour;
