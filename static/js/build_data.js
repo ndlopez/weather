@@ -262,17 +262,18 @@ function buildSVGtext(dx,dy,text){
     }
 
     const lastElm = curr_weather.length-1;
+    let gotMax = curr_weather[lastElm]['maxmin'][0];
     // update tendency curve:
     if (ngo_pred[2]["xp"] == 14){
         // console.log("tendency updated");
-        ngo_pred[2]["yp"]=curr_weather[lastElm]['maxmin'][0]+1;
+        ngo_pred[2]["yp"] = gotMax;
     }
         
-    build_plot(result);
+    build_plot(result,gotMax);
     //let temp_max_min = maxmin[0];//the date: myData.curr_weather[0][0]
     
     let text = `<h2 id='this_place'></h2><h3 class='no-padding'>${days[today]}, ${months[monty-1]} ${tag} ${curr_weather[lastElm].hour_min}</h3>`;
-    text += `<div class='clearfix'><span class='large'>&emsp;${curr_weather[lastElm].temp}&#8451;</span><span id='now_weather' class='middle'></span><h4>Max ${curr_weather[lastElm]['maxmin'][0]}&#8451;&emsp;Min ${maxmin[1]}&#8451;</h4></div>`;//prev ${maxmin[0]}
+    text += `<div class='clearfix'><span class='large'>&emsp;${curr_weather[lastElm].temp}&#8451;</span><span id='now_weather' class='middle'></span><h4>Max ${gotMax}&#8451;&emsp;Min ${maxmin[1]}&#8451;</h4></div>`;//prev ${maxmin[0]}
 
     text += "<div id='rainToday' class='clearfix'></div>";
     
@@ -376,7 +377,7 @@ function yellow_dust(make_div=false){
     return imgName;
 }
 
-function build_plot(json_array){
+function build_plot(json_array,thisMax){
     // fetch yellow dust forecast
     // sleep til next season: true on Feb, March,May, June 
     document.getElementById("yellow-dust").innerHTML = `<a href='${yellow_dust(false)}' target="_blank">Yellow dust</a>`;
@@ -426,7 +427,7 @@ function build_plot(json_array){
     .append("g")
     .attr("transform","translate(" + 35 + "," + margin.top + ")");
     const yScale = d3.scaleLinear()
-    .domain([Math.round(tMin)-2,tMax]).range([h,0]);
+    .domain([Math.round(tMin)-2,thisMax+1]).range([h,0]);
     svgLeft.append("g").call(d3.axisLeft(yScale)).attr("font-size","12");
     svgLeft.append("g").append("text").text("\u2103").attr("x",-24).attr("y",-10);
 
