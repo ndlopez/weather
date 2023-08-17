@@ -4,11 +4,14 @@
     <title>.::Welcome to my test page::. </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="ndlopez.github.io/static/estilo2.css">
+    <!--link rel="stylesheet" type="text/css" href="ndlopez.github.io/static/estilo2.css"-->
+    <link rel="stylesheet" type="text/css" href="make_rain_anim.css">
+    
     </head>
     <body>
         <div id="weather_details"></div>
-        <script>
+        <div id="rainDiv"></div>
+        <!--script>
     const icons_text ={
         "d340":["d340.svg","Partly cloudy and light rain","曇り弱雨","https://www.foreca.com/public/images/symbols/d340.svg"],
         "n410":["n410.svg","Overcast and light rain","曇り一時雨","https://www.foreca.com/public/images/symbols/n410.svg"],
@@ -132,6 +135,7 @@ var text = "<h3>m/s</h3><h2> NW </h2>";
 var windDiv = buildGaugeMeter(2,"Wind",text)
 detailsDiv.appendChild(windDiv);
 
-        </script>
+        </script-->
+        <script src="make_rain_anim.js"></script>
     </body>
 </html>

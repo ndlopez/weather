@@ -22,7 +22,7 @@
     ocean is white, either color on Gimp or directly using CSS
     https://www.data.jma.go.jp/obd/bunpu/img/wthr/306/wthr_306_202306240900.png
     https://www.timeanddate.com/scripts/sunmap.php?iso=20230623T1420
-    
+    weather map: https://www.jma.go.jp/bosai/weather_map/
     const not_curr_Moon = "https://www.timeanddate.com/scripts/moon.php?i=0.809&p=5.670&r=5.592";
 */
 
@@ -412,7 +412,7 @@ async function getMoonTimes(){
             thisData.push(thisVal[0]);
             thisData.push(thisVal[2].split(":"));
             thisData.push(thisVal[3].split(":"));
-            console.log("got this",thisDate,thisVal[0]);
+            console.log("matched",thisDate,thisVal[0]);
         }
     });
     if (thisData.length == 0){
