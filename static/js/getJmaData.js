@@ -117,9 +117,9 @@ function build_obj_pos(sunSetRise,moonSetRise) {
 
     const svgCircle = document.createElementNS(svg_org,'circle');
     svgCircle.setAttribute("stroke","#2e4054");
-    svgCircle.setAttribute("stroke-width","2");
+    svgCircle.setAttribute("stroke-width","0");
     svgCircle.setAttribute("fill","transparent");//
-    svgCircle.setAttribute("stroke-dasharray","2,10");//5,5; 10,10; 5,10; 20,10,5,5,5,10
+    // svgCircle.setAttribute("stroke-dasharray","2,10");//5,5; 10,10; 5,10; 20,10,5,5,5,10
     svgCircle.setAttribute("r",0.5*width-26);
     svgCircle.setAttribute("cx",0.5*width);
     svgCircle.setAttribute("cy",0.5*width);
@@ -399,7 +399,7 @@ async function getTimes(){
 }
 
 async function getMoonTimes(){
-    const response = await fetch("https://raw.githubusercontent.com/ndlopez/scrapped/main/moon_times.csv");
+    const response = await fetch("https://raw.githubusercontent.com/ndlopez/scrapped/main/data/moon_times.csv");
     const data = await response.text();
     const rows = data.split('\n').slice(1);
     const thisDate = my_date.getFullYear() + "-" + zero_pad(my_date.getMonth()+1) + 
