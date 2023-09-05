@@ -1,8 +1,9 @@
-# Weather applications
+# Weather website
 
 [Live demo](https://ndlopez.github.io/weather)
 
-Weather applications developed with various technologies and environments (GNU/Linux, MacOS and Windows). Uses APIs from different providers.
+Display current weather conditions for a certain location in Japan.
+<!--Weather applications developed with various technologies and environments (GNU/Linux, MacOS and Windows). Uses APIs from different providers.-->
 
 ## Features
 
@@ -11,16 +12,18 @@ Weather applications developed with various technologies and environments (GNU/L
 - Map rendered with openStreetMap.org and Leaflet.js
 
 ## Credits
-- Some of the website icons are from [Dan Klammer](https://danklammer.com/bytesize-icons/)
-- Weather icon for iOS is from [Rain icon created by iconixar - Flaticon](https://www.flaticon.com/free-icons/rain)
-- Weather and earthquake data are from Japan Metereological Agency
+
+- Weather and earthquake data are from the Japan Metereological Agency
 - Moon rise/set times are scrapped from timeanddate.com
 - Sun rise/set times are courtesy of dayspedia.com
+- Some of the website icons are from [Dan Klammer](https://danklammer.com/bytesize-icons/)
+- Weather icon for iOS is from [Rain icon created by iconixar - Flaticon](https://www.flaticon.com/free-icons/rain)
 
 ---
-Enviroment: 
-- MacBookPro/MacOS 15.5<br>
-- Panasonic Let'sNote/Linux Fedora 36<br>
+## Enviroment: 
 
-Languages: Shell, JavaScript, Ruby<br>
-Editors: VIM and Emacs
+- Browser: Mozilla Firefox ESR v.102
+- OS: MacOS 15.5<br>
+  Panasonic Let'sNote/Linux Fedora 36<br>
+- Languages: JavaScript, CSS, HTML <br>
+- Editors: VIM and Emacs
