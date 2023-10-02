@@ -29,8 +29,8 @@ const toRadians = Math.PI/180.0;
 const maxValue = 6; //m/s when 10m/s too many scales, should display half
 /* Autumn: const ngo_pred = [{xp:0,yp:10.0},{xp:7,yp:8.0},{xp:14,yp:15.5},{xp:23,yp:9.0}]; 
 const ngo_pred = [{xp:0,yp:14.0},{xp:7,yp:11.0},{xp:14,yp:20.0},{xp:23,yp:12.0}];//spring
-const ngo_pred = [{xp:0,yp:20.0},{xp:7,yp:18.0},{xp:14,yp:26.0},{xp:23,yp:19.0}];//late spring */
-let ngo_pred = [{xp:0,yp:27.5},{xp:5,yp:26.0},{xp:14,yp:33.0},{xp:22,yp:28.5}];// summer
+let ngo_pred = [{xp:0,yp:27.5},{xp:5,yp:26.0},{xp:14,yp:33.0},{xp:22,yp:28.5}];// summer*/
+let ngo_pred = [{xp:0,yp:21.0},{xp:6,yp:18.0},{xp:14,yp:26.0},{xp:23,yp:21.0}];//late spring
 const tky_pred = [{xp:0,yp:5.0},{xp:7,yp:3},{xp:14,yp:13},{xp:23,yp:4}];
 let hours = [];
 let idx = 0;
@@ -38,26 +38,17 @@ for (idx; idx < 24; idx++) hours.push(idx);
 
 /* Fixing bug at 0:00 ~ 0:20 */
 /*if (currHH == 0 && currMin < 20){tag = tag - 1;}*/
-/* build array every 3 hours: 0 ~ hh */
-for (idx=0; idx < currHH; idx++){
-    if(idx % 3 == 0){ dataHours.push(idx); }
-}
-for (idx=0; idx < 24; idx++){
-    if(idx % 3 ==0){ mod3_hours.push(idx); }
-}
+/* build array every 3 hours: 0 ~ current hh */
+for (idx=0; idx < currHH; idx++){ if(idx % 3 == 0){ dataHours.push(idx); } }
+
+for (idx=0; idx < 24; idx++){ if(idx % 3 ==0){ mod3_hours.push(idx); } }
 // console.log("yester-you",tag,dataHours);
 function zeroPad(tit){return (tit<10)?"0"+tit:tit;}
 
 /* wind Direction -> JPchar */
 const allDirections = {0:"静穏",1:"北北東",2:"北東",3:"東北東",4:"東",5:"東南東",6:"南東",7:"南南東",8:"南",
 9:"南南西",10:"南西",11:"西南西",12:"西",13:"西北西",14:"北西",15:"北北西",16:"北"};
-function windChar(number){    
-    for (let dat in allDirections){
-        if(dat == number){
-            return allDirections[number];
-        }
-    }
-}
+
 // wind description according to Beaufort scale (up to 6) in m/s
 const desc_wind = [{"speed":0.28,"en_desc":"calm","jp_desc":"静穏"},
 {"speed":1.38,"en_desc":"Light Air","jp_desc":"至軽風"},{"speed":3.05,"en_desc":"Light Breeze","jp_desc":"軽風"},
@@ -75,7 +66,13 @@ function get_wind_desc(wspeed){
     }
     return thisWind;
 }
-
+function windChar(number){    
+    for (let dat in allDirections){
+        if(dat == number){
+            return allDirections[number];
+        }
+    }
+}
 function build_path(jdx){
     //0 < jdx < 8:
     const path = jma_url + cities[cdx].code + "/" + jahre + zeroPad(monty) + zeroPad(tag) + "_" + zeroPad(dataHours[jdx]) + ".json";
@@ -328,7 +325,7 @@ function build_array(hour,gotData){
         "wind":gotData[lena].wind[0],
         "windDir":gotData[lena].windDirection[0],
         "rain":gotData[lena].precipitation1h[0],
-        "maxmin":[gotData[lena].maxTemp[0],gotData[lena].maxTempTime['hour']+9]
+        "maxmin":[gotData[lena].maxTemp[0],gotData[lena].maxTempTime['hour']]
     };
     curr_weather.push(zoey);
     //var lena = get_min_attr(idx);
