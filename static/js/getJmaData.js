@@ -50,8 +50,6 @@ const theseDays = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
 let my_date = new Date();
 const thisHour = my_date.getHours(), thisMins = my_date.getMinutes();
 
-function zero_pad(tit){return (tit<10)?"0"+tit:tit;}
-
 async function sleepy(msec){
     return new Promise(resolve =>setTimeout(resolve,msec));
 }
@@ -174,7 +172,7 @@ function build_obj_pos(sunSetRise,moonSetRise) {
     const svgHour = document.createElementNS(svg_org,'text');
     svgHour.setAttribute("fill","#fff");svgHour.setAttribute("font-size","13px");
     svgHour.setAttribute("x",0.77*width);svgHour.setAttribute("y",0.51*height);
-    svgHour.textContent = thisHour + ":" + zero_pad(thisMins);
+    svgHour.textContent = thisHour + ":" + String(thisMins).padStart(2,'0');
 
     svgGroup.appendChild(svgFlying);
     
@@ -276,12 +274,12 @@ async function disp_info(kat){
         radar_url[1] + '" title="Click on the img for 1hour forecast. Redirects to JMA.go.jp" target="_blank"><img src="' + radar_url[0] + auxVar +'.jpg"></a>';
     }*/
     //help! https://www.data.jma.go.jp/obd/bunpu/
-    let auxDate = `${radar_url[2]}${my_date.getFullYear()}${zero_pad(my_date.getMonth()+1)}${zero_pad(my_date.getDate())}`;
+    let auxDate = `${radar_url[2]}${my_date.getFullYear()}${String(my_date.getMonth()+1).padStart(2,'0')}${String(my_date.getDate()).padStart(2,'0')}`;
     let prevHour = thisHour;
     if(thisMins < 20){
         prevHour = thisHour - 1;
     }
-    radarDiv.innerHTML = `<div class="radar_div"><a target="_blank" href='${radar_url[1]}'> <img src="${auxDate}${zero_pad(prevHour)}00.png" width=100% onerror="this.onerror=null;this.src='${auxDate}${zero_pad(prevHour)}00.png'"><img src='https://www.data.jma.go.jp/obd/bunpu/img/munic/munic_306.png' width=100%></a><span class="radar_link">Image from JMA. Last updated ${zero_pad(prevHour)}:00</span></div>`;
+    radarDiv.innerHTML = `<div class="radar_div"><a target="_blank" href='${radar_url[1]}'> <img src="${auxDate}${String(prevHour).padStart(2,'0')}00.png" width=100% onerror="this.onerror=null;this.src='${auxDate}${String(prevHour).padStart(2,'0')}00.png'"><img src='https://www.data.jma.go.jp/obd/bunpu/img/munic/munic_306.png' width=100%></a><span class="radar_link">Image from JMA. Last updated ${String(prevHour).padStart(2,'0')}:00</span></div>`;
     //when parsing currCond only: var currWeather = gotData.weather[1].split("　");
     /*for(let idx=0;idx<gotData.weather.length;idx++){
         var currWeather = gotData.weather[idx].split("　");
@@ -385,8 +383,7 @@ async function get_data(jdx){
 
 function convTime(unixT){
     const myTime = new Date(unixT *1000);
-    // if(minut < 10){ minut = "0" + minut;}
-    return [myTime.getHours(), zero_pad(myTime.getMinutes())];
+    return [myTime.getHours(), String(myTime.getMinutes()).padStart(2,'0')];
 }
 
 async function getTimes(){
@@ -402,8 +399,7 @@ async function getMoonTimes(){
     const response = await fetch("https://raw.githubusercontent.com/ndlopez/scrapped/main/data/moon_times.csv");
     const data = await response.text();
     const rows = data.split('\n').slice(1);
-    const thisDate = my_date.getFullYear() + "-" + zero_pad(my_date.getMonth()+1) + 
-    "-" + zero_pad(my_date.getDate()); //Current date
+    const thisDate = my_date.getFullYear() + "-" + String(my_date.getMonth()+1).padStart(2,'0') + "-" + String(my_date.getDate()).padStart(2,'0'); //Current date
     let thisData = [];
     rows.forEach(row => {
         const thisVal = row.split(";"); // [2022-12-05; 08:32; 21:20]
