@@ -259,14 +259,19 @@ function buildSVGtext(dx,dy,text){
     }
 
     const lastElm = curr_weather.length-1;
-    let gotMax = curr_weather[lastElm]['maxmin'][0];
+    let gotMax = curr_weather[lastElm]['maxmin'][0];//1 max hour
+    let gotMin = curr_weather[lastElm]['maxmin'][2]; // 3 min hour
     // update tendency curve:
     if (ngo_pred[2]["xp"] == 14){
         // console.log("tendency updated");
         ngo_pred[2]["yp"] = gotMax;
     }
+    if (ngo_pred[2]["xp"] == 6){
+        // console.log("tendency updated");
+        ngo_pred[2]["yp"] = gotMin;
+    }
         
-    build_plot(result,gotMax);
+    build_plot(result,gotMax,gotMin);
     //let temp_max_min = maxmin[0];//the date: myData.curr_weather[0][0]
     
     let text = `<h2 id='this_place'></h2><h3 class='no-padding'>${days[today]}, ${months[monty-1]} ${tag} ${curr_weather[lastElm].hour_min}</h3>`;
@@ -308,7 +313,7 @@ function build_array(hour,gotData){
             "wind":Math.round(gotData[aux].wind[0]),
             "windDir":gotData[aux].windDirection[0],
             "rain":gotData[aux].precipitation1h[0],
-            "maxmin":[gotData[aux].maxTemp[0],gotData[aux].maxTempTime['hour']+9]
+            "maxmin":[gotData[aux].maxTemp[0],gotData[aux].maxTempTime['hour'],gotData[aux].minTemp[0],gotData[aux].minTempTime['hour']]
         };
         result.push(abby);
     }
@@ -318,14 +323,14 @@ function build_array(hour,gotData){
     /*if(currMin < 20){currMin = 60;currHH = currHH -1;}*/
     //console.log(lena.slice(-6,-4),lena.slice(-4,-2));
     // zoey: last elm of each json array, data/10min
-    // here I distinguish between Max and Min at every 10min obs.
+    // here Max and Min are separated between at every 10min obs.
     const zoey = {
         "hour_min":lena.slice(-6,-4)+":"+lena.slice(-4,-2),
         "temp":gotData[lena].temp[0],"humid":gotData[lena].humidity[0],
         "wind":gotData[lena].wind[0],
         "windDir":gotData[lena].windDirection[0],
         "rain":gotData[lena].precipitation1h[0],
-        "maxmin":[gotData[lena].maxTemp[0],gotData[lena].maxTempTime['hour']]
+        "maxmin":[gotData[lena].maxTemp[0],gotData[lena].maxTempTime['hour'],gotData[lena].minTemp[0],gotData[lena].minTempTime['hour']]
     };
     curr_weather.push(zoey);
     //var lena = get_min_attr(idx);
@@ -374,7 +379,7 @@ function yellow_dust(make_div=false){
     return imgName;
 }
 
-function build_plot(json_array,thisMax){
+function build_plot(json_array,thisMax,thisMin){
     // fetch yellow dust forecast
     // sleep til next season: true on Feb, March,May, June 
     document.getElementById("yellow-dust").innerHTML = `<a href='${yellow_dust(false)}' target="_blank">Yellow dust</a>`;
@@ -424,7 +429,8 @@ function build_plot(json_array,thisMax){
     .append("g")
     .attr("transform","translate(" + 35 + "," + margin.top + ")");
     const yScale = d3.scaleLinear()
-    .domain([Math.round(tMin)-2,thisMax+1]).range([h,0]);
+    .domain([thisMin-1,thisMax+1]).range([h,0]);
+    //.domain([Math.round(tMin)-2,thisMax+1]).range([h,0]);
     svgLeft.append("g").call(d3.axisLeft(yScale)).attr("font-size","12");
     svgLeft.append("g").append("text").text("\u2103").attr("x",-24).attr("y",-10);
 

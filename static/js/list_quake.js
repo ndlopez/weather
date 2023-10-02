@@ -27,7 +27,7 @@ async function gotdata(){
     const this_info = await get_info();
     let tagHeure = new Date(this_info[0].det_time);
     let this_date = (tagHeure.getMonth()+1) + "月" + tagHeure.getDate() + "日";
-    let this_time = zero_pad(tagHeure.getHours())  + ":" + zero_pad(tagHeure.getMinutes());
+    let this_time = String(tagHeure.getHours()).padStart(2,'0')  + ":" + String(tagHeure.getMinutes()).padStart(2,'0');
     const main_div = document.getElementById("quake_info");
     main_div.setAttribute("class","row");
     
@@ -70,7 +70,7 @@ async function gotdata(){
         //":" + zero_pad(tina.minute) + "</h4></div>";
 
         texty += `<div class='column3 float-left' style='margin:0;border-radius:inherit;'><div class='row-date'> 
-        <div class='col-date float-left' style='text-align:left;padding-left:0;'><p></p><p><strong> ${zero_pad(tina.heure)}:${zero_pad(tina.minute)}</p></div><h3 class='col-date float-left'>M${this_info[idx].magnitud}</h3></div></div>`;
+        <div class='col-date float-left' style='text-align:left;padding-left:0;'><p></p><p><strong> ${String(tina.heure).padStart(2,'0')}:${String(tina.minute).padStart(2,'0')}</p></div><h3 class='col-date float-left'>M${this_info[idx].magnitud}</h3></div></div>`;
         
         texty += `<div class='column3 float-left'>
         <span style='margin-top:'><p>${this_info[idx].location}</p></span></div>`;
@@ -143,5 +143,3 @@ async function get_info(){
     //console.log(five_events);
     return five_events;
 }
-
-function zero_pad(tit){return (tit<10)?"0"+tit:tit;}
