@@ -11,10 +11,10 @@ const cities = [{name:"Nagoya",code:51106},{name:"Takayama",code:52146}];
 const cdx = 0; // 0:Nagoya, 1:Takayama
 /*current date and time*/
 let myDate = new Date();
-const jahre = myDate.getFullYear();
-const monty = myDate.getMonth() + 1;
-const today = myDate.getDay();
+let jahre = myDate.getFullYear();
+let monty = myDate.getMonth() + 1;
 let tag = myDate.getDate();
+const today = myDate.getDay();
 
 let currHH = myDate.getHours();
 let currMin = myDate.getMinutes();
@@ -36,20 +36,18 @@ let hours = [];
 let idx = 0;
 for (idx; idx < 24; idx++) hours.push(idx);
 
-/* Fixing bug at 0:00 ~ 0:20 
+/* Fixing bug at 0:00 ~ 0:20 */
 if (currHH == 0 && currMin < 20){
     // take data from prev day
-    let auxTag = myDate.setDate(myDate.getDate() -1); //unix format
-    tag = "";
-}*/
-
-
-function unix2Human(){
-    let newTag = myDate.setDate(myDate.getDate() -1);
-    const myTime = new Date(newTag);
-    return [tag,newTag, (myTime.getMonth()+1),myTime.getDate()];
+    let yesterYou = myDate.setDate(myDate.getDate() -1); //unix format
+    let auxDate = new Date(yesterYou);
+    // Update new dates
+    tag = auxDate.getDate();
+    monty = auxDate.getMonth() + 1;
+    jahre = auxDate.getFullYear();
+    console.log("using yesterYou dates", jahre,monty,tag);
 }
-console.log("yesterYou",unix2Human());
+
 /* build array every 3 hours: 0 ~ current hh */
 for (idx=0; idx < currHH; idx++){ if(idx % 3 == 0){ dataHours.push(idx); } }
 
