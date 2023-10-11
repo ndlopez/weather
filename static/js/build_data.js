@@ -30,14 +30,26 @@ const maxValue = 6; //m/s when 10m/s too many scales, should display half
 /* Autumn: const ngo_pred = [{xp:0,yp:10.0},{xp:7,yp:8.0},{xp:14,yp:15.5},{xp:23,yp:9.0}]; 
 const ngo_pred = [{xp:0,yp:14.0},{xp:7,yp:11.0},{xp:14,yp:20.0},{xp:23,yp:12.0}];//spring
 let ngo_pred = [{xp:0,yp:27.5},{xp:5,yp:26.0},{xp:14,yp:33.0},{xp:22,yp:28.5}];// summer*/
-let ngo_pred = [{xp:0,yp:21.0},{xp:6,yp:18.0},{xp:14,yp:26.0},{xp:23,yp:21.0}];//late spring
+let ngo_pred = [{xp:0,yp:19.0},{xp:6,yp:18.0},{xp:14,yp:26.0},{xp:23,yp:20.0}];//late spring
 const tky_pred = [{xp:0,yp:5.0},{xp:7,yp:3},{xp:14,yp:13},{xp:23,yp:4}];
 let hours = [];
 let idx = 0;
 for (idx; idx < 24; idx++) hours.push(idx);
 
-/* Fixing bug at 0:00 ~ 0:20 */
-/*if (currHH == 0 && currMin < 20){tag = tag - 1;}*/
+/* Fixing bug at 0:00 ~ 0:20 
+if (currHH == 0 && currMin < 20){
+    // take data from prev day
+    let auxTag = myDate.setDate(myDate.getDate() -1); //unix format
+    tag = "";
+}*/
+
+
+function unix2Human(){
+    let newTag = myDate.setDate(myDate.getDate() -1);
+    const myTime = new Date(newTag);
+    return [tag,newTag, (myTime.getMonth()+1),myTime.getDate()];
+}
+console.log("yesterYou",unix2Human());
 /* build array every 3 hours: 0 ~ current hh */
 for (idx=0; idx < currHH; idx++){ if(idx % 3 == 0){ dataHours.push(idx); } }
 
@@ -66,6 +78,10 @@ function get_wind_desc(wspeed){
     }
     return thisWind;
 }
+/* filter to get one element
+const thatWind = desc_wind.filter(ele => {
+    return ele <= desc_wind[]
+})*/
 function windChar(number){    
     for (let dat in allDirections){
         if(dat == number){
