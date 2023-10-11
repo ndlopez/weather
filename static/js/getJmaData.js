@@ -212,7 +212,7 @@ async function disp_info(kat){
         document.title = gotData.location + ": " + gotData.weather[0];
         city_name.innerHTML = "<br>" + gotData.location;
     }
-    const gotTime = await getTimes();//fetch Sun rise/set
+    const gotTime = await getSunTimes();//fetch Sun rise/set
     const moonTimes = await getMoonTimes();//fetch Moon rise/set
     // console.log("Moon",moonTimes);
     // mobile icon
@@ -386,7 +386,7 @@ function convTime(unixT){
     return [myTime.getHours(), String(myTime.getMinutes()).padStart(2,'0')];
 }
 
-async function getTimes(){
+async function getSunTimes(){
     const response = await fetch(sun_time[1]);
     const data = await response.json();
     let sunRise = data["sunrise"];

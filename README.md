@@ -20,10 +20,17 @@ Display current weather conditions for a certain location in Japan.
 - Weather icon for iOS is from [Rain icon created by iconixar - Flaticon](https://www.flaticon.com/free-icons/rain)
 
 ---
-## Enviroment: 
+## Tested Environment: 
 
+Desktop
 - Browser: Mozilla Firefox ESR v.102
-- OS: MacOS 15.5<br>
-  Panasonic Let'sNote/Linux Fedora 36<br>
+
+Mobile
+- Browser: DuckDuckGo [iOS and Android app](https://duckduckgo.com/app)
+
+## Developing Environment
+
+- OS: Panasonic Let'sNote/Linux Fedora 36<br>
 - Languages: JavaScript, CSS, HTML <br>
 - Editors: VIM and Emacs
+

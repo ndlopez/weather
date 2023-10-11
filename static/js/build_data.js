@@ -42,9 +42,9 @@ if (currHH == 0 && currMin < 20){
     let yesterYou = myDate.setDate(myDate.getDate() -1); //unix format
     let auxDate = new Date(yesterYou);
     // Update new dates
-    tag = auxDate.getDate();
     monty = auxDate.getMonth() + 1;
     jahre = auxDate.getFullYear();
+    tag = auxDate.getDate();
     console.log("using yesterYou dates", jahre,monty,tag);
 }
 
