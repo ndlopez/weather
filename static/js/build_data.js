@@ -64,21 +64,19 @@ const allDirections = {0:"静穏",1:"北北東",2:"北東",3:"東北東",4:"東"
 9:"南南西",10:"南西",11:"西南西",12:"西",13:"西北西",14:"北西",15:"北北西",16:"北"};
 
 // wind description according to Beaufort scale (up to 6) in m/s
-const desc_wind = [{"speed":0.28,"en_desc":"calm","jp_desc":"静穏"},
-{"speed":1.38,"en_desc":"Light Air","jp_desc":"至軽風"},{"speed":3.05,"en_desc":"Light Breeze","jp_desc":"軽風"},
-{"speed":5.28,"en_desc":"Gentle Breeze","jp_desc":"軟風"},{"speed":7.78,"en_desc":"Moderate Breeze","jp_desc":"和風"},
-{"speed":10.56,"en_desc":"Fresh Breeze","jp_desc":"疾風"},{"speed":13.6,"en_desc":"Strong Breeze","jp_desc":"雄風"}];
+const desc_wind = [{"speed":0.0,"max":0.2,"en":"calm","jp":["静穏","せいおん","煙がまっすぐに昇っていく"]},{"speed":0.3,"max":1.5,"en":"Light Air","jp":["至軽風","しけいふう","煙がたなびくが風向計での計測はできない"]},{"speed":1.6,"max":3.3,"en":"Light Breeze","jp":["軽風","けいふう","顔に風を感じる、木の葉が動き風向計での計測が可能になる"]},
+{"speed":3.4,"max":5.4,"en":"Gentle Breeze","jp":["軟風","なんぷう","葉っぱが絶えず動いている、軽い旗がはためく"]},{"speed":5.5,"max":7.9,"en":"Moderate Breeze","jp":["和風","わふう","ホコリが舞い上がり、木の枝が動く"]},
+{"speed":8.0,"max":10.7,"en":"Fresh Breeze","jp":["疾風","しっぷう","小さな木がゆり動く、水面にさざ波が立つ"]},{"speed":10.8,"max":13.8,"en":"Strong Breeze","jp":["雄風","ゆうふう","大きな枝が動き、電線がうなり、傘をさすのが困難になる"]},{"speed":13.9,"max":17.1,"en":"Near gale","jp":["強風","きょうふう","木全体がゆれ、風に向かって歩くのが困難になる"]}];
 //more at https://www.i-kahaku.jp/friend/kagaku/0306/kaze/index.html
 function get_wind_desc(wspeed){
-    // wspeed is float
-    let thisWind = "";
+    //let thisWind = "";// wspeed is float
     for (let item in desc_wind) {
-        if(wspeed <= desc_wind[item].speed){
-            thisWind = desc_wind[item].jp_desc;
-            break;
+        if((wspeed >= desc_wind[item].speed) && (wspeed < desc_wind[item].max)){
+            return desc_wind[item].jp[0];
+            //break;
         }
     }
-    return thisWind;
+    // return thisWind;
 }
 /* filter to get one element
 const thatWind = desc_wind.filter(ele => {
