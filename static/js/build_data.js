@@ -42,14 +42,18 @@ if (currHH == 0 && currMin < 20){
     let yesterYou = myDate.setDate(myDate.getDate() -1); //unix format
     let auxDate = new Date(yesterYou);
     // Update new dates
-    monty = auxDate.getMonth() + 1;
     jahre = auxDate.getFullYear();
+    monty = auxDate.getMonth() + 1;
     tag = auxDate.getDate();
+    // currHH=0 is not good, I want the last data of the day
+    currHH = 23;
+    currMin = 50;
     console.log("using yesterYou dates", jahre,monty,tag);
 }
 
 /* build array every 3 hours: 0 ~ current hh */
-for (idx=0; idx < currHH; idx++){ if(idx % 3 == 0){ dataHours.push(idx); } }
+dataHours.push(0); // to avoid empty array
+for (idx=1; idx < currHH; idx++){ if(idx % 3 == 0){ dataHours.push(idx); } }
 
 for (idx=0; idx < 24; idx++){ if(idx % 3 ==0){ mod3_hours.push(idx); } }
 // console.log("yester-you",tag,dataHours);
