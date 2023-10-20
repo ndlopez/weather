@@ -79,9 +79,11 @@ function get_wind_desc(wspeed){
     // return thisWind;
 }
 /* filter to get one element
-const thatWind = desc_wind.filter(ele => {
-    return ele <= desc_wind[]
-})*/
+function wendy(arr,query) {
+    return arr.filter((el) => ((el.speed < query) && (el.max > query)));
+}
+const windy = wendy(desc_wind,5.3);
+*/
 function windChar(number){    
     for (let dat in allDirections){
         if(dat == number){

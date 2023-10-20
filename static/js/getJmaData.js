@@ -21,7 +21,7 @@
     css: position:absolute;top:1px;left:1px;width:520px;opacity:0.5;
     ocean is white, either color on Gimp or directly using CSS
     https://www.data.jma.go.jp/obd/bunpu/img/wthr/306/wthr_306_202306240900.png
-    https://www.timeanddate.com/scripts/sunmap.php?iso=20230623T1420
+    https://www.timeanddate.com/scripts/sunmap.php?iso=20231020T1740
     weather map: https://www.jma.go.jp/bosai/weather_map/
     const not_curr_Moon = "https://www.timeanddate.com/scripts/moon.php?i=0.809&p=5.670&r=5.592";
 */
