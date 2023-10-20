@@ -276,7 +276,16 @@ async function disp_info(kat){
     //help! https://www.data.jma.go.jp/obd/bunpu/
     let auxDate = `${radar_url[2]}${my_date.getFullYear()}${String(my_date.getMonth()+1).padStart(2,'0')}${String(my_date.getDate()).padStart(2,'0')}`;
     let prevHour = thisHour;
-    if(thisMins < 20){
+    if(prevHour == 0 && thisMins < 20){
+        // date should be yesterYou!
+        let yesterYou = myDate.setDate(myDate.getDate() -1); //unix format
+        let WendyDate = new Date(yesterYou);
+        // Update new dates
+        // thisHour=0 is not good, the last data of the day is needed
+        prevHour = 23;
+        auxDate = `${radar_url[2]}${WendyDate.getFullYear()}${String(WendyDate.getMonth()+1).padStart(2,'0')}${String(WendyDate.getDate()).padStart(2,'0')}`;
+    }
+    if((thisHour > 0) && (thisMins < 20)){
         prevHour = thisHour - 1;
     }
     radarDiv.innerHTML = `<div class="radar_div"><a target="_blank" href='${radar_url[1]}'> <img src="${auxDate}${String(prevHour).padStart(2,'0')}00.png" width=100% onerror="this.onerror=null;this.src='${auxDate}${String(prevHour).padStart(2,'0')}00.png'"><img src='https://www.data.jma.go.jp/obd/bunpu/img/munic/munic_306.png' width=100%></a><span class="radar_link">Image from JMA. Last updated ${String(prevHour).padStart(2,'0')}:00</span></div>`;
