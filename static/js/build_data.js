@@ -72,11 +72,11 @@ function get_wind_desc(wspeed){
     //let thisWind = "";// wspeed is float
     for (let item in desc_wind) {
         if((wspeed >= desc_wind[item].speed) && (wspeed < desc_wind[item].max)){
+            console.log("wendy",desc_wind[item].jp[0]);
             return desc_wind[item].jp[0];
             //break;
         }
-    }
-    // return thisWind;
+    }// return thisWind;    
 }
 /* filter to get one element
 function wendy(arr,query) {
@@ -280,14 +280,18 @@ function buildSVGtext(dx,dy,text){
     let gotMax = curr_weather[lastElm]['maxmin'][0];//1 max hour
     let gotMin = curr_weather[lastElm]['maxmin'][2]; // 3 min hour
     // update tendency curve:
-    if (ngo_pred[2]["xp"] == 14){
+    ngo_pred[0]["yp"] = gotMin + 3;
+    ngo_pred[1]["yp"] = gotMin;
+    ngo_pred[2]["yp"] = gotMax;
+    ngo_pred[3]["yp"] = gotMax - 6;
+    /*if (ngo_pred[2]["xp"] == 14){
         // console.log("tendency updated");
         ngo_pred[2]["yp"] = gotMax;
     }
-    if (ngo_pred[2]["xp"] == 6){
+    if (ngo_pred[1]["xp"] == 6){
         // console.log("tendency updated");
-        ngo_pred[2]["yp"] = gotMin;
-    }
+        ngo_pred[1]["yp"] = gotMin;
+    }*/
         
     build_plot(result,gotMax,gotMin);
     //let temp_max_min = maxmin[0];//the date: myData.curr_weather[0][0]
@@ -347,7 +351,7 @@ function build_array(hour,gotData){
         "temp":gotData[lena].temp[0],"humid":gotData[lena].humidity[0],
         "wind":gotData[lena].wind[0],
         "windDir":gotData[lena].windDirection[0],
-        "rain":gotData[lena].precipitation1h[0],
+        "rain":gotData[lena].precipitation10m[0],
         "maxmin":[gotData[lena].maxTemp[0],gotData[lena].maxTempTime['hour'],gotData[lena].minTemp[0],gotData[lena].minTempTime['hour']]
     };
     curr_weather.push(zoey);
