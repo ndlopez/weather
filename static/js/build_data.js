@@ -72,18 +72,14 @@ function get_wind_desc(wspeed){
     //let thisWind = "";// wspeed is float
     for (let item in desc_wind) {
         if((wspeed >= desc_wind[item].speed) && (wspeed < desc_wind[item].max)){
-            console.log("wendy",desc_wind[item].jp[0]);
-            return desc_wind[item].jp[0];
-            //break;
+            console.log("wendy",wspeed,desc_wind[item].jp[0]);//break;
+            return desc_wind[item].jp[0];            
         }
     }// return thisWind;    
 }
 /* filter to get one element
-function wendy(arr,query) {
-    return arr.filter((el) => ((el.speed < query) && (el.max > query)));
-}
-const windy = wendy(desc_wind,5.3);
-*/
+function wendy(arr,query) {return arr.filter((el) => ((el.speed < query) && (el.max > query)));}
+const windy = wendy(desc_wind,5.3);*/
 function windChar(number){    
     for (let dat in allDirections){
         if(dat == number){
@@ -284,14 +280,6 @@ function buildSVGtext(dx,dy,text){
     ngo_pred[1]["yp"] = gotMin;
     ngo_pred[2]["yp"] = gotMax;
     ngo_pred[3]["yp"] = gotMax - 6;
-    /*if (ngo_pred[2]["xp"] == 14){
-        // console.log("tendency updated");
-        ngo_pred[2]["yp"] = gotMax;
-    }
-    if (ngo_pred[1]["xp"] == 6){
-        // console.log("tendency updated");
-        ngo_pred[1]["yp"] = gotMin;
-    }*/
         
     build_plot(result,gotMax,gotMin);
     //let temp_max_min = maxmin[0];//the date: myData.curr_weather[0][0]
@@ -304,7 +292,7 @@ function buildSVGtext(dx,dy,text){
     document.getElementById("curr_weather").innerHTML = text;
 
     const detailsDiv = document.getElementById("weather_details");
-    text = "<h4>mm/H</h4><h2 id='rainProb'></h2>";
+    text = "<h4>mm/10分</h4><h2 id='rainProb'></h2>";
     //console.log("rain1H",Math.round(curr_weather[lastElm].rain));
     const rainDiv = buildGaugeMeter(Math.round(curr_weather[lastElm].rain),"RAIN",text);
     detailsDiv.appendChild(rainDiv);
@@ -322,8 +310,8 @@ function buildSVGtext(dx,dy,text){
 })();
 
 function build_array(hour,gotData){
-    // void function, 
-    // fills "result" array with data/hour, and "zoey" Obj with currentData
+    /* void function, 
+    fills "result" array with data/hour,data/10min, and "zoey" Obj with currentData*/
     // abby is data every hour
     const limit = 2;
     for(let idx = hour; idx <= hour + limit; idx++){

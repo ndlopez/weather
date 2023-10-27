@@ -32,7 +32,7 @@ const svg_org = "http://www.w3.org/2000/svg";
 /* Fetching data from JMA.go.jp */
 const toRad = Math.PI/180.0;
 const jmaURL = "https://www.jma.go.jp/bosai/forecast/data/forecast/";
-const city_code = [{name:"Nagoya",code:230000},{name:"Takayama",code:210000}];
+const city_code = [{name:"Nagoya",code:230000,region:"愛知県西部: "},{name:"Takayama",code:210000,region:"岐阜県飛騨地方: "}];
 // var city_idx = 0; // 0:Nagoya, 1:Takayama
 const ico_url = "https://www.jma.go.jp/bosai/forecast/img/";
 const radar_url = ["https://static.tenki.jp/static-images/radar/recent/pref-26-",
@@ -237,7 +237,7 @@ async function disp_info(kat){
             kaisa = "<img src='" + ico_url + gotData.icon[0] +
             ".svg' onerror='this.onerror=null;this.src=\"static/assets/cloudy_all.svg\"'/><br/>";
         }
-        nowTenki.innerHTML = kaisa + "愛知県西部: " + gotData.weather[0] + "<br/>" + gotData.wind[0];
+        nowTenki.innerHTML = kaisa + city_code[0].region + gotData.weather[0] + "<br/>" + gotData.wind[0];
     }
     /* today rain Prob*/
     const div_rain = document.getElementById("rainToday");
@@ -368,7 +368,7 @@ async function get_data(jdx){
     const response = await fetch(my_url);
     const data = await response.json();
     //0: currDay, 1: nextDay, 2:dayAfter2moro
-    const place = data[1].timeSeries[1].areas[jdx].area.name;
+    const place = data[1].timeSeries[1].areas[jdx].area.name;//0TKY,1NGO
     const upTime = data[0].timeSeries[0].timeDefines;
     const thisWeather = data[0].timeSeries[0].areas[jdx].weathers;
     const weatherIcon = data[0].timeSeries[0].areas[jdx].weatherCodes;
@@ -378,12 +378,12 @@ async function get_data(jdx){
     const tempTimes = data[0].timeSeries[2].timeDefines;//max/min only
     const temp = data[0].timeSeries[2].areas[jdx].temps;//currDay:0,1; nextDay:2,3
     //weekly forecast
-    const weekDates = data[1].timeSeries[0].timeDefines;// 7dates
-    const weekIcons = data[1].timeSeries[0].areas[jdx].weatherCodes; // 7 code Icons
+    const weekDates = data[1].timeSeries[0].timeDefines;// 7dates, 0TKY,1NGO
+    const weekIcons = data[1].timeSeries[0].areas[jdx].weatherCodes; // 7 code Icons 0TKY,1NGO
     //const weekTempDates = data[1].timeSeries[1].timeDefines; //7dates
-    const weekTempMin = data[1].timeSeries[1].areas[jdx].tempsMin;
-    const weekTempMax = data[1].timeSeries[1].areas[jdx].tempsMax;
-    const weekRainProb = data[1].timeSeries[0].areas[jdx].pops;
+    const weekTempMin = data[1].timeSeries[1].areas[jdx].tempsMin;//0TKY,1NGO
+    const weekTempMax = data[1].timeSeries[1].areas[jdx].tempsMax;//0TKY,1NGO
+    const weekRainProb = data[1].timeSeries[0].areas[jdx].pops;//0TKY,1NGO
     //console.log("RainProb",weekRainProb);
     return {"location":place,"time":upTime,"weather":thisWeather,"icon":weatherIcon,
     "wind":winds,"rain":[rainTimes,rainProb],"temp":[tempTimes,temp],
