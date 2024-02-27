@@ -422,7 +422,7 @@ function build_plot(json_array,thisMax,thisMin){
     containDiv.appendChild(rightDiv);
 
     const xSize = 735,ySize=450;
-    const margin = {top:40,right:20,bottom:50,left:0},
+    const margin = {top:40,right:20,bottom:50,left:20},
     w = xSize - margin.left - margin.right,
     h = ySize - margin.top - margin.bottom;
     
@@ -442,33 +442,32 @@ function build_plot(json_array,thisMax,thisMin){
     .domain([thisMin-1,thisMax+1]).range([h,0]);
     //.domain([Math.round(tMin)-2,thisMax+1]).range([h,0]);
     svgLeft.append("g").call(d3.axisLeft(yScale)).attr("font-size","12");
-    svgLeft.append("g").append("text").text("\u2103").attr("x",-24).attr("y",-10);
-
-    /* Y2 humid: right axis */
-    const humidMin = d3.min(json_array,(d)=>{return d.humid;});
-    const humidMax = 100;//d3.max(json_array,(d)=>{return d.humid;});
-    /* Y2 wendy: right axis */
-    const wendyMin = 0; //d3.min(json_array,(d)=>{return d.?;});
-    const wendyMax = 12; //d3.max(json_array,(d)=>{return d.?;});
+    svgLeft.append("g").append("text").text("\u2103").attr("x",-24).attr("y",-10); 
     
     const svgRight = d3.select("#rightAxis")
     .append("svg").attr("width",35).attr("height",ySize)
     .append("g")
     .attr("transform","translate(" + 30 + "," + margin.top + ")"); // axisLeft
     //.attr("transform","translate(" + 5 + "," + margin.top + ")"); axisRight
-
+    
     /*Rain mm/H scale 
     const rainMin = d3.min(json_array,(d)=>{return d.rain;}), 
     rainMax = d3.max(json_array,(d)=>{return d.rain;});
     const yRain = d3.scaleLinear().domain([rainMin,rainMax+1]).range([h,0]);
     svgRight.append("g").call(d3.axisRight(yRain));*/
-
-    /*const yHumid = d3.scaleLinear()
+    
+    /* Y2 humid: right axis */
+    /* const humidMin = d3.min(json_array,(d)=>{return d.humid;});
+    const humidMax = 100;//d3.max(json_array,(d)=>{return d.humid;});
+    const yHumid = d3.scaleLinear()
     .domain([humidMin-5,humidMax])
     .range([h,0]);
     svgRight.append("g").call(d3.axisLeft(yHumid)); */ 
     //.attr("transform","translate("+w+",0)");
     //svgRight.append("g").append("text").text("%").attr("x",10).attr("y",-10);//Right
+    /* Y2 wendy: right axis */
+    const wendyMin = 0; //d3.min(json_array,(d)=>{return d.wind;});
+    const wendyMax = 12; //d3.max(json_array,(d)=>{return d.wind;});
     const yWendy = d3.scaleLinear()
     .domain([wendyMin,wendyMax])
     .range([h,0]);
