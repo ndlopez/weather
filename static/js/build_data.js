@@ -392,7 +392,7 @@ function yellow_dust(make_div=false){
 function build_plot(json_array,thisMax,thisMin){
     // fetch yellow dust forecast
     // sleep til next season: true on Feb, March,May, June 
-    document.getElementById("yellow-dust").innerHTML = `<a href='${yellow_dust(false)}' target="_blank">Yellow dust</a>`;
+    document.getElementById("yellow-dust").innerHTML = `<a href='${yellow_dust(true)}' target="_blank">Yellow dust</a>`;
     /*d3js bar plot-> https://jsfiddle.net/matehu/w7h81xz2/38/*/
     const containDiv = document.getElementById("weather_bar");
     const leftDiv = document.createElement("div");
@@ -447,6 +447,9 @@ function build_plot(json_array,thisMax,thisMin){
     /* Y2 humid: right axis */
     const humidMin = d3.min(json_array,(d)=>{return d.humid;});
     const humidMax = 100;//d3.max(json_array,(d)=>{return d.humid;});
+    /* Y2 wendy: right axis */
+    const wendyMin = 0; //d3.min(json_array,(d)=>{return d.?;});
+    const wendyMax = 12; //d3.max(json_array,(d)=>{return d.?;});
     
     const svgRight = d3.select("#rightAxis")
     .append("svg").attr("width",35).attr("height",ySize)
@@ -460,12 +463,17 @@ function build_plot(json_array,thisMax,thisMin){
     const yRain = d3.scaleLinear().domain([rainMin,rainMax+1]).range([h,0]);
     svgRight.append("g").call(d3.axisRight(yRain));*/
 
-    const yHumid = d3.scaleLinear()
+    /*const yHumid = d3.scaleLinear()
     .domain([humidMin-5,humidMax])
     .range([h,0]);
-    svgRight.append("g").call(d3.axisLeft(yHumid)); //.attr("transform","translate("+w+",0)");
+    svgRight.append("g").call(d3.axisLeft(yHumid)); */ 
+    //.attr("transform","translate("+w+",0)");
     //svgRight.append("g").append("text").text("%").attr("x",10).attr("y",-10);//Right
-    svgRight.append("g").append("text").text("%").attr("x",-20).attr("y",-10);//axisLeft
+    const yWendy = d3.scaleLinear()
+    .domain([wendyMin,wendyMax])
+    .range([h,0]);
+    svgRight.append("g").call(d3.axisLeft(yWendy));
+    svgRight.append("g").append("text").text("m/s").attr("x",-20).attr("y",-10);//axisLeft
 
     const svg2 = d3.select("#mainPlot")
     .append("svg")
@@ -499,8 +507,10 @@ function build_plot(json_array,thisMax,thisMin){
     svg2.selectAll("rect")
     .transition()
     .duration(800)
-    .attr("y",function(d){return yHumid(d.humid);})
-    .attr("height",function(d){return h-yHumid(d.humid);})
+    // .attr("y",function(d){return yHumid(d.humid);})
+    // .attr("height",function(d){return h-yHumid(d.humid);})
+    .attr("y",function(d){return yWendy(d.wind);})
+    .attr("height",function(d){return h-yWendy(d.wind);})
     .delay(function(d,i){return(i*100)});
 
     /* Temperature: square plot */
@@ -538,11 +548,19 @@ function build_plot(json_array,thisMax,thisMin){
 
     /* windSpeed: text */
     svg2.append("g").selectAll(".txtWind").data(json_array).enter()
-    .append("text").attr("class","txtWind").text(function(d){return d.wind+"m";})
+    .append("text").attr("class","txtWind").text(function(d){return d.humid+"";})
     .attr("text-anchor","middle")
     .attr("x",(d)=>{return xScale(d.hour)+9;})
     .attr("y",(d)=>{return h-5;})
     .attr("font-size","11px");
+
+    /* windSpeed: text */
+    /* svg2.append("g").selectAll(".txtWind").data(json_array).enter()
+    .append("text").attr("class","txtWind").text(function(d){return d.wind+"m";})
+    .attr("text-anchor","middle")
+    .attr("x",(d)=>{return xScale(d.hour)+9;})
+    .attr("y",(d)=>{return h-5;})
+    .attr("font-size","11px"); */
 
     /* windDirection */
     //adjHeight = 0;
