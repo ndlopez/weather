@@ -362,9 +362,11 @@ function yellow_dust(make_div=false){
         //display next day forecast
         let today = new Date(jahre+"-"+monty+"-"+tag);
         let tomorrow = new Date(today);
-        // let aux = tomorrow.setDate(today.getDate()+1)
-        // console.log("whatDay",new Date(aux *1000));
-        tag = tag +1;
+        let aux = tomorrow.setDate(today.getDate()+1)
+        console.log("whatDay",new Date(aux));
+        monty = aux.getMonth();
+        tag = aux.getDate();
+        myIdx = 0;
     }
     const imgName = pm25_url + jahre + zeroPad(monty) + zeroPad(tag) + zeroPad(mod3_hours[myIdx]) + "00_kosafcst-s_jp_jp.png";
 
@@ -381,7 +383,7 @@ function yellow_dust(make_div=false){
         innDiv.setAttribute("class","inner_div");
 
         const myDiv = document.createElement("div");
-        myDiv.innerHTML = "<img src='" + imgName + "' onerror='this.onerror=null;this.src=\"assets/100_0999.jpg\"'/>";
+        myDiv.innerHTML = "<img src='" + imgName + "' onerror='this.onerror=null;this.src=\"assets/Valle_de_la_Luna_small.jpg\"'/>";
         innDiv.appendChild(myDiv);
         outDiv.appendChild(innDiv);
         centDiv.appendChild(outDiv);
@@ -492,7 +494,7 @@ function build_plot(json_array,thisMax,thisMin){
     //.attr("font-size","12");
     //.style("text-anchor","middle");
 
-    /* Humidity: bar plot */
+    /* Wendy: bar plot */
     svg2.selectAll("bar")
     .data(json_array).enter()
     .append("rect")
