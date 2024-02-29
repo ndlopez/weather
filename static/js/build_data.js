@@ -363,8 +363,9 @@ function yellow_dust(make_div=false){
         let today = new Date(jahre+"-"+monty+"-"+tag);
         let tomorrow = new Date(today);
         let aux = tomorrow.setDate(today.getDate()+1)
-        console.log("whatDay",new Date(aux));
-        monty = aux.getMonth();
+        // console.log("whatDay",new Date(aux));
+        aux = new Date(aux);
+        monty = aux.getMonth() + 1;
         tag = aux.getDate();
         myIdx = 0;
     }
