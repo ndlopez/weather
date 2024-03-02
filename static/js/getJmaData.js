@@ -194,7 +194,7 @@ async function disp_info(kat){
     // mobile icon
     const thisIcon = document.getElementById("linkOn");
     thisIcon.innerHTML = "<img width='32px' src='" + ico_url + gotData.icon[0] + 
-    ".svg' onerror='this.onerror=null;this.src=\"static/assets/cloudy_all.svg\"'/> weather";
+    ".svg' onerror='this.onerror=null;this.src=\"static/assets/wdr_wetter.svg\"'/> weather";
     //sunrise/sunset + wind info
     const weathernfo = document.getElementById("curr_weather");
     weathernfo.appendChild(build_obj_pos(gotTime,moonTimes));
@@ -231,24 +231,21 @@ async function disp_info(kat){
         /// console.log(idx,jdx,get_date.heure,hh[idx],gotData.rain[1][idx]);
 	    kdx++;
     }*/ 
-    
+    const jmaTimes = [0,6,12,18];
+    let amy=0;
     for(let idx=0;idx<gotData.rain[0].length;idx++){
         const get_date = getDateHour(gotData.rain[0][idx]);
         let this_value = "";
         if (get_date.tag == my_date.getDate()){
             // today's rain Prob
-            //if(thisHour < hh[kdx-1]){}
-                this_value = gotData.rain[1][idx];
-            //}else{this_value = "-";}
-            
-            if (get_date.heure == 0){kdx=0;}
-            if (get_date.heure == 6){kdx=1;}
-            if (get_date.heure == 12){kdx=2;}
-            if (get_date.heure == 18){kdx=3;}
-            
-            console.log(gotData.rain[0][idx],get_date,(my_date.getMonth()+1),my_date.getDate());
-            
-            susy +=`<p class='col4'>${get_date.heure} - ${hh[kdx]}<br/>${this_value}%</p>`;
+            this_value = gotData.rain[1][idx];
+            for (;kdx<jmaTimes.length;kdx++){
+                if (get_date.heure == jmaTimes[kdx]){
+                    amy = kdx;
+                }
+            }
+            // console.log(gotData.rain[0][idx],get_date,(my_date.getMonth()+1),my_date.getDate());
+            susy +=`<p class='col4'>${get_date.heure} - ${hh[amy]}<br/>${this_value}%</p>`;
         }        
     }
     div_rain.innerHTML = susy; 
