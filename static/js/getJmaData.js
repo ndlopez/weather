@@ -217,7 +217,7 @@ async function disp_info(kat){
     }
     /* today rain Prob*/
     const div_rain = document.getElementById("rainToday");
-    let susy = "", kdx=0, jdx = gotData.rain[0].length-1;
+    let susy = "", kdx=0, jdx = gotData.rain[0].length - 1;
     // rainProb depends on the hour, if time < 6 then idx=0, 
     /*for(let idx = jdx-3;idx < jdx+1;idx++){
         const get_date = getDateHour(gotData.rain[0][idx]);
@@ -230,15 +230,25 @@ async function disp_info(kat){
         susy += `<p class='col4'>${get_date.heure} - ${hh[kdx]}<br/>${this_value}%</p>`;
         /// console.log(idx,jdx,get_date.heure,hh[idx],gotData.rain[1][idx]);
 	    kdx++;
-    }*/
-
+    }*/ 
+    
     for(let idx=0;idx<gotData.rain[0].length;idx++){
         const get_date = getDateHour(gotData.rain[0][idx]);
         let this_value = "";
         if (get_date.tag == my_date.getDate()){
+            // today's rain Prob
+            //if(thisHour < hh[kdx-1]){}
+                this_value = gotData.rain[1][idx];
+            //}else{this_value = "-";}
+            
+            if (get_date.heure == 0){kdx=0;}
+            if (get_date.heure == 6){kdx=1;}
+            if (get_date.heure == 12){kdx=2;}
+            if (get_date.heure == 18){kdx=3;}
+            
             console.log(gotData.rain[0][idx],get_date,(my_date.getMonth()+1),my_date.getDate());
-            this_value = gotData.rain[1][idx];
-            susy +=`<p class='col4'>${get_date.heure} - <br/>${this_value}%</p>`; //${hh[kdx]}
+            
+            susy +=`<p class='col4'>${get_date.heure} - ${hh[kdx]}<br/>${this_value}%</p>`;
         }        
     }
     div_rain.innerHTML = susy; 
