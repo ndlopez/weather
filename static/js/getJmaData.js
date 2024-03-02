@@ -193,8 +193,7 @@ async function disp_info(kat){
     // console.log("Moon",moonTimes);
     // mobile icon
     const thisIcon = document.getElementById("linkOn");
-    thisIcon.innerHTML = "<img width='32px' src='" + ico_url + gotData.icon[0] + 
-    ".svg' onerror='this.onerror=null;this.src=\"static/assets/wdr_wetter.svg\"'/> weather";
+    thisIcon.innerHTML = `<img width="32px" src="${ico_url}${gotData.icon[0]}.svg" onerror='this.onerror=null;this.src="static/assets/wdr_wetter.svg"'/> weather`;
     //sunrise/sunset + wind info
     const weathernfo = document.getElementById("curr_weather");
     weathernfo.appendChild(build_obj_pos(gotTime,moonTimes));
@@ -210,8 +209,7 @@ async function disp_info(kat){
             weathernfo.style.backgroundColor = "#87ceeb";
             weathernfo.style.color = "#2e4054";
             weathernfo.style.backgroundImage = "url('static/assets/clear_day.svg')";
-            kaisa = "<img src='" + ico_url + gotData.icon[0] +
-            ".svg' onerror='this.onerror=null;this.src=\"static/assets/cloudy_all.svg\"'/><br/>";
+            kaisa = `<img src="${ico_url}${gotData.icon[0]}.svg" onerror='this.onerror=null;this.src="static/assets/cloudy_all.svg"'/><br/>`;
         }
         nowTenki.innerHTML = kaisa + city_code[0].region + gotData.weather[0] + "<br/>" + gotData.wind[0];
     }
@@ -239,12 +237,12 @@ async function disp_info(kat){
         if (get_date.tag == my_date.getDate()){
             // today's rain Prob
             this_value = gotData.rain[1][idx];
-            for (;kdx<jmaTimes.length;kdx++){
+            for (kdx=0;kdx<jmaTimes.length;kdx++){
                 if (get_date.heure == jmaTimes[kdx]){
                     amy = kdx;
+                    //console.log(kdx,gotData.rain[0][idx],get_date,my_date.getDate());
                 }
             }
-            // console.log(gotData.rain[0][idx],get_date,(my_date.getMonth()+1),my_date.getDate());
             susy +=`<p class='col4'>${get_date.heure} - ${hh[amy]}<br/>${this_value}%</p>`;
         }        
     }
@@ -305,11 +303,7 @@ async function disp_info(kat){
         const tempMin = gotData.forecast[2][idx], tempMax = gotData.forecast[3][idx];
         texty = `<div class='column3 float-left' style='margin:0;border-radius:inherit;'><div class='row-date'><h2 class='col-date float-left'>${aux.tag}</h2><div class='col-date float-left' style='text-align:left;padding-left:0;'><p><strong>${theseDays[aux.day]}</strong></p><p><small>${theseMonths[aux.monty-1]}</small></p></div></div></div>`;
         
-        texty += "<div class='column3 float-left'><img src='"+
-        ico_url+ gotData.forecast[1][idx]+
-        ".svg' onerror='this.onerror=null;this.src=\"static/assets/overcast.svg\"'/>"+
-        "<span style='margin-top:'>"+
-        gotData.forecast[4][idx]+"%</span></div>";
+        texty += `<div class='column3 float-left'><img src="${ico_url}${gotData.forecast[1][idx]}.svg" onerror='this.onerror=null;this.src="static/assets/overcast.svg"'/><span style='margin-top:'>${gotData.forecast[4][idx]}%</span></div>`;
 
         /*if(idx==0){ tempMin = myMin;tempMax = myMax; }*/
         texty += "<div class='column3 float-left'><h4>"+tempMin+"&#8451; | "+tempMax+"&#8451;</h4></div>";
