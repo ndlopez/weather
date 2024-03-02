@@ -75,7 +75,6 @@ function get_wind_desc(wspeed){
             console.log("wendy",wspeed,desc_wind[item].jp[0]);//break;
             return desc_wind[item].jp[0];            
         }
-        console.log("wendy",wspeed,desc_wind[item].jp[0]);
     }// return thisWind;    
 }
 /* filter to get one element

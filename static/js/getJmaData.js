@@ -23,6 +23,7 @@ const theseMonths = ["January","February","March","April","May","June","July",
 const theseDays = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
 
 let my_date = new Date();
+
 const thisHour = my_date.getHours(), thisMins = my_date.getMinutes();
 
 async function sleepy(msec){
@@ -218,7 +219,7 @@ async function disp_info(kat){
     const div_rain = document.getElementById("rainToday");
     let susy = "", kdx=0, jdx = gotData.rain[0].length-1;
     // rainProb depends on the hour, if time < 6 then idx=0, 
-    for(let idx = jdx-3;idx < jdx+1;idx++){
+    /*for(let idx = jdx-3;idx < jdx+1;idx++){
         const get_date = getDateHour(gotData.rain[0][idx]);
         let this_value = "";
         if (thisHour < hh[kdx]){
@@ -227,8 +228,18 @@ async function disp_info(kat){
             this_value = "-";
         }
         susy += `<p class='col4'>${get_date.heure} - ${hh[kdx]}<br/>${this_value}%</p>`;
-        // console.log(idx,jdx,get_date.heure,hh[idx],gotData.rain[1][idx]);
+        /// console.log(idx,jdx,get_date.heure,hh[idx],gotData.rain[1][idx]);
 	    kdx++;
+    }*/
+
+    for(let idx=0;idx<gotData.rain[0].length;idx++){
+        const get_date = getDateHour(gotData.rain[0][idx]);
+        let this_value = "";
+        if (get_date.tag == my_date.getDate()){
+            console.log(gotData.rain[0][idx],get_date,(my_date.getMonth()+1),my_date.getDate());
+            this_value = gotData.rain[1][idx];
+            susy +=`<p class='col4'>${get_date.heure} - <br/>${this_value}%</p>`; //${hh[kdx]}
+        }        
     }
     div_rain.innerHTML = susy; 
     const rainP = document.getElementById("rainProb");
