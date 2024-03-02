@@ -1,10 +1,9 @@
 /* 
     const not_curr_Moon = "https://www.timeanddate.com/scripts/moon.php?i=0.809&p=5.670&r=5.592";
+    console.log(getBase64Img(document.getElementById("pngImg")));
 */
 
 const svg_org = "http://www.w3.org/2000/svg";
-
-// console.log(getBase64Img(document.getElementById("pngImg")));
 /* Fetching data from JMA.go.jp */
 const toRad = Math.PI/180.0;
 const jmaURL = "https://www.jma.go.jp/bosai/forecast/data/forecast/";
@@ -361,8 +360,8 @@ async function get_data(jdx){
     const weekTempMax = data[1].timeSeries[1].areas[jdx].tempsMax;//0TKY,1NGO
     const weekRainProb = data[1].timeSeries[0].areas[jdx].pops;//0TKY,1NGO
     //console.log("RainProb",weekRainProb);
-    return {"location":place,"time":upTime,"weather":thisWeather,"icon":weatherIcon,
-    "wind":winds,"rain":[rainTimes,rainProb],"temp":[tempTimes,temp],
+    return {"location":place,"time":upTime,"weather":thisWeather,"icon":weatherIcon,"wind":winds,"rain":[rainTimes,rainProb],
+    "temp":[tempTimes,temp],
     "forecast":[weekDates,weekIcons,weekTempMin,weekTempMax,weekRainProb]};
 }
 

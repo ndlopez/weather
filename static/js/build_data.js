@@ -64,9 +64,9 @@ const allDirections = {0:"静穏",1:"北北東",2:"北東",3:"東北東",4:"東"
 9:"南南西",10:"南西",11:"西南西",12:"西",13:"西北西",14:"北西",15:"北北西",16:"北"};
 
 // wind description according to Beaufort scale (up to 6) in m/s
-const desc_wind = [{"speed":0.0,"max":0.2,"en":"calm","jp":["静穏","せいおん","煙がまっすぐに昇っていく"]},{"speed":0.3,"max":1.5,"en":"Light Air","jp":["至軽風","しけいふう","煙がたなびくが風向計での計測はできない"]},{"speed":1.6,"max":3.3,"en":"Light Breeze","jp":["軽風","けいふう","顔に風を感じる、木の葉が動き風向計での計測が可能になる"]},
-{"speed":3.4,"max":5.4,"en":"Gentle Breeze","jp":["軟風","なんぷう","葉っぱが絶えず動いている、軽い旗がはためく"]},{"speed":5.5,"max":7.9,"en":"Moderate Breeze","jp":["和風","わふう","ホコリが舞い上がり、木の枝が動く"]},
-{"speed":8.0,"max":10.7,"en":"Fresh Breeze","jp":["疾風","しっぷう","小さな木がゆり動く、水面にさざ波が立つ"]},{"speed":10.8,"max":13.8,"en":"Strong Breeze","jp":["雄風","ゆうふう","大きな枝が動き、電線がうなり、傘をさすのが困難になる"]},{"speed":13.9,"max":17.1,"en":"Near gale","jp":["強風","きょうふう","木全体がゆれ、風に向かって歩くのが困難になる"]}];
+const desc_wind = [{"speed":0.0,"max":0.29,"en":"calm","jp":["静穏","せいおん","煙がまっすぐに昇っていく"]},{"speed":0.3,"max":1.59,"en":"Light Air","jp":["至軽風","しけいふう","煙がたなびくが風向計での計測はできない"]},{"speed":1.6,"max":3.39,"en":"Light Breeze","jp":["軽風","けいふう","顔に風を感じる、木の葉が動き風向計での計測が可能になる"]},
+{"speed":3.4,"max":5.49,"en":"Gentle Breeze","jp":["軟風","なんぷう","葉っぱが絶えず動いている、軽い旗がはためく"]},{"speed":5.5,"max":7.99,"en":"Moderate Breeze","jp":["和風","わふう","ホコリが舞い上がり、木の枝が動く"]},
+{"speed":8.0,"max":10.79,"en":"Fresh Breeze","jp":["疾風","しっぷう","小さな木がゆり動く、水面にさざ波が立つ"]},{"speed":10.8,"max":13.89,"en":"Strong Breeze","jp":["雄風","ゆうふう","大きな枝が動き、電線がうなり、傘をさすのが困難になる"]},{"speed":13.9,"max":17.19,"en":"Near gale","jp":["強風","きょうふう","木全体がゆれ、風に向かって歩くのが困難になる"]}];
 //more at https://www.i-kahaku.jp/friend/kagaku/0306/kaze/index.html
 function get_wind_desc(wspeed){
     //let thisWind = "";// wspeed is float
@@ -75,6 +75,7 @@ function get_wind_desc(wspeed){
             console.log("wendy",wspeed,desc_wind[item].jp[0]);//break;
             return desc_wind[item].jp[0];            
         }
+        console.log("wendy",wspeed,desc_wind[item].jp[0]);
     }// return thisWind;    
 }
 /* filter to get one element
@@ -306,7 +307,7 @@ function buildSVGtext(dx,dy,text){
     const kelly = Math.round(curr_weather[lastElm].wind);
     const windDiv = buildGaugeMeter(kelly,"WIND",text);
     detailsDiv.appendChild(windDiv);
-    
+    console.log(curr_weather[lastElm].wind,get_wind_desc(curr_weather[lastElm].wind));
 })();
 
 function build_array(hour,gotData){
