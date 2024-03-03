@@ -170,7 +170,7 @@ ul, li{margin: 0px;padding:5px}
   left:50%;/*16px;*/
   transform:translate(-50%,-50%);
 }
-#forecaster .row, #quake_list .row{
+#forecaster .row, #quake_list .row, #foreDiv .column{
   /*border-bottom: 1px dashed var(--light-sky);*/
   background-color: var(--darkish-sky);
   margin-bottom: 8px;
@@ -303,5 +303,5 @@ button{
   }
   .top-menu{display: none;}
   #forecaster img{height: 48px;}
-  #foreDiv div{border-bottom: 1px dashed var(--darkish-sky);}
+  /*#foreDiv div{border-bottom: 1px dashed var(--darkish-sky);}*/
 }

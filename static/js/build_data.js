@@ -306,7 +306,7 @@ function buildSVGtext(dx,dy,text){
     const kelly = Math.round(curr_weather[lastElm].wind);
     const windDiv = buildGaugeMeter(kelly,"WIND",text);
     detailsDiv.appendChild(windDiv);
-    console.log(curr_weather[lastElm].wind,get_wind_desc(curr_weather[lastElm].wind));
+    // console.log(curr_weather[lastElm].wind,get_wind_desc(curr_weather[lastElm].wind));
 })();
 
 function build_array(hour,gotData){
