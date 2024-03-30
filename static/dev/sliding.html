@@ -2,59 +2,45 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="../js/slideshow.css">
 </head>
 <body>
 
 <h2>Automatic Slideshow</h2>
 <p>Change image every 2 seconds:</p>
 
-<div class="slideshow-container" id="slides">
-
-    <div class="mySlides fade">
-    <div class="numbertext">1 / 3</div>
-    <img src="img_nature_wide.jpg" style="width:100%">
-    <div class="text">Caption Text</div>
-    </div>
-
-    <div class="mySlides fade">
-    <div class="numbertext">2 / 3</div>
-    <img src="img_snow_wide.jpg" style="width:100%">
-    <div class="text">Caption Two</div>
-    </div>
-
-    <div class="mySlides fade">
-    <div class="numbertext">3 / 3</div>
-    <img src="img_mountains_wide.jpg" style="width:100%">
-    <div class="text">Caption Three</div>
-    </div>
-</div>
+<div class="slideshow-container" id="slides"></div>
 <br>
 
 <div style="text-align:center">
   <span class="dot"></span> 
   <span class="dot"></span> 
   <span class="dot"></span> 
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+  <span class="dot"></span>
 </div>
 
 <script>
-    let urls="https://www.data.jma.go.jp/gmd/env/kosa/fcst/img/surf/jp/20240331";
-    //1800_kosafcst-s_jp_jp.png";
-let slideIndex = 0;
-showSlides();
+    let urls="https://www.data.jma.go.jp/gmd/env/kosa/fcst/img/surf/jp/20240330";
+let slideIdx = 0;
+
 let heure = [0,3,6,9,12,15,18,21];
 const slid=document.getElementById("slides");
-let idx=0,txt="",jdx;
-for (idx in heure){
-    jdx = String(idx);
-    if (idx <10){
-        jdx = "0"+String(idx);
-    }
-    txt += `<div class="mySlides fade">
-        <div class="numbertext">${idx}/${heure.length}</div>
-    <img src="${urls}${0}00_kosafcst-s_jp_jp.png" style="width:100%">
-    <div class="text">2024-03-31 ${idx}:00</div>
-        </div>`
+let txt="",jdx;
+for (let idx in heure){
+    jdx = String(heure[idx]);
+    if (heure[idx] <10) jdx = "0" + String(heure[idx]);
+    txt += `<div class="mySlides">
+    <img src="${urls}${jdx}00_kosafcst-s_jp_jp.png" style="width:100%"></div>`
+    // <div class="numbertext">${jdx}/${String(heure.length)}</div>
+    // <div class="text">2024-03-31 ${jdx}:00</div>
 }
+slid.innerHTML = txt;
+
+showSlides();
 function showSlides() {
   let i;
   let slides = document.getElementsByClassName("mySlides");
@@ -62,13 +48,13 @@ function showSlides() {
   for (i = 0; i < slides.length; i++) {
     slides[i].style.display = "none";  
   }
-  slideIndex++;
-  if (slideIndex > slides.length) {slideIndex = 1}    
+  slideIdx++;
+  if (slideIdx > slides.length) {slideIdx = 1}    
   for (i = 0; i < dots.length; i++) {
     dots[i].className = dots[i].className.replace(" active", "");
   }
-  slides[slideIndex-1].style.display = "block";  
-  dots[slideIndex-1].className += " active";
+  slides[slideIdx-1].style.display = "block";  
+  dots[slideIdx-1].className += " active";
   setTimeout(showSlides, 2000); // Change image every 2 seconds
 }
 </script>

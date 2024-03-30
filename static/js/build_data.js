@@ -356,7 +356,6 @@ function yellow_dust(make_div=false){
         /*if (dataHours.includes(currHH)){myIdx = idx;break;}*/
         if(currHH <= mod3_hours[idx]){
             myIdx = idx;
-            // console.log("idx",myIdx);
             break;
         }
     }
