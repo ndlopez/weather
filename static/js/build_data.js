@@ -259,8 +259,10 @@ function buildSVGtext(dx,dy,text){
 }
 
 (async ()=>{
-    // thisHour = 0, 3, 6,..., 21
+    /*fetch data every 3hrs*/
+    
     for(let jdx= 0; jdx < dataHours.length; jdx++){
+        // thisHour = 0, 3, 6,..., 21
         const path = build_path(jdx);
         try {
             const response = await fetch(path);

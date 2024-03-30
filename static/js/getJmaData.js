@@ -1,5 +1,6 @@
 /* 
     const not_curr_Moon = "https://www.timeanddate.com/scripts/moon.php?i=0.809&p=5.670&r=5.592";
+    nasa curr Moon https://svs.gsfc.nasa.gov/api/dialamoon/2024-03-24T12:44
     console.log(getBase64Img(document.getElementById("pngImg")));
 */
 
