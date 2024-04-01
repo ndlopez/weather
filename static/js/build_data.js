@@ -68,12 +68,16 @@ const desc_wind = [{"speed":0.0,"max":0.29,"en":"calm","jp":["静穏","せいお
 {"speed":3.4,"max":5.49,"en":"Gentle Breeze","jp":["軟風","なんぷう","葉っぱが絶えず動いている、軽い旗がはためく"]},{"speed":5.5,"max":7.99,"en":"Moderate Breeze","jp":["和風","わふう","ホコリが舞い上がり、木の枝が動く"]},
 {"speed":8.0,"max":10.79,"en":"Fresh Breeze","jp":["疾風","しっぷう","小さな木がゆり動く、水面にさざ波が立つ"]},{"speed":10.8,"max":13.89,"en":"Strong Breeze","jp":["雄風","ゆうふう","大きな枝が動き、電線がうなり、傘をさすのが困難になる"]},{"speed":13.9,"max":17.19,"en":"Near gale","jp":["強風","きょうふう","木全体がゆれ、風に向かって歩くのが困難になる"]}];
 //more at https://www.i-kahaku.jp/friend/kagaku/0306/kaze/index.html
-function get_wind_desc(wspeed){
+function get_wind_desc(wspeed,sw=true){
     //let thisWind = "";// wspeed is float
     for (let item in desc_wind) {
         if((wspeed >= desc_wind[item].speed) && (wspeed < desc_wind[item].max)){
             console.log("wendy",wspeed,desc_wind[item].jp[0]);//break;
-            return desc_wind[item].jp[0];            
+            if (sw) {
+                return desc_wind[item].jp[0];
+            }else{
+                return desc_wind[item].jp[2];
+            }                        
         }
     }// return thisWind;    
 }
@@ -287,7 +291,7 @@ function buildSVGtext(dx,dy,text){
     //let temp_max_min = maxmin[0];//the date: myData.curr_weather[0][0]
     
     let text = `<h2 id='this_place'></h2><h3 class='no-padding'>${days[today]}, ${months[monty-1]} ${tag} ${curr_weather[lastElm].hour_min}</h3>`;
-    text += `<div class='clearfix'><span class='large'>&emsp;${curr_weather[lastElm].temp}&#8451;</span><span id='now_weather' class='middle'></span><h4>Max ${gotMax}&#8451;&emsp;Min ${maxmin[1]}&#8451;</h4></div>`;//prev ${maxmin[0]}
+    text += `<div class='clearfix'><span class='large'>&emsp;${curr_weather[lastElm].temp}&#8451;</span><span id='now_weather' class='middle'></span><h4>${get_wind_desc(curr_weather[lastElm].wind,false)}</h4><h4>Max ${gotMax}&#8451;&emsp;Min ${maxmin[1]}&#8451;</h4></div>`;//prev ${maxmin[0]}
 
     text += "<div id='rainToday' class='clearfix'></div>";
     
