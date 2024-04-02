@@ -14,21 +14,24 @@
   <span class="dot"></span>
 </div>*/
 
-let urls="https://www.data.jma.go.jp/gmd/env/kosa/fcst/img/surf/jp/20240401";
+let urls="https://www.data.jma.go.jp/gmd/env/kosa/fcst/img/surf/jp/20240403";
 let slideIdx = 0;
 
 let heure = [0,3,6,9,12,15,18,21];
-const slid=document.getElementById("slides");
+const slid=document.getElementById("pm25_div");
 let txt="",jdx;
+let amy = "";
 for (let idx in heure){
     jdx = String(heure[idx]);
     if (heure[idx] <10) jdx = "0" + String(heure[idx]);
     txt += `<div class="mySlides">
     <img src="${urls}${jdx}00_kosafcst-s_jp_jp.png" style="width:100%"></div>`
+    amy += "<span class='dot'></span>";
     // <div class="numbertext">${jdx}/${String(heure.length)}</div>
     // <div class="text">2024-03-31 ${jdx}:00</div>
 }
-slid.innerHTML = txt;
+amy = "<div style='text-align:center'>" + amy + "</div>";
+slid.innerHTML = txt + amy;
 
 showSlides();
 function showSlides() {

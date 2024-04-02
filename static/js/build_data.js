@@ -263,8 +263,7 @@ function buildSVGtext(dx,dy,text){
 }
 
 (async ()=>{
-    /*fetch data every 3hrs*/
-    
+    /*fetch data every 3hrs*/    
     for(let jdx= 0; jdx < dataHours.length; jdx++){
         // thisHour = 0, 3, 6,..., 21
         const path = build_path(jdx);
@@ -400,7 +399,8 @@ function yellow_dust(make_div=false){
 function build_plot(json_array,thisMax,thisMin){
     // fetch yellow dust forecast
     // sleep til next season: true on Feb, March,May, June 
-    document.getElementById("yellow-dust").innerHTML = `<a href='${yellow_dust(true)}' target="_blank">Yellow dust</a>`;
+    /* testing new function to slide images
+    document.getElementById("yellow-dust").innerHTML = `<a href='${yellow_dust(true)}' target="_blank">Yellow dust</a>`;*/
     /*d3js bar plot-> https://jsfiddle.net/matehu/w7h81xz2/38/*/
     const containDiv = document.getElementById("weather_bar");
     const leftDiv = document.createElement("div");
