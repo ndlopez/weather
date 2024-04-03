@@ -19,6 +19,7 @@ let slideIdx = 0;
 
 let heure = [0,3,6,9,12,15,18,21];
 const slid=document.getElementById("pm25_div");
+// slid.addEventListener("onclick",showSlides);
 let txt="",jdx;
 let amy = "";
 for (let idx in heure){
@@ -33,7 +34,6 @@ for (let idx in heure){
 amy = "<div style='text-align:center'>" + amy + "</div>";
 slid.innerHTML = txt + amy;
 
-showSlides();
 function showSlides() {
   let i;
   let slides = document.getElementsByClassName("mySlides");
@@ -48,5 +48,5 @@ function showSlides() {
   }
   slides[slideIdx-1].style.display = "block";  
   dots[slideIdx-1].className += " active";
-  setTimeout(showSlides, 2000); // Change image every 2 seconds
+  setTimeout(showSlides, 3000); // Change image every 2 seconds
 }
