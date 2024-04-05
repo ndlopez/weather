@@ -32,7 +32,7 @@
       </label>
       <ul class="menu">
         <li><a href="/">Home</a></li>
-        <li id="yellow-dust" class="no-desktop"></li>
+        <!-- li id="yellow-dust" class="no-desktop"></li-->
         <li><a href="/research">Research</a></li>
         <li><a href="/pages/projects.html">Projects</a></li>
         <li><a href="https://ndzerglink.wordpress.com">Articles</a></li>
@@ -47,12 +47,11 @@
       <div id="curr_weather"></div>
       <div class="row" id="weather_details"></div>
       <section id="radar_img"></section>
-      <section class="clearfix" onclick="showSlides()">
-        <div id="pm25_div"></div>
-      </section>
       <section class="row"><!--d3js plot-->
         <div id="weather_bar" class="column80 float-left"></div>
         <div class="column20 align-right"></div></section>
+      <section onclick="showSlides()">
+        <div id="pm25_div"></div></section>
     </main>
 
     <aside class="clearfix" id="foreDiv"></aside>

@@ -29,18 +29,17 @@ img {vertical-align: middle;}
 @keyframes fade {
   from {opacity: .4} 
   to {opacity: 1}
-}
-/* Caption text 
-.text {
-  color: #f2f2f2;
+}*/
+/* Caption text */
+.text_kate {
   font-size: 15px;
-  padding: 8px 12px;
-  position: absolute;
-  bottom: 8px;
+  position: relative;
+  padding-left: 45px;
+  bottom: 45px;
   width: 100%;
-  text-align: center;
+  text-align: left;
 }
-// Number text (1/3 etc)
+/* Number text (1/3 etc)
 .numbertext {
   color: #f2f2f2;
   font-size: 12px;
