@@ -57,7 +57,7 @@ for (idx=1; idx < currHH; idx++){ if(idx % 3 == 0){ dataHours.push(idx); } }
 
 for (idx=0; idx < 24; idx++){ if(idx % 3 ==0){ mod3_hours.push(idx); } }
 // console.log("yester-you",tag,dataHours);
-function zeroPad(tit){return (tit<10)?"0"+tit:tit;}
+function zeroPad(tit){return /*(tit<10)?"0"+tit:tit;*/String(tit).padStart(2,'0');}
 
 /* wind Direction -> JPchar */
 const allDirections = {0:"静穏",1:"北北東",2:"北東",3:"東北東",4:"東",5:"東南東",6:"南東",7:"南南東",8:"南",

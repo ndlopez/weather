@@ -20,9 +20,9 @@ for (let idx in heure){
     if (heure[idx] <10) jdx = "0" + String(heure[idx]);
     if (heure[idx] > 0){lena = "mySlides";}
     txt += `<div id="slide${idx}" class=${lena}>
-    <img src="${pm25_url}${jahre}0${kate.getMonth()+1}0${kate.getDate()}${jdx}00_kosafcst-s_jp_jp.png" style="width:100%">` //</div>
+    <img src="${pm25_url}${jahre}${zeroPad(kate.getMonth()+1)}${zeroPad(kate.getDate())}${jdx}00_kosafcst-s_jp_jp.png" style="width:100%">` //</div>
     amy += "<span class='dot'></span>";
-    txt += `<div class="text_kate">2024-0${kate.getMonth()+1}-0${kate.getDate()} ${jdx}:00</div></div>`;
+    txt += `<div class="text_kate">2024-${zeroPad(kate.getMonth()+1)}-${zeroPad(kate.getDate())} ${jdx}:00</div></div>`;
 }
 amy = "<div style='text-align:center'>" + amy + "</div>";
 slid.innerHTML = txt + amy;
