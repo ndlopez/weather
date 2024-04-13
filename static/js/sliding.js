@@ -23,27 +23,28 @@ for (idx in heure){
     if (heure[idx] > 0){lena = "mySlides";}
     txt += `<div id="slide${idx}" class=${lena}>
     <img src="${pm25_url}${jahre}${zeroPad(kate.getMonth()+1)}${zeroPad(kate.getDate())}${jdx}00_kosafcst-s_jp_jp.png" style="width:100%">` //</div>
-    amy += "<span class='dot'></span>";
+    // amy += "<span class='dot'></span>";
     txt += `<div class="text_kate">2024-${zeroPad(kate.getMonth()+1)}-${zeroPad(kate.getDate())} ${jdx}:00</div></div>`;
 }
-amy = `<div style='text-align:center'>${amy}</div> <div>${svgObj}${playBtn}</svg>${svgObj}${stopBtn}</svg></div>`;
+// amy = `<div style='text-align:center'>${amy}</div>`
+amy = `<div style="margin-top:-20px;"><div onclick="showSlides()" class="float-left col-date">${svgObj}${playBtn}</svg></div><div onclick="stopSlides()" class="float-left col-date">${svgObj}${stopBtn}</svg></div></div>`;
 slid.innerHTML = txt + amy;
 idx = 0;
 let slideOut;
 function showSlides() {
   document.getElementById("slide0").classList.add("mySlides");
   let slides = document.getElementsByClassName("mySlides");
-  let dots = document.getElementsByClassName("dot");
+  // let dots = document.getElementsByClassName("dot");
   for (jdx = 0; jdx < slides.length; jdx++) {
     slides[jdx].style.display = "none";  
   }
   idx++;
   if (idx > slides.length) {idx = 1}    
-  for (jdx = 0; jdx < dots.length; jdx++) {
+  /*for (jdx = 0; jdx < dots.length; jdx++) {
     dots[jdx].className = dots[jdx].className.replace(" active", "");
-  }
+  }*/
   slides[idx-1].style.display = "block";  
-  dots[idx-1].className += " active";
+  // dots[idx-1].className += " active";
   slideOut = setTimeout(showSlides, 3000);
 }
 function stopSlides(){
