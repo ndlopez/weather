@@ -30,7 +30,7 @@ Display current weather conditions for a certain location in Japan.
 
 - OS: Panasonic Let'sNote/Linux Fedora 36<br>
 - Languages: JavaScript, CSS, HTML <br>
-- Editors: VIM and Emacs
+- Editors: Emacs and Codium
 
 <!--
 append png image to svg Object
