@@ -20,6 +20,9 @@
 .active {
   background-color: #717171;
 }
+#pm25_div > div svg {
+  width: 5%;
+}
 /* Fading animation */
 /*.fade {
   animation-name: fade;
