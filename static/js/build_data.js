@@ -287,12 +287,12 @@ function buildSVGtext(dx,dy,text){
     ngo_pred[3]["yp"] = gotMax - 6;
         
     build_plot(result,gotMax,gotMin);
-    //let temp_max_min = maxmin[0];//the date: myData.curr_weather[0][0]
+    //let temp_max_min = maxmin[0];//date: myData.curr_weather[0][0]
     
-    let text = `<h2 id='this_place'></h2><h3 class='no-padding'>${days[today]}, ${months[monty-1]} ${tag} ${curr_weather[lastElm].hour_min}</h3>`;
-    text += `<div class='clearfix'><span class='large'>&emsp;${curr_weather[lastElm].temp}&#8451;</span><span id='now_weather' class='middle'></span><h4>${get_wind_desc(curr_weather[lastElm].wind,false)}</h4><h4>Max ${gotMax}&#8451;&emsp;Min ${maxmin[1]}&#8451;</h4></div>`;//prev ${maxmin[0]}
+    let text = `<h2 id='this_place'></h2><h3 class='no-padding'>${days[today]}, ${months[monty-1]} ${String(tag)} ${curr_weather[lastElm].hour_min}</h3>`;
+    
+    text += `<div class='clearfix'><span class='large'>&emsp;${curr_weather[lastElm].temp}&#8451;</span><span id='now_weather' class='middle'></span><br><span>${get_wind_desc(curr_weather[lastElm].wind,false)}</span><h4>Max ${gotMax}&#8451;&emsp;Min ${maxmin[1]}&#8451;</h4></div>`;//prev ${maxmin[0]}
 
-    //! the following is not created
     text += "<div id='rainToday' class='clearfix'></div>";
     
     document.getElementById("curr_weather").innerHTML = text;

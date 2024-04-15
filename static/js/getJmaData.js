@@ -18,8 +18,7 @@ const sun_time = ["https://dayspedia.com/api/widget/city/11369/?lang=en",
 
 const hh = [6,12,18,23];
 
-const theseMonths = ["January","February","March","April","May","June","July",
-"August","September","October","November","December"];
+//const theseMonths = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 // const theseDays = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 const theseDays = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
 
@@ -302,7 +301,7 @@ async function disp_info(kat){
 
         const aux = getDateHour(gotData.forecast[0][idx]);
         const tempMin = gotData.forecast[2][idx], tempMax = gotData.forecast[3][idx];
-        texty = `<div class='column3 float-left' style='margin:0;border-radius:inherit;'><div class='row-date'><h2 class='col-date float-left'>${aux.tag}</h2><div class='col-date float-left' style='text-align:left;padding-left:0;'><p><strong>${theseDays[aux.day]}</strong></p><p><small>${theseMonths[aux.monty-1]}</small></p></div></div></div>`;
+        texty = `<div class='column3 float-left' style='margin:0;border-radius:inherit;'><div class='row-date'><h2 class='col-date float-left'>${aux.tag}</h2><div class='col-date float-left' style='text-align:left;padding-left:0;'><p><strong>${theseDays[aux.day]}</strong></p><p><small>${months[aux.monty-1]}</small></p></div></div></div>`;
         
         texty += `<div class='column3 float-left'><img src="${ico_url}${gotData.forecast[1][idx]}.svg" onerror='this.onerror=null;this.src="static/assets/overcast.svg"'/><span style='margin-top:'>${gotData.forecast[4][idx]}%</span></div>`;
 
@@ -321,7 +320,7 @@ async function disp_info(kat){
     init_idx = 1;//Before 11AM 0:today, 1: tomorrow
     if(thisHour >= 11){init_idx = 0;}     
     const sofy = getDateHour(gotData.forecast[0][init_idx]);
-    headTitle.innerText = "Tomorrow: " + theseDays[sofy.day] + ", " + theseMonths[sofy.monty-1] +
+    headTitle.innerText = "Tomorrow: " + theseDays[sofy.day] + ", " + months[sofy.monty-1] +
     " " + sofy.tag;
     myDiv.appendChild(headTitle);
 
