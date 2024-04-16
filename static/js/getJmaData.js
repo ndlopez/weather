@@ -310,8 +310,11 @@ async function disp_info(kat){
     }
 
     /* Moon Rise/Set + image */
+    let inten = parseFloat(moonTimes[4]);
     const talia = document.getElementById("moonDiv");
-    talia.innerHTML = `<h3>Moon</h3><div class="float-left col-date"> <div>Rise ${moonTimes[2][0]}:${moonTimes[2][1]}</div> <div>Set ${moonTimes[1][0]}:${moonTimes[1][1]}</div></div> <div class="float-left col-date"><img src="https://www.timeanddate.com/scripts/moon.php?i=0.566&p=5.608&r=5.586"></div>`;
+    talia.innerHTML = `<h2>Moon</h2><div class="float-left col-date"> <h3>Rise ${moonTimes[2][0]}:${moonTimes[2][1]}</h3> <h3>Set ${moonTimes[1][0]}:${moonTimes[1][1]}</h3></div> <div class="float-left col-date"><img src="https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005187/frames/730x730_1x1_30p/moon.2557.jpg" width="128px"></div>`;
+    //"https://www.timeanddate.com/scripts/moon.php?i=${String(inten/100)}&p=5.608&r=5.586"
+    console.log("timins",moonTimes,inten);
     /* 2moro forecast + rain Prob */
     const myDiv = document.getElementById("foreDiv");
     const headTitle = document.createElement("h2");
@@ -393,7 +396,7 @@ async function getMoonTimes(){
     const response = await fetch("https://raw.githubusercontent.com/ndlopez/scrapped/main/data/moon_times.csv");
     const data = await response.text();
     const rows = data.split('\n').slice(1);
-    const thisDate = my_date.getFullYear() + "-" + String(my_date.getMonth()+1).padStart(2,'0') + "-" + String(my_date.getDate()).padStart(2,'0'); //Current date
+    const thisDate = my_date.getFullYear() + "-" + zeroPad(my_date.getMonth()+1) + "-" + zeroPad(my_date.getDate()); //Current date
     let thisData = [];
     rows.forEach(row => {
         const thisVal = row.split(";"); // [2022-12-05; 08:32; 21:20]
@@ -402,13 +405,15 @@ async function getMoonTimes(){
             thisData.push(thisVal[0]);
             thisData.push(thisVal[2].split(":"));
             thisData.push(thisVal[3].split(":"));
+            thisData.push(thisVal[4]);
+            thisData.push(thisVal[5].replace("\r",""));
             console.log("matched",thisDate,thisVal[0]);
         }
     });
     if (thisData.length == 0){
         // Just in case moon_data is not updated
         console.log("Admin: Moon data are not updated.");
-        thisData = [thisDate,["21","20"],["03","23"]];
+        thisData = [thisDate,["21","20"],["03","23"],400760,100];
     }
     return thisData;
 }
