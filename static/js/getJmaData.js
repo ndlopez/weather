@@ -172,7 +172,7 @@ function build_obj_pos(sunSetRise,moonSetRise) {
 }
 
 async function disp_info(kat){
-    await sleepy(1500);
+    await sleepy(1200);
     const gotData = await get_data(kat);
     // console.log(gotData.temp); maxMin forecast
     let myMin = gotData.temp[1][2];
@@ -220,11 +220,8 @@ async function disp_info(kat){
     /*for(let idx = jdx-3;idx < jdx+1;idx++){
         const get_date = getDateHour(gotData.rain[0][idx]);
         let this_value = "";
-        if (thisHour < hh[kdx]){
-            this_value = gotData.rain[1][idx-idx];
-        }else{
-            this_value = "-";
-        }
+        if (thisHour < hh[kdx]){this_value = gotData.rain[1][idx-idx];
+        }else{this_value = "-";}
         susy += `<p class='col4'>${get_date.heure} - ${hh[kdx]}<br/>${this_value}%</p>`;
         /// console.log(idx,jdx,get_date.heure,hh[idx],gotData.rain[1][idx]);
 	    kdx++;
@@ -254,8 +251,7 @@ async function disp_info(kat){
     }
     // console.log("rainProb",gotData.rain[1]); rain forecast
     const radarDiv = document.getElementById("radar_img");
-    /*
-    if(gotData.rain[1][0] > 50){
+    /*if(gotData.rain[1][0] > 50){
         console.log("Is it raining?");//put a radar img from tenki.jp
         let auxVar = ""; 
         if(navigator.userAgent.match(/(iPhone|iPad|Android|IEMobile)/)){
@@ -272,7 +268,6 @@ async function disp_info(kat){
         let yesterYou = myDate.setDate(myDate.getDate() -1); //unix format
         let WendyDate = new Date(yesterYou);
         // Update new dates
-        // thisHour=0 is not good, the last data of the day is needed
         prevHour = 23;
         auxDate = `${radar_url[2]}${WendyDate.getFullYear()}${String(WendyDate.getMonth()+1).padStart(2,'0')}${String(WendyDate.getDate()).padStart(2,'0')}`;
     }
@@ -314,6 +309,9 @@ async function disp_info(kat){
         colDiv.appendChild(groupDiv);
     }
 
+    /* Moon Rise/Set + image */
+    const talia = document.getElementById("moonDiv");
+    talia.innerHTML = `<h3>Moon</h3><div class="float-left col-date"> <div>Rise ${moonTimes[2][0]}:${moonTimes[2][1]}</div> <div>Set ${moonTimes[1][0]}:${moonTimes[1][1]}</div></div> <div class="float-left col-date"><img src="https://www.timeanddate.com/scripts/moon.php?i=0.566&p=5.608&r=5.586"></div>`;
     /* 2moro forecast + rain Prob */
     const myDiv = document.getElementById("foreDiv");
     const headTitle = document.createElement("h2");
