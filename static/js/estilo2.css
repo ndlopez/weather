@@ -152,6 +152,10 @@ ul, li{margin: 0px;padding:5px}
 }
 .inner{width: 100%;height: 480px;}
 .inner_div{width: 100%;height: 584px;}
+#moonDiv{
+  background-color: black;
+  border-radius: 8px;
+}
 #mainPlot{
   display:block;padding: 0px;
   width: 100%;height: 100%;}
