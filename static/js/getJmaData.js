@@ -314,7 +314,7 @@ async function disp_info(kat){
     let inten = parseFloat(moonTimes[4]);
     const talia = document.getElementById("moonDiv");
     let oli = await getMoony();
-    talia.innerHTML = `<h2>Moon</h2><div class="float-left col-date"> <h3>Rise ${moonTimes[2][0]}:${moonTimes[2][1]}</h3> <h3>Set ${moonTimes[1][0]}:${moonTimes[1][1]}</h3> <h3>Distance: ${moonTimes[3]}km</h3></div> <div class="float-left col-date"><img src="${oli}" width="128px"></div>`;
+    talia.innerHTML = `<h2>Moon</h2><div class="float-left col-date"> <h3>Rise ${moonTimes[2][0]}:${moonTimes[2][1]}</h3> <h3>Set ${moonTimes[1][0]}:${moonTimes[1][1]}</h3> <h3>Distance: ${moonTimes[3]}km</h3> <h3>Illumination: ${oli[1]}%</h3></div> <div class="float-left col-date"><a target="_blank" href="https://science.nasa.gov/moon/"><img src="${oli[0]}" onerror='this.onerror=null;this.src="/assets/Valle_de_la_Luna_small.jpg"' width="128px" /></a></div>`;
     //"https://www.timeanddate.com/scripts/moon.php?i=${String(inten/100)}&p=5.608&r=5.586"
     // console.log("timins",moonTimes,inten);
     /* 2moro forecast + rain Prob */
@@ -426,7 +426,7 @@ async function getMoony(){
     let url = nasaMoon + thisDate + "T" + my_date.getUTCHours() + ":00";
     const response = await fetch(url);
     const data = await response.json();
-    return data["image"]["url"];
+    return [data["image"]["url"],data["phase"]];
 }
 function getBase64Img(img){
     let canvas = document.createElement("canvas");
