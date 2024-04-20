@@ -310,12 +310,6 @@ async function disp_info(kat){
         colDiv.appendChild(groupDiv);
     }
 
-    /* Moon Rise/Set + image */
-    let inten = parseFloat(moonTimes[4]);
-    const talia = document.getElementById("moonDiv");
-    let oli = await getMoony();
-    talia.innerHTML = `<h2>Moon</h2><div class="float-left col-date"> <h3>Rise ${moonTimes[2][0]}:${moonTimes[2][1]}</h3> <h3>Set ${moonTimes[1][0]}:${moonTimes[1][1]}</h3> <h3>Distance: ${moonTimes[3]}km</h3> <h3>Illumination: ${oli[1]}%</h3></div> <div class="float-left col-date"><a target="_blank" href="https://science.nasa.gov/moon/"><img src="${oli[0]}" onerror='this.onerror=null;this.src="/assets/Valle_de_la_Luna_small.jpg"' width="128px" /></a></div>`;
-    //"https://www.timeanddate.com/scripts/moon.php?i=${String(inten/100)}&p=5.608&r=5.586"
     // console.log("timins",moonTimes,inten);
     /* 2moro forecast + rain Prob */
     const myDiv = document.getElementById("foreDiv");
@@ -351,6 +345,12 @@ async function disp_info(kat){
     tempElm.innerHTML = textW + texty;
     myDiv.appendChild(iconElm);
     myDiv.appendChild(tempElm);
+
+    /* Moon Rise/Set + image */
+    // let inten = parseFloat(moonTimes[4]);
+    const talia = document.getElementById("moonDiv");
+    const oli = await getMoony();
+    talia.innerHTML = `<h2>Moon</h2><div class="float-left col-date"> <h3>Rise ${moonTimes[2][0]}:${moonTimes[2][1]}</h3> <h3>Set ${moonTimes[1][0]}:${moonTimes[1][1]}</h3> <h3>Distance: ${moonTimes[3]}km</h3> <h3>Illumination: ${oli[1]}%</h3></div> <div class="float-left col-date"><a target="_blank" href="https://science.nasa.gov/moon/"><img src="${oli[0]}" onerror='this.onerror=null;this.src="/assets/Valle_de_la_Luna_small.jpg"' width="128px" /></a></div>`;
 }
 
 async function get_data(jdx){
@@ -423,10 +423,14 @@ async function getMoonTimes(){
 async function getMoony(){
     //2024-04-17T12:00
     const thisDate = my_date.getUTCFullYear() + "-" + zeroPad(my_date.getUTCMonth()+1) + "-" + zeroPad(my_date.getUTCDate());
-    let url = nasaMoon + thisDate + "T" + my_date.getUTCHours() + ":00";
-    const response = await fetch(url);
-    const data = await response.json();
-    return [data["image"]["url"],data["phase"]];
+    let url = nasaMoon + thisDate + "T" + zeroPad(my_date.getUTCHours()) + ":00";
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        return [data["image"]["url"],data["phase"]];
+    } catch (error) {
+        return ["https://www.timeanddate.com/scripts/moon.php?i=0.3&p=5.608&r=5.586","0"];
+    }    
 }
 function getBase64Img(img){
     let canvas = document.createElement("canvas");
