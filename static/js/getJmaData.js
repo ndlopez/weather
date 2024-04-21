@@ -62,7 +62,12 @@ function build_obj_pos(sunSetRise,moonSetRise) {
     const moon_times = [parseInt(moonSetRise[2][0].trim()),parseInt(moonSetRise[2][1]),
     parseInt(moonSetRise[1][0].trim()),parseInt(moonSetRise[1][1])];
     // const width = window.screen.width -20, height = Math.floor(220*width/360) ;//px, 300x180, 120 for summer
-    const width = 350, height = 220;
+    let width = 450, height = 220;
+
+    if(navigator.userAgent.match(/(iPhone|iPad|Android|IEMobile)/)){
+        // Load onMobile only:console.log("User is using a Mobile device");
+        width = 350, height = 220;       
+    }
 
     const sun_pos = calc_obj_pos(sun_times);//[0]:rr,[1]:x0, [2]:y0
     const moon_pos = calc_obj_pos(moon_times);
@@ -70,7 +75,7 @@ function build_obj_pos(sunSetRise,moonSetRise) {
     
     //console.log("Moon",calc_obj_pos(moon_times),"Sun",calc_obj_pos(sun_times));
     const subDiv = document.createElement("div");
-    subDiv.setAttribute("class","clearfix");
+    // subDiv.setAttribute("class","clearfix");
     subDiv.setAttribute("id","sun-pos");
 
     const svgGroup = document.createElementNS(svg_org, 'svg');
@@ -429,7 +434,7 @@ async function getMoony(){
         const data = await response.json();
         return [data["image"]["url"],data["phase"]];
     } catch (error) {
-        return ["https://www.timeanddate.com/scripts/moon.php?i=0.3&p=5.608&r=5.586","0"];
+        return ["https://www.timeanddate.com/scripts/moon.php?i=0.3&p=5.608&r=5.586","30"];
     }    
 }
 function getBase64Img(img){
