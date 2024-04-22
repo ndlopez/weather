@@ -62,7 +62,7 @@ function build_obj_pos(sunSetRise,moonSetRise) {
     const moon_times = [parseInt(moonSetRise[2][0].trim()),parseInt(moonSetRise[2][1]),
     parseInt(moonSetRise[1][0].trim()),parseInt(moonSetRise[1][1])];
     // const width = window.screen.width -20, height = Math.floor(220*width/360) ;//px, 300x180, 120 for summer
-    let width = 450, height = 220;
+    let width = 700, height = 450;
 
     if(navigator.userAgent.match(/(iPhone|iPad|Android|IEMobile)/)){
         // Load onMobile only:console.log("User is using a Mobile device");
@@ -153,7 +153,7 @@ function build_obj_pos(sunSetRise,moonSetRise) {
     const svgHour = document.createElementNS(svg_org,'text');
     svgHour.setAttribute("fill","#fff");svgHour.setAttribute("font-size","13px");
     svgHour.setAttribute("x",0.77*width);svgHour.setAttribute("y",0.51*height);
-    svgHour.textContent = thisHour + ":" + String(thisMins).padStart(2,'0');
+    svgHour.textContent = thisHour + ":" + zeroPad(thisMins); // String(thisMins).padStart(2,'0');
 
     svgGroup.appendChild(svgFlying);
     
@@ -189,6 +189,7 @@ async function disp_info(kat){
 
     let texty = "";
     const city_name = document.getElementById("this_place");
+    city_name.innerHTML = "<br>愛知県西部";
     if (city_name !== null){
         document.title = gotData.location + ": " + gotData.weather[0];
         city_name.innerHTML = "<br>" + gotData.location;
@@ -267,7 +268,7 @@ async function disp_info(kat){
         radar_url[1] + '" title="Click on the img for 1hour forecast. Redirects to JMA.go.jp" target="_blank"><img src="' + radar_url[0] + auxVar +'.jpg"></a>';
     }*/
     //help! https://www.data.jma.go.jp/obd/bunpu/
-    let auxDate = `${radar_url[2]}${my_date.getFullYear()}${String(my_date.getMonth()+1).padStart(2,'0')}${String(my_date.getDate()).padStart(2,'0')}`;
+    let auxDate = `${radar_url[2]}${my_date.getFullYear()}${zeroPad(my_date.getMonth()+1)}${zeroPad(my_date.getDate())}`;
     let prevHour = thisHour;
     if(prevHour == 0 && thisMins < 20){
         // date should be yesterYou!
@@ -275,12 +276,13 @@ async function disp_info(kat){
         let WendyDate = new Date(yesterYou);
         // Update new dates
         prevHour = 23;
-        auxDate = `${radar_url[2]}${WendyDate.getFullYear()}${String(WendyDate.getMonth()+1).padStart(2,'0')}${String(WendyDate.getDate()).padStart(2,'0')}`;
+        auxDate = `${radar_url[2]}${WendyDate.getFullYear()}${zeroPad(WendyDate.getMonth()+1)}${zeroPad(WendyDate.getDate())}`;
+        // String(WendyDate.getMonth()+1).padStart(2,'0')
     }
     if((thisHour > 0) && (thisMins < 20)){
         prevHour = thisHour - 1;
     }
-    radarDiv.innerHTML = `<div class="radar_div"><a target="_blank" href='${radar_url[1]}'> <img src="${auxDate}${String(prevHour).padStart(2,'0')}00.png" width=100% onerror="this.onerror=null;this.src='${auxDate}${String(prevHour).padStart(2,'0')}00.png'"><img src='https://www.data.jma.go.jp/obd/bunpu/img/munic/munic_306.png' width=100%></a><span class="radar_link">Image from JMA. Last updated ${String(prevHour).padStart(2,'0')}:00</span></div>`;
+    radarDiv.innerHTML = `<div class="radar_div"><a target="_blank" href='${radar_url[1]}'> <img src="${auxDate}${zeroPad(prevHour)}00.png" width=100% onerror="this.onerror=null;this.src='${auxDate}${zeroPad(prevHour)}00.png'"><img src='https://www.data.jma.go.jp/obd/bunpu/img/munic/munic_306.png' width=100%></a><span class="radar_link">Image from JMA. Last updated ${zeroPad(prevHour)}:00</span></div>`;
     //when parsing currCond only: var currWeather = gotData.weather[1].split("　");
     /*for(let idx=0;idx<gotData.weather.length;idx++){
         var currWeather = gotData.weather[idx].split("　");
@@ -387,7 +389,7 @@ async function get_data(jdx){
 
 function convTime(unixT){
     const myTime = new Date(unixT *1000);
-    return [myTime.getHours(), String(myTime.getMinutes()).padStart(2,'0')];
+    return [myTime.getHours(), zeroPad(myTime.getMinutes())];
 }
 
 async function getSunTimes(){

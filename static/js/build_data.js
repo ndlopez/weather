@@ -56,7 +56,7 @@ dataHours.push(0); // to avoid empty array
 for (idx=1; idx < currHH; idx++){ if(idx % 3 == 0){ dataHours.push(idx); } }
 
 for (idx=0; idx < 24; idx++){ if(idx % 3 ==0){ mod3_hours.push(idx); } }
-// console.log("yester-you",tag,dataHours);
+
 function zeroPad(tit){return /*(tit<10)?"0"+tit:tit;*/String(tit).padStart(2,'0');}
 
 /* wind Direction -> JPchar */
@@ -287,8 +287,8 @@ function buildSVGtext(dx,dy,text){
     ngo_pred[3]["yp"] = gotMax - 6;
         
     build_plot(result,gotMax,gotMin);
-    //let temp_max_min = maxmin[0];//date: myData.curr_weather[0][0]
-    
+    // let temp_max_min = maxmin[0];//date: myData.curr_weather[0][0]
+    // add here how to set ppast date
     let text = `<h2 id='this_place'></h2><h3 class='no-padding'>${days[today]}, ${months[monty-1]} ${String(tag)} ${curr_weather[lastElm].hour_min}</h3>`;
     
     text += `<div class='clearfix'><span class='large'>&emsp;${curr_weather[lastElm].temp}&#8451;</span><span id='now_weather' class='middle'></span><br><span>${get_wind_desc(curr_weather[lastElm].wind,false)}</span><h4>Max ${gotMax}&#8451;&emsp;Min ${maxmin[1]}&#8451;</h4></div>`;//prev ${maxmin[0]}
@@ -318,7 +318,7 @@ function buildSVGtext(dx,dy,text){
 function build_array(hour,gotData){
     /* void function, 
     fills "result" array with data/hour,data/10min, and "zoey" Obj with currentData*/
-    // abby is data every hour
+    // abby are data every hour
     const limit = 2;
     for(let idx = hour; idx <= hour + limit; idx++){
         let aux = build_attrib(idx);
@@ -339,7 +339,7 @@ function build_array(hour,gotData){
     /*if(currMin < 20){currMin = 60;currHH = currHH -1;}*/
     //console.log(lena.slice(-6,-4),lena.slice(-4,-2));
     // zoey: last elm of each json array, data/10min
-    // here Max and Min are separated between at every 10min obs.
+    // here Max and Min are separated every 10min obs.
     const zoey = {
         "hour_min":lena.slice(-6,-4)+":"+lena.slice(-4,-2),
         "temp":gotData[lena].temp[0],"humid":gotData[lena].humidity[0],
@@ -349,7 +349,6 @@ function build_array(hour,gotData){
         "maxmin":[gotData[lena].maxTemp[0],gotData[lena].maxTempTime['hour'],gotData[lena].minTemp[0],gotData[lena].minTempTime['hour']]
     };
     curr_weather.push(zoey);
-    //var lena = get_min_attr(idx);
     //return result;
 }
 
