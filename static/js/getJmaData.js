@@ -177,7 +177,7 @@ function build_obj_pos(sunSetRise,moonSetRise) {
 }
 
 async function disp_info(kat){
-    await sleepy(1200);
+    await sleepy(1600);
     const gotData = await get_data(kat);
     // console.log(gotData.temp); maxMin forecast
     let myMin = gotData.temp[1][2];
@@ -187,13 +187,6 @@ async function disp_info(kat){
         myMin = gotData.temp[1][0];
     }
 
-    let texty = "";
-    const city_name = document.getElementById("this_place");
-    city_name.innerHTML = "<br>愛知県西部";
-    if (city_name !== null){
-        document.title = gotData.location + ": " + gotData.weather[0];
-        city_name.innerHTML = "<br>" + gotData.location;
-    }
     const gotTime = await getSunTimes();//fetch Sun rise/set
     const moonTimes = await getMoonTimes();//fetch Moon rise/set
     
@@ -288,7 +281,12 @@ async function disp_info(kat){
         var currWeather = gotData.weather[idx].split("　");
         texty += "<h2>"+gotData.time[idx].slice(0,10)+" "+currWeather[0]+
         "<img src='"+ico_url+gotData.icon[idx]+".svg'/></h2>";}*/
-    
+    /* Page title and city Name */
+        if (document.getElementById("this_place") !== null){
+        document.title = gotData.location + ": " + gotData.weather[0];
+        document.getElementById("this_place").innerHTML = "<br>" + gotData.location;
+    }
+
     /* Weekly forecast Max/Min*/
     const colDiv = document.getElementById("forecaster");
     const colTitle = document.createElement("h2");
@@ -297,7 +295,8 @@ async function disp_info(kat){
     if(thisHour >= 11){init_idx=1;}
     colTitle.innerHTML =  (gotData.forecast[0].length - init_idx) + "-day forecast";
     colDiv.appendChild(colTitle);
-    //create as many group div as forecast are available
+    /* create as many group div as forecast are available*/
+    let texty = "";
     for(let idx = init_idx;idx < gotData.forecast[0].length; idx++){
         const groupDiv = document.createElement("div");
         groupDiv.setAttribute("class","row");
