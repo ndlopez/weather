@@ -9,9 +9,9 @@
 const quake_url = "https://www.jma.go.jp/bosai/quake/data/list.json";
 const openMap = "https://www.openstreetmap.org/#map=11/";
 
-const these_Months = ["January","February","March","April","May","June","July",
+/*const these_Months = ["January","February","March","April","May","June","July",
 "August","September","October","November","December"];
-const these_Days = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+const these_Days = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];*/
 
 const loc_icon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24" fill="none" stroke="#bed2e0" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="16" cy="11" r="4" /><path d="M24 15 C21 22 16 30 16 30 16 30 11 22 8 15 5 8 10 2 16 2 22 2 27 8 24 15 Z" /></svg>';
 
@@ -64,7 +64,7 @@ async function gotdata(){
         
         const tina = getDateHour(this_info[idx].det_time);
 
-        texty = `<div class='column3 float-left' style='margin:0;border-radius:inherit;'><div class='row-date'><h2 class='col-date float-left'> ${tina.tag} </h2><div class='col-date float-left' style='text-align:left;padding-left:0;'><p><strong> ${these_Days[tina.day]} </strong></p><p><small>${these_Months[tina.monty-1]}</small></p></div></div></div>`;
+        texty = `<div class='column3 float-left' style='margin:0;border-radius:inherit;'><div class='row-date'><h2 class='col-date float-left'> ${tina.tag} </h2><div class='col-date float-left' style='text-align:left;padding-left:0;'><p><strong> ${days[tina.day]} </strong></p><p><small>${months[tina.monty-1]}</small></p></div></div></div>`;
 
         //texty += "<div class='column3 float-left'><h4>" + zero_pad(tina.heure)+
         //":" + zero_pad(tina.minute) + "</h4></div>";
