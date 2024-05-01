@@ -7,11 +7,7 @@
     jsonFileName = 20230325071721_20230325071439_VXSE5k_1.json
 */
 const quake_url = "https://www.jma.go.jp/bosai/quake/data/list.json";
-const openMap = "https://www.openstreetmap.org/#map=11/";
-
-/*const these_Months = ["January","February","March","April","May","June","July",
-"August","September","October","November","December"];
-const these_Days = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];*/
+// const openMap = "https://www.openstreetmap.org/#map=11/";
 
 const loc_icon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24" fill="none" stroke="#bed2e0" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="16" cy="11" r="4" /><path d="M24 15 C21 22 16 30 16 30 16 30 11 22 8 15 5 8 10 2 16 2 22 2 27 8 24 15 Z" /></svg>';
 
@@ -100,21 +96,6 @@ async function gotdata(){
     }
 }
 
-function pointMap(latitud,longitud){
-    //await gotdata();
-    const map = L.map("div_map_1").setView([latitud-0.05, longitud], 9);
-
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    }).addTo(map);
-
-    let popMsg = "this_date" + " " + "this_time";
-
-    L.marker([latitud, longitud]).addTo(map)
-        .bindPopup(popMsg)
-        .openPopup();
-}
-
 async function get_info(){
     const response = await fetch(quake_url);
     const data = await response.json();
@@ -125,10 +106,9 @@ async function get_info(){
         let det_time = data[idx]["at"];
         let location = data[idx]["anm"];
         let magni = data[idx]["mag"]; // -23.2+170.7
-        let coord = data[idx]["cod"]; //+36.4+138.1-1000/ or +34.3+139.2+100
-        if(coord.includes("-")){
-            coord = data[idx]["cod"].split("-")[0];
-        }
+        let coord = data[idx]["cod"]; //+36.4+138.1-1000/ or +34.3+139.2+100 or +23.3+33.3/
+        if(coord.includes("-")){coord = data[idx]["cod"].split("-")[0];}
+        if (coord.includes("/")){coord = data[idx]["cod"].split("/")[0];}
         coord = coord.split("+");
         let lat = coord[1], lon= coord[2];
         if(lat === undefined || lon === undefined){
@@ -142,4 +122,19 @@ async function get_info(){
     }
     //console.log(five_events);
     return five_events;
+}
+
+function pointMap(latitud,longitud){
+    //await gotdata();
+    const map = L.map("div_map_1").setView([latitud-0.05, longitud], 9);
+
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+    let popMsg = "this_date" + " " + "this_time";
+
+    L.marker([latitud, longitud]).addTo(map)
+        .bindPopup(popMsg)
+        .openPopup();
 }
