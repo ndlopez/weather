@@ -112,11 +112,13 @@ async function get_info(){
         coord = coord.split("+");
         let lat = coord[1], lon= coord[2];
         if(lat === undefined || lon === undefined){
+            console.log("undef:",lat,lon);
             lat = 0; lon=0;
-        }else{
-            let eve = {"location":location,"det_time":det_time,"magnitud":magni,"latitud":lat,"longitud":lon};
-            five_events.push(eve);
         }
+        let eve = {
+            "location":location,"det_time":det_time,"magnitud":magni,
+            "latitud":lat,"longitud":lon};
+        five_events.push(eve);
         // openMap += lat + "/" + lon;
         // console.log(lat,lon,openMap);        
     }
