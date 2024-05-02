@@ -106,6 +106,7 @@ async function get_info(){
         let det_time = data[idx]["at"];
         let location = data[idx]["anm"];
         let magni = data[idx]["mag"]; // -23.2+170.7
+        if (magni == "") continue;
         let coord = data[idx]["cod"]; //+36.4+138.1-1000/ or +34.3+139.2+100 or +23.3+33.3/
         if(coord.includes("-")){coord = data[idx]["cod"].split("-")[0];}
         if (coord.includes("/")){coord = data[idx]["cod"].split("/")[0];}
@@ -119,15 +120,13 @@ async function get_info(){
             "location":location,"det_time":det_time,"magnitud":magni,
             "latitud":lat,"longitud":lon};
         five_events.push(eve);
-        // openMap += lat + "/" + lon;
-        // console.log(lat,lon,openMap);        
+        // openMap += lat + "/" + lon;       
     }
-    //console.log(five_events);
     return five_events;
 }
 
 function pointMap(latitud,longitud){
-    //await gotdata();
+    /* Not working function */
     const map = L.map("div_map_1").setView([latitud-0.05, longitud], 9);
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
