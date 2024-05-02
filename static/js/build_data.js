@@ -2,15 +2,17 @@
     Fetch data from jma website and organize it to display and plot.
     CORS problem import {buildProgressCircle, buildGaugeMeter } from "https://raw.githubusercontent.com/ndlopez/webApp/main/static/build_svg.js";
 */
-let months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-let days = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+const days = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
 /* Fetch observation data from jma site and plot */
 const jma_url = "https://www.jma.go.jp/bosai/amedas/data/point/";//51106/2022
 const pm25_url = "https://www.data.jma.go.jp/gmd/env/kosa/fcst/img/surf/jp/";
 const cities = [{name:"Nagoya",code:51106},{name:"Takayama",code:52146}];
 const cdx = 0; // 0:Nagoya, 1:Takayama
+const toRadians = Math.PI/180.0;
+const maxValue = 6; //m/s when 10m/s too many scales, should display half
 /*current date and time*/
-let myDate = new Date();
+let myDate = new Date(); // should be const
 let jahre = myDate.getFullYear();
 let monty = myDate.getMonth() + 1;
 let tag = myDate.getDate();
@@ -25,8 +27,7 @@ let curr_weather = []; //store last entry of JSON weather data
 let maxmin = []; // Max/Min temp from obs data
 let dataHours = [];
 let mod3_hours = [];
-const toRadians = Math.PI/180.0;
-const maxValue = 6; //m/s when 10m/s too many scales, should display half
+
 /* Autumn: const ngo_pred = [{xp:0,yp:10.0},{xp:7,yp:8.0},{xp:14,yp:15.5},{xp:23,yp:9.0}]; 
 const ngo_pred = [{xp:0,yp:14.0},{xp:7,yp:11.0},{xp:14,yp:20.0},{xp:23,yp:12.0}];//spring
 let ngo_pred = [{xp:0,yp:27.5},{xp:5,yp:26.0},{xp:14,yp:33.0},{xp:22,yp:28.5}];// summer*/
@@ -34,6 +35,7 @@ let ngo_pred = [{xp:0,yp:19.0},{xp:6,yp:18.0},{xp:14,yp:26.0},{xp:23,yp:20.0}];/
 const tky_pred = [{xp:0,yp:5.0},{xp:7,yp:3},{xp:14,yp:13},{xp:23,yp:4}];
 let hours = [];
 let idx = 0;
+
 for (idx; idx < 24; idx++) hours.push(idx);
 
 /* Fixing bug at 0:00 ~ 0:20 */

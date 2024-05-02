@@ -1,3 +1,4 @@
+/* Functions to build 3 svg objects to display information */
 function buildProgressCircle(percent,title,texty) {
     const radius = 52;
     const pTitle = document.createElement("p");
