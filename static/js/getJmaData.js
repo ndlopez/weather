@@ -354,6 +354,9 @@ async function disp_info(kat){
     // let inten = parseFloat(moonTimes[4]);
     const talia = document.getElementById("moonDiv");
     const oli = await getMoony();
+    if (oli[1] == "0"){
+        oli[1] = moonTimes[4];
+    }
     talia.innerHTML = `<h2>Moon</h2><div class="float-left col-date"> <h3>Rise ${moonTimes[2][0]}:${moonTimes[2][1]}</h3> <h3>Set ${moonTimes[1][0]}:${moonTimes[1][1]}</h3> <h3>Distance: ${moonTimes[3]}km</h3> <h3>Illumination: ${oli[1]}%</h3></div> <div class="float-left col-date"><a target="_blank" href="https://science.nasa.gov/moon/"><img src="${oli[0]}" onerror='this.onerror=null;this.src="/assets/Valle_de_la_Luna_small.jpg"' width="128px" /></a></div>`;
 }
 
@@ -433,7 +436,7 @@ async function getMoony(){
         const data = await response.json();
         return [data["image"]["url"],data["phase"]];
     } catch (error) {
-        return ["https://www.timeanddate.com/scripts/moon.php?i=0.3&p=5.608&r=5.586","30"];
+        return ["https://www.timeanddate.com/scripts/moon.php?i=0.99&p=5.608&r=5.586","0"];
     }    
 }
 function getBase64Img(img){
