@@ -142,7 +142,7 @@ ul, li{margin: 0px;padding:5px}
 .float-left{float: left;}
 .outer{
   width: 100%;
-  height: 480px;
+  height: 460px;
   overflow-y: hidden;
 }
 .outer_div{
