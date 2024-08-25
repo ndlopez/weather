@@ -308,5 +308,6 @@ button{
   }
   .top-menu{display: none;}
   #forecaster img{height: 48px;}
+  #wmap img{width: 100vw;}
   /*#foreDiv div{border-bottom: 1px dashed var(--darkish-sky);}*/
 }

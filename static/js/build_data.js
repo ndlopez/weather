@@ -136,7 +136,7 @@ function get_min_attr(tit){
     // add here how to set ppast date
     let text = `<h2 id="this_place">愛知県西部</h2><h3 class="no-padding">${days[today]}, ${months[monty-1]} ${String(tag)} ${curr_weather[lastElm].hour_min}</h3>`;
     
-    text += `<div><span class='large'>&emsp;${curr_weather[lastElm].temp}&#8451;</span><span id='now_weather' class='middle'></span><br><span>${get_wind_desc(curr_weather[lastElm].wind,false)}</span><h4>Max ${gotMax}&#8451;&emsp;Min ${maxmin[1]}&#8451;</h4></div><div id="rainToday"></div>`;//prev ${maxmin[0]}
+    text += `<div class="clearfix"><span class='large'>&emsp;${curr_weather[lastElm].temp}&#8451;</span><span id='now_weather' class='middle'></span><br><span>${get_wind_desc(curr_weather[lastElm].wind,false)}</span><h4>Max ${gotMax}&#8451;&emsp;Min ${maxmin[1]}&#8451;</h4></div><div id="rainToday"></div>`;//prev ${maxmin[0]}
  
     document.getElementById("curr_weather").innerHTML = text;
 
@@ -167,8 +167,8 @@ function get_min_attr(tit){
         
         div_map.innerHTML = `<img src="${png_home}${arr[arr.length -1]}"/>`;
         console.log("this map",png_home+arr[arr.length -1]);
-    } catch (error) {
-        console.log(error);
+    } catch (err) {
+        console.log("wmap",err);
     }
 })();
 
