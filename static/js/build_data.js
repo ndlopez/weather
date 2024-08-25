@@ -195,6 +195,18 @@ function build_array(hour,gotData){
     //return result;
 }
 
+(async ()=>{
+    const this_url = "https://www.jma.go.jp/bosai/weather_map/data/list.json";
+    const png_home = "https://www.jma.go.jp/bosai/weather_map/data/png/";
+    try {
+        const response = await fetch(this_url);
+        const data = await response.json();
+        
+    } catch (error) {
+        console.log(error);
+    }
+})();
+
 function yellow_dust(make_div=false){
     // 0:0~2, 1:3~5, 2:6~8, 3:9~11, 4:12~14, 5:15~17,6:18~20,7:21~23
     let myIdx = 0;
