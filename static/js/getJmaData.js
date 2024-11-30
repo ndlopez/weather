@@ -225,7 +225,7 @@ async function disp_info(kat){
 	    kdx++;
     }*/ 
     const jmaTimes = [0,6,12,18];
-    let amy=0;
+    let amy=0,weather_icon="";
     for(let idx=0;idx<gotData.rain[0].length;idx++){
         const get_date = getDateHour(gotData.rain[0][idx]);
         let this_value = "";
@@ -238,7 +238,9 @@ async function disp_info(kat){
                     //console.log(kdx,gotData.rain[0][idx],get_date,my_date.getDate());
                 }
             }
-            susy +=`<p class='col4'>${get_date.heure} - ${hh[amy]}<br/>${this_value}%</p>`;
+            weather_icon = "&#9748;";
+            if (parseInt(this_value) < 50) weather_icon = "&#9730;";
+            susy +=`<p class='col4'>${get_date.heure} - ${hh[amy]}<br/>${weather_icon} ${this_value}%</p>`;
         }        
     }
     div_rain.innerHTML = susy; 
