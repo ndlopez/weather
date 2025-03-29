@@ -5,6 +5,8 @@
 const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 const days = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
 /* Fetch observation data from jma site and plot */
+const this_url = "https://www.jma.go.jp/bosai/weather_map/data/list.json";
+const png_home = "https://www.jma.go.jp/bosai/weather_map/data/png/";
 const jma_url = "https://www.jma.go.jp/bosai/amedas/data/point/";//51106/2022
 const pm25_url = "https://www.data.jma.go.jp/gmd/env/kosa/fcst/img/surf/jp/";
 const cities = [{name:"Nagoya",code:51106},{name:"Takayama",code:52146}];
@@ -159,9 +161,7 @@ function get_min_attr(tit){
     winDesc.innerHTML = get_wind_desc(curr_weather[lastElm].wind,false);
     detailsDiv.appendChild(winDesc);
     // console.log(curr_weather[lastElm].wind,get_wind_desc(curr_weather[lastElm].wind));
-    // fetch weather map
-    const this_url = "https://www.jma.go.jp/bosai/weather_map/data/list.json";
-    const png_home = "https://www.jma.go.jp/bosai/weather_map/data/png/";
+    // fetch weather map    
     const div_map = document.getElementById("wmap");
     try {
         const response = await fetch(this_url);
