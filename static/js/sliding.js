@@ -7,6 +7,11 @@ const stopBtn = '<path d="M9 23 L9 9 23 9 23 23Z"/>';
 let kate = new Date();
 let heure = [0,3,6,9,12,15,18,21];
 const slid = document.getElementById("pm25_div");
+const sum = document.createElement("summary");
+sum.classList.add("row");
+sum.innerHTML = "<h3>Yellow dust forecast</h3>";
+slid.appendChild(sum);
+const innerImg = document.createElement("div");
 // slid.addEventListener("onclick",showSlides);
 let txt = "",jdx;
 let amy = "", lena = "";
@@ -28,7 +33,10 @@ for (idx in heure){
 }
 // amy = `<div style='text-align:center'>${amy}</div>`
 amy = `<div style="margin-top:-20px;"><div onclick="showSlides()" class="float-left col-date">${svgObj}${playBtn}</svg></div><div onclick="stopSlides()" class="float-left col-date">${svgObj}${stopBtn}</svg></div></div>`;
-slid.innerHTML = txt + amy;
+// slid.innerHTML = txt + amy;
+innerImg.innerHTML = txt + amy;
+slid.appendChild(innerImg);
+
 idx = 0;
 let slideOut;
 function showSlides() {
@@ -39,13 +47,9 @@ function showSlides() {
     slides[jdx].style.display = "none";  
   }
   idx++;
-  if (idx > slides.length) {idx = 1}    
-  /*for (jdx = 0; jdx < dots.length; jdx++) {
-    dots[jdx].className = dots[jdx].className.replace(" active", "");
-  }*/
+  if (idx > slides.length) {idx = 1}
   slides[idx-1].style.display = "block";  
-  // dots[idx-1].className += " active";
-  slideOut = setTimeout(showSlides, 3000);
+  slideOut = setTimeout(showSlides, 1500);
 }
 function stopSlides(){
   clearTimeout(slideOut);
