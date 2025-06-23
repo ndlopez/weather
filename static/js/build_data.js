@@ -349,7 +349,7 @@ function build_plot(json_array,thisMax,thisMin){
     .attr('width',xSize-margin.left)
     .attr('height',h+margin.top+margin.bottom)
     .append("g")
-    .attr("transform",`translate(${margin.left},${margin.top})`);
+    .attr("transform",`translate(${margin.left-10},${margin.top})`);
     const xScale=d3.scaleBand().range([0,w])
     .domain(hours)
     /*.domain(json_array.map(function(d){return d.hour;})) //scale up to currHour*/

@@ -136,9 +136,9 @@ ul, li{margin: 0px;padding:5px}
 }
 .column80{width:80%;}
 .column20{width:20%;}
-.column-left{width: 8%;}
-.column-right{width: 84%;}
-.column-third{width: 8%;}
+.column-left{width: 10%;}
+.column-right{width: 80%;}
+.column-third{width: 10%;}
 .float-left{float: left;}
 .outer{
   width: 100%;
@@ -296,7 +296,7 @@ button{
   .outer{width: auto;/*320px;*/  overflow-x: auto;  }
   .large{font-size: 40px;}
   .middle{font-size: 18px;}
-  .column-left{margin: 0px 0px 0px -8px;}
+  .column-left{margin: 0px;}
   .column-third{margin: 0px -35px 0px 0px;}
   #weather_details .column3{padding: 0px;}
   .column4{width: 50%;}
