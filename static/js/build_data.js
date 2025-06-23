@@ -305,12 +305,14 @@ function build_plot(json_array,thisMax,thisMin){
     const svgLeft = d3.select("#leftAxis")
     .append("svg").attr("width",36).attr("height",ySize)
     .append("g")
-    .attr("transform","translate(" + 35 + "," + margin.top + ")");
+    .attr("transform","translate(" + 0 + "," + 45 + ")");
+    //.attr("transform","translate(" + 35 + "," + margin.top + ")");
     const yScale = d3.scaleLinear()
     .domain([thisMin-1,thisMax+1]).range([h,0]);
     //.domain([Math.round(tMin)-2,thisMax+1]).range([h,0]);
-    svgLeft.append("g").call(d3.axisLeft(yScale)).attr("font-size","12");
-    svgLeft.append("g").append("text").text("\u2103").attr("x",-24).attr("y",-10); 
+    svgLeft.append("g").call(d3.axisRight(yScale)).attr("font-size","12");
+    //outerAxis svgLeft.append("g").append("text").text("\u2103").attr("x",-24).attr("y",-10); 
+    svgLeft.append("g").append("text").text("\u2103").attr("x",10).attr("y",-10); 
     
     const svgRight = d3.select("#rightAxis")
     .append("svg").attr("width",35).attr("height",ySize)
@@ -344,7 +346,7 @@ function build_plot(json_array,thisMax,thisMin){
 
     const svg2 = d3.select("#mainPlot")
     .append("svg")
-    .attr('width',w+margin.left+margin.right)
+    .attr('width',xSize-margin.left)
     .attr('height',h+margin.top+margin.bottom)
     .append("g")
     .attr("transform",`translate(${margin.left},${margin.top})`);
