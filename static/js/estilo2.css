@@ -175,6 +175,11 @@ ul, li{margin: 0px;padding:5px}
   left:50%;/*16px;*/
   transform:translate(-50%,-50%);
 }
+#pm25_div{
+  background-color: #d8bfd8;
+  color: #2e4054;
+  border-radius: 8px;
+}
 #forecaster .row, #quake_list .row, #foreDiv .column{
   /*border-bottom: 1px dashed var(--light-sky);*/
   background-color: var(--darkish-sky);
