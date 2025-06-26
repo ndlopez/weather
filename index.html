@@ -45,13 +45,13 @@
     <main class="row" id="weather_info">
       <div id="curr_weather"></div>
       <div class="row" id="weather_details"></div>
-      <section id="radar_img"></section>
+      <section>
+        <div id="radar_img" class="column float-left"></div>
+        <div id="wmap" class="column float-left"></div>
+      </section>
       <section class="row">
         <div id="weather_bar" class="column80 float-left"><!--d3js plot--></div>
         <div class="column20 align-right"><!-- empty div--></div>
-      </section>
-      <section id="wmap"><!--weather map>
-        <h3>Weather map</h3-->
       </section>
       <section><!--yellow dust><h3>Yellow dust forecast</h3-->
         <details id="pm25_div"></details>
